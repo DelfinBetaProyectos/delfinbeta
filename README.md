@@ -4,10 +4,11 @@ Sitio Web de mi Marca Personal DelfinBeta
 
 ## Comenzando 🚀
 
-* _Instalar Laravel 9.0._
-* _Instalar MySQL 8.0._
+* _Instalar Laravel 9.0_
+* _Instalar MySQL 8.0_
 * _Instalar Laravel Jetstream 2.11_
 * _Instalar Laravel Auditing 13.0_
+* _Instalar Bouncer 1.0_
 
 ## Autores ✒️
 
