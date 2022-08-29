@@ -9,7 +9,10 @@ import JetCheckbox from '@/Components/Checkbox.vue';
 import JetLabel from '@/Components/Label.vue';
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
+    gender: '',
+    phone: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -33,17 +36,57 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="name" value="Name" />
+                <JetLabel for="first_name" value="First Name" />
                 <JetInput
-                    id="name"
-                    v-model="form.name"
+                    id="first_name"
+                    v-model="form.first_name"
                     type="text"
                     class="mt-1 block w-full"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="first_name"
                 />
-                <JetInputError class="mt-2" :message="form.errors.name" />
+                <JetInputError class="mt-2" :message="form.errors.first_name" />
+            </div>
+
+            <div class="mt-4">
+                <JetLabel for="last_name" value="Last Name" />
+                <JetInput
+                    id="last_name"
+                    v-model="form.last_name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocomplete="last_name"
+                />
+                <JetInputError class="mt-2" :message="form.errors.last_name" />
+            </div>
+
+            <div class="mt-4">
+                <JetLabel for="gender" value="Gender" />
+                <select name="gender" id="gender" required>
+                    <option value="">Sexo</option>
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                    <option value="O">Otro</option>
+                </select>
+                <JetInputError class="mt-2" :message="form.errors.gender" />
+            </div>
+
+            <div class="mt-4">
+                <JetLabel for="phone" value="Phone" />
+                <JetInput
+                    id="phone"
+                    v-model="form.phone"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocomplete="phone"
+                    pattern="^\(\d{3}\)-\d{3}-\d{4}$"
+                />
+                <JetInputError class="mt-2" :message="form.errors.phone" />
             </div>
 
             <div class="mt-4">

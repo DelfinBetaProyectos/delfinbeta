@@ -9,6 +9,7 @@ Sitio Web de mi Marca Personal DelfinBeta
 * _Instalar Laravel Jetstream 2.11_
 * _Instalar Laravel Auditing 13.0_
 * _Instalar Bouncer 1.0_
+* _Instalar Fontawesome 6.1.2_
 
 ## Autores ✒️
 
