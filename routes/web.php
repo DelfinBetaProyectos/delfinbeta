@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::get('/flowbite', function () {
+    return view('layouts/flowbite');
+})->name('flowbite');
 
 Route::middleware([
     'auth:sanctum',
