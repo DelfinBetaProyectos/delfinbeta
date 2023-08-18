@@ -21,6 +21,18 @@ Route::get('/flowbite', function () {
     return view('layouts/flowbite');
 })->name('flowbite');
 
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
+
+Route::get('/500', function () {
+    return view('500');
+})->name('500');
+
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
