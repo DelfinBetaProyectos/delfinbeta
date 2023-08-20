@@ -34,7 +34,7 @@
                         <a href="{{ route('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-delfinbeta-dark focus:outline-none dark:focus:ring-delfinbeta-dark">Iniciar Sesión</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-delfinbeta-light font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-delfinbeta-medium_dark dark:hover:bg-delfinbeta-medium focus:outline-none dark:focus:ring-delfinbeta-medium">Registro</a>
+                            <a href="{{ route('register') }}" class="text-white bg-delfinbeta-medium_dark hover:bg-delfinbeta-dark focus:ring-4 focus:ring-delfinbeta-light font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-delfinbeta-medium_dark dark:hover:bg-delfinbeta-medium focus:outline-none dark:focus:ring-delfinbeta-medium">Registro</a>
                         @endif
                     @endauth
                     
@@ -72,11 +72,11 @@
     <!-- Hero -->
     <header class="bg-white dark:bg-delfinbeta-dark">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-            <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
-                <span class="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">Nuevo</span> 
+            <!-- <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
+                <span class="text-xs bg-delfinbeta-medium_dark hover:bg-delfinbeta-medium rounded-full text-white px-4 py-1.5 mr-3">Nuevo</span> 
                 <span class="text-sm font-medium">Artículo del Blog</span> 
                 <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-            </a>
+            </a> -->
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                 Desarrollo Web - Frontend y Backend
             </h1>
@@ -84,7 +84,7 @@
                 ¡Hola! Soy Dayan Betancourt #MamaDeveloper
             </p>
             <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-delfinbeta-medium_dark hover:bg-delfinbeta-medium focus:ring-4 focus:ring-delfinbeta-light dark:focus:ring-delfinbeta-medium">
                     Conóceme
                     <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </a>
@@ -93,28 +93,11 @@
                     Escríbeme
                 </a>  
             </div>
-            <div class="p-6 bg-delfinbeta-dark">1</div>
-            <div class="p-6 bg-delfinbeta-medium_dark">2</div>
-            <div class="p-6 bg-delfinbeta-medium">3</div>
-            <div class="p-6 bg-delfinbeta-medium_light">4</div>
-            <div class="p-6 bg-delfinbeta-light">5</div>
-            <hr>
-            <div class="bg-primary-50">50</div>
-            <div class="bg-primary-100">100</div>
-            <div class="bg-primary-200">200</div>
-            <div class="bg-primary-300">300</div>
-            <div class="bg-primary-400">400</div>
-            <div class="bg-primary-500">500</div>
-            <div class="bg-primary-600">600</div>
-            <div class="bg-primary-700">700</div>
-            <div class="bg-primary-800">800</div>
-            <div class="bg-primary-900">900</div>
-            <div class="bg-primary-950">950</div>
         </div>
     </header>
 
     <!-- Sobre mi -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <section class="bg-white dark:bg-gray-900">
         <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
             <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">¡Hola chamos! yo soy @delfinbeta</h2>
@@ -129,7 +112,7 @@
     </section>
 
     <!-- Habilidades -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Mis Habilidades</h2>
@@ -183,7 +166,7 @@
     </section>
 
     <!-- Blog -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
@@ -241,7 +224,7 @@
     </section>
 
     <!-- Contact -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h2>
             <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
@@ -264,7 +247,7 @@
     </section>
 
     <!-- Newsletter -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-md sm:text-center">
                 <h2 class="mb-4 text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl dark:text-white">Sign up for our newsletter</h2>
@@ -289,7 +272,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800 border border-blue-500">
+    <footer class="p-4 bg-white sm:p-6 dark:bg-gray-800">
         <div class="mx-auto max-w-screen-xl">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">

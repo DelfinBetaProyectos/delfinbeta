@@ -1347,6 +1347,28 @@
                     <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
                     <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
                 </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
+                        <div class="p-6 bg-delfinbeta-dark">delfinbeta-dark</div>
+                        <div class="p-6 bg-delfinbeta-medium_dark">delfinbeta-medium_dark</div>
+                        <div class="p-6 bg-delfinbeta-medium">delfinbeta-medium</div>
+                        <div class="p-6 bg-delfinbeta-medium_light">delfinbeta-medium_light</div>
+                        <div class="p-6 bg-delfinbeta-light">delfinbeta-light</div>
+                    </div>
+                    <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72">
+                        <div class="bg-primary-50">50</div>
+                        <div class="bg-primary-100">100</div>
+                        <div class="bg-primary-200">200</div>
+                        <div class="bg-primary-300">300</div>
+                        <div class="bg-primary-400">400</div>
+                        <div class="bg-primary-500">500</div>
+                        <div class="bg-primary-600">600</div>
+                        <div class="bg-primary-700">700</div>
+                        <div class="bg-primary-800">800</div>
+                        <div class="bg-primary-900">900</div>
+                        <div class="bg-primary-950">950</div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
