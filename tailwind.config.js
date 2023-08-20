@@ -31,6 +31,13 @@ export default {
                     "800":"#1e40af",
                     "900":"#1e3a8a",
                     "950":"#172554"
+                },
+                delfinbeta: {
+                    dark: "#001b48",
+                    medium_dark: "#004581",
+                    medium: "#018abd",
+                    medium_light: "#97cbdc",
+                    light: "#dde8f0"
                 }
             }
         },

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,58 +21,56 @@
     @livewireStyles
 </head>
 <body class="font-sans antialiased">
-    <header class="border border-blue-500">
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="{{ route('welcome') }}" class="flex items-center">
-                    <img src="{{ asset('img/DelfinBeta.png') }}" class="mr-3 h-14 md:h-24" alt="DelfinBeta" title="DelfinBeta" />
-                </a>
-                @if (Route::has('login'))
-                    <div class="flex items-center lg:order-2">
-                        @auth
-                            <a href="{{ url('/dashboard') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">{{ Auth::user()->name }}</a>
-                        @else
-                            <a href="{{ route('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Iniciar Sesión</a>
+    <nav id="menu" class="sticky top-0 z-20 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-delfinbeta-dark">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a href="{{ route('welcome') }}" class="flex items-center">
+                <img id="logo" src="{{ asset('img/DelfinBeta_White.png') }}" class="mr-3 h-14 md:h-24" alt="DelfinBeta" title="DelfinBeta" />
+            </a>
+            @if (Route::has('login'))
+                <div class="flex items-center lg:order-2">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">{{ Auth::user()->name }}</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-delfinbeta-dark focus:outline-none dark:focus:ring-delfinbeta-dark">Iniciar Sesión</a>
 
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Registro</a>
-                            @endif
-                        @endauth
-                        
-                        <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                            <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                    </div>
-                @endif
-                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                        <li>
-                            <a href="{{ route('welcome') }}" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Inicio</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Sobre mi</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Habilidades</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Blog</a>
-                        </li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Portafolio</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contacto</a>
-                        </li>
-                    </ul>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-delfinbeta-light font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-delfinbeta-medium_dark dark:hover:bg-delfinbeta-medium focus:outline-none dark:focus:ring-delfinbeta-medium">Registro</a>
+                        @endif
+                    @endauth
+                    
+                    <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                        <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
                 </div>
+            @endif
+            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="{{ route('welcome') }}" class="block py-2 pr-4 pl-3 text-white rounded bg-delfinbeta-medium_dark lg:bg-transparent lg:text-delfinbeta-medium_dark lg:p-0 dark:text-white" aria-current="page">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Sobre mi</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Habilidades</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Blog</a>
+                    </li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Portafolio</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Contacto</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- Hero -->
-    <section class="bg-white dark:bg-gray-900 border border-blue-500">
+    <header class="bg-white dark:bg-delfinbeta-dark">
         <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
             <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
                 <span class="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">Nuevo</span> 
@@ -95,8 +93,25 @@
                     Escríbeme
                 </a>  
             </div>
+            <div class="p-6 bg-delfinbeta-dark">1</div>
+            <div class="p-6 bg-delfinbeta-medium_dark">2</div>
+            <div class="p-6 bg-delfinbeta-medium">3</div>
+            <div class="p-6 bg-delfinbeta-medium_light">4</div>
+            <div class="p-6 bg-delfinbeta-light">5</div>
+            <hr>
+            <div class="bg-primary-50">50</div>
+            <div class="bg-primary-100">100</div>
+            <div class="bg-primary-200">200</div>
+            <div class="bg-primary-300">300</div>
+            <div class="bg-primary-400">400</div>
+            <div class="bg-primary-500">500</div>
+            <div class="bg-primary-600">600</div>
+            <div class="bg-primary-700">700</div>
+            <div class="bg-primary-800">800</div>
+            <div class="bg-primary-900">900</div>
+            <div class="bg-primary-950">950</div>
         </div>
-    </section>
+    </header>
 
     <!-- Sobre mi -->
     <section class="bg-white dark:bg-gray-900 border border-blue-500">
@@ -113,7 +128,7 @@
         </div>
     </section>
 
-    <!-- Hebilidades -->
+    <!-- Habilidades -->
     <section class="bg-white dark:bg-gray-900 border border-blue-500">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div class="max-w-screen-md mb-8 lg:mb-16">
@@ -347,5 +362,33 @@
     @stack('modals')
 
     @livewireScripts
+
+    <script>
+        (function () {
+            'use strict';
+
+            /*----------------------  Scroll Page  -----------------------*/
+            window.addEventListener('scroll', function(e) {
+                let menu = document.getElementById('menu');
+                let logo = document.getElementById('logo');
+                // let btnScroll = document.getElementById('btn-scroll');
+
+                if (window.scrollY > 20) {
+                    menu.classList.add("bg-delfinbeta-medium");
+                    menu.classList.add("dark:bg-delfinbeta-medium");
+                    menu.classList.remove("dark:bg-delfinbeta-dark");
+                    logo.src = '{{ asset("img/DelfinBeta.png") }}';
+                    // btnScroll.classList.remove("hidden");
+                } else {
+                    menu.classList.remove("bg-delfinbeta-medium");
+                    menu.classList.remove("dark:bg-delfinbeta-medium");
+                    menu.classList.add("dark:bg-delfinbeta-dark");
+                    logo.src = '{{ asset("img/DelfinBeta_White.png") }}';
+                    // btnScroll.classList.add("hidden");
+                }
+            });
+            /*------------------------------------------------------------*/
+        })();
+    </script>
 </body>
 </html>
