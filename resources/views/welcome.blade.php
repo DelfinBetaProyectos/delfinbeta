@@ -21,7 +21,7 @@
     @livewireStyles
 </head>
 <body class="font-sans antialiased">
-    <nav id="menu" class="sticky top-0 z-20 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-delfinbeta-dark">
+    <nav id="menu" class="sticky top-0 z-20 px-4 lg:px-6 py-2.5 dark:bg-delfinbeta-dark">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="{{ route('welcome') }}" class="flex items-center">
                 <img id="logo" src="{{ asset('img/DelfinBeta_White.png') }}" class="mr-3 h-14 md:h-24" alt="DelfinBeta" title="DelfinBeta" />
@@ -51,18 +51,19 @@
                         <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">Inicio</x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="#">Sobre mi</x-nav-link>
+                        <x-nav-link href="#about">Sobre mi</x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="#">Habilidades</x-nav-link>
+                        <x-nav-link href="#skills">Habilidades</x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="#">Blog</x-nav-link>
+                        <x-nav-link href="#blog">Blog</x-nav-link>
                     </li>
+                    <!-- <li>
                         <x-nav-link href="#">Portafolio</x-nav-link>
-                    </li>
+                    </li> -->
                     <li>
-                        <x-nav-link href="#">Contacto</x-nav-link>
+                        <x-nav-link href="#contact">Contacto</x-nav-link>
                     </li>
                 </ul>
             </div>
@@ -71,19 +72,21 @@
 
     <!-- Hero -->
     <header class="bg-white dark:bg-delfinbeta-dark">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <div class="py-8 lg:py-24 px-4 lg:px-12 mx-auto max-w-screen-xl text-center">
             <!-- <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
                 <span class="text-xs bg-delfinbeta-medium_dark hover:bg-delfinbeta-medium rounded-full text-white px-4 py-1.5 mr-3">Nuevo</span> 
                 <span class="text-sm font-medium">Artículo del Blog</span> 
-                <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
             </a> -->
-            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            <h1 class="mb-7 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                 Desarrollo Web - Frontend y Backend
             </h1>
-            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+            <p class="mb-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
                 ¡Hola! Soy Dayan Betancourt #MamaDeveloper
             </p>
-            <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+            <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                 <x-button-link href="{{ route('login') }}">
                     Conóceme
                     <svg class="inline ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -102,23 +105,25 @@
     </header>
 
     <!-- Sobre mi -->
-    <section class="bg-white dark:bg-gray-900">
-        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+    <section id="about" class="bg-white dark:bg-gray-900">
+        <div class="py-12 lg:py-28 px-4 lg:px-6 mx-auto max-w-screen-xl items-center lg:grid lg:gap-16 lg:grid-cols-2">
             <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">¡Hola chamos! yo soy @delfinbeta</h2>
-                <p class="mb-4">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p>
-                <p>We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick.</p>
+                <p class="mb-4">@delfinbeta es mi apodo en redes sociales, mi nombre es Dayan Betancourt 👧🏾. Me dedico al desarrollo web Frontend y Backend. Fundé Tecno D 2.0 un pequeño emprendimiento y soy Líder de la la comunidad de tecnología H/F Maracay. Y soy orgullosamente Venezolana.</p>
+                <p class="mb-4">💻 Actualmente utilizo PHP bajo el framework Laravel.</p>
+                <p class="mb-4">📘 Estoy interesada en aprender sobre Frontend (Js - Vue - React) y Transformación Digital.</p>
+                <p class="mb-4">💬 Puedes preguntarme sobre HTML, CSS, PHP y Laravel</p>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-8">
-                <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-                <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+                <img src="{{ asset('img/Dayan_Betancourt.jpg') }}" alt="Dayan Betancourt" title="Dayan Betancourt" class="w-full rounded-lg" />
+                <img src="{{ asset('img/Stickers.jpg') }}" alt="Stickers" title="Stickers" class="mt-4 w-full lg:mt-10 rounded-lg" />
             </div>
         </div>
     </section>
 
     <!-- Habilidades -->
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <section id="skills" class="bg-white dark:bg-delfinbeta-medium_dark">
+        <div class="py-12 lg:py-32 px-4 lg:px-6 mx-auto max-w-screen-xl">
             <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Mis Habilidades</h2>
                 <p class="text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
@@ -171,11 +176,13 @@
     </section>
 
     <!-- Blog -->
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+    <section id="blog" class="bg-white dark:bg-delfinbeta-dark">
+        <div class="py-12 lg:py-32 px-4 lg:px-6 mx-auto max-w-screen-xl">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
-                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test assumptions and connect with the needs of your audience early and often.</p>
+                <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Blog</h2>
+                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                    Compartir contenido ayuda a nuestro propio aprendizaje, repasando conceptos y estructuras. Espero llegar a tenerlo como hábito.
+                </p>
             </div> 
             <div class="grid gap-8 lg:grid-cols-2">
                 <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -229,8 +236,8 @@
     </section>
 
     <!-- Contact -->
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+    <section id="contact" class="bg-white dark:bg-gray-900">
+        <div class="py-12 lg:py-32 px-4 mx-auto max-w-screen-md">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h2>
             <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
             <form action="#" class="space-y-8">
