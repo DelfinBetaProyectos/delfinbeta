@@ -29,12 +29,12 @@
             @if (Route::has('login'))
                 <div class="flex items-center lg:order-2">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">{{ Auth::user()->name }}</a>
+                        <x-button-link-outline href="{{ route('dashboard') }}">{{ Auth::user()->name }}</x-button-link-outline>
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-delfinbeta-dark focus:outline-none dark:focus:ring-delfinbeta-dark">Iniciar Sesión</a>
+                        <x-button-link-outline href="{{ route('login') }}">Iniciar Sesión</x-button-link-outline>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-white bg-delfinbeta-medium_dark hover:bg-delfinbeta-dark focus:ring-4 focus:ring-delfinbeta-light font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-delfinbeta-medium_dark dark:hover:bg-delfinbeta-medium focus:outline-none dark:focus:ring-delfinbeta-medium">Registro</a>
+                            <x-button-link href="{{ route('register') }}">Registro</x-button-link>
                         @endif
                     @endauth
                     
@@ -48,21 +48,21 @@
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
-                        <a href="{{ route('welcome') }}" class="block py-2 pr-4 pl-3 text-white rounded bg-delfinbeta-medium_dark lg:bg-transparent lg:text-delfinbeta-medium_dark lg:p-0 dark:text-white" aria-current="page">Inicio</a>
+                        <x-nav-link href="{{ route('welcome') }}" :active="request()->routeIs('welcome')">Inicio</x-nav-link>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Sobre mi</a>
+                        <x-nav-link href="#">Sobre mi</x-nav-link>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Habilidades</a>
+                        <x-nav-link href="#">Habilidades</x-nav-link>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Blog</a>
+                        <x-nav-link href="#">Blog</x-nav-link>
                     </li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Portafolio</a>
+                        <x-nav-link href="#">Portafolio</x-nav-link>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 pr-4 pl-3 text-delfinbeta-medium_dark border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-delfinbeta-medium_dark lg:p-0 dark:text-delfinbeta-light lg:dark:hover:text-white dark:hover:bg-delfinbeta-medium_dark dark:hover:text-white lg:dark:hover:bg-transparent dark:border-delfinbeta-medium_dark">Contacto</a>
+                        <x-nav-link href="#">Contacto</x-nav-link>
                     </li>
                 </ul>
             </div>
@@ -84,14 +84,19 @@
                 ¡Hola! Soy Dayan Betancourt #MamaDeveloper
             </p>
             <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-delfinbeta-medium_dark hover:bg-delfinbeta-medium focus:ring-4 focus:ring-delfinbeta-light dark:focus:ring-delfinbeta-medium">
+                <x-button-link href="{{ route('login') }}">
                     Conóceme
-                    <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </a>
-                <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                    <svg class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/><path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/></svg>
+                    <svg class="inline ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </x-button-link>
+                <x-button-link-outline href="{{ route('login') }}">
+                    <svg class="inline mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                        <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                    </svg>
                     Escríbeme
-                </a>  
+                </x-button-link-outline>
             </div>
         </div>
     </header>
