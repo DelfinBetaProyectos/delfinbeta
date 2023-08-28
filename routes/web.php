@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Web\MessageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::post('/contact', [MessageController::class, 'store'])->name('contact.store');
 
 Route::get('/flowbite', function () {
     return view('layouts/flowbite');
