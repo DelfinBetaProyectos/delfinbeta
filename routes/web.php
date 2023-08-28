@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Web\MessageController;
+
+use App\Models\Message;
+
+use App\Mail\ContactMail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +21,36 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+
+Route::post('/contact', [MessageController::class, 'store'])->name('contact.store');
+
+Route::get('/flowbite', function () {
+    return view('layouts/flowbite');
+})->name('flowbite');
+
+Route::get('/maintenance', function () {
+    return view('maintenance');
+})->name('maintenance');
+
+Route::get('/500', function () {
+    return view('500');
+})->name('500');
+
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
+
+/*
+|--------------------------------------------------------------------------
+| Emails Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/mail/contact', function () {
+    $message = Message::find(1);
+ 
+    return new ContactMail($message);
+})->name('contact.mail');
 
 Route::middleware([
     'auth:sanctum',
