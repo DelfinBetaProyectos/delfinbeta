@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\MessageController;
 
+use App\Models\Message;
+
+use App\Mail\ContactMail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +40,17 @@ Route::get('/500', function () {
 Route::get('/404', function () {
     return view('404');
 })->name('404');
+
+/*
+|--------------------------------------------------------------------------
+| Emails Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/mail/contact', function () {
+    $message = Message::find(1);
+ 
+    return new ContactMail($message);
+})->name('contact.mail');
 
 Route::middleware([
     'auth:sanctum',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
-// use App\Mail\ContactMail;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +52,7 @@ class MessageController extends Controller
             'content' => $validated['message']
         ]);
 
-        // Mail::to('arifloresal@gmail.com', 'Adriana Flores')->send(new ContactMail($mailMessage));
+        Mail::to('hola@delfinbeta.tech', 'Dayan Betancourt')->send(new ContactMail($message));
 
         return redirect()->to(route('welcome').'#contact')
                          ->with('message', 'Mensaje enviado con éxito. Gracias por contactarme, pronto recibirás mi respuesta.');
