@@ -398,15 +398,15 @@
                     <div class="grid gap-8 lg:grid-cols-2">
                         <div>
                             <x-label for="firstname" value="Nombre" />
-                            <x-input type="text" name="firstname" id="firstname" :value="old('firstname')" placeholder="Juan"  />
+                            <x-input type="text" name="firstname" id="firstname" :value="old('firstname')" placeholder="Juan" required />
                         </div>
                         <div>
                             <x-label for="lastname" value="Apellido" />
-                            <x-input type="text" name="lastname" id="lastname" :value="old('lastname')" placeholder="Betancourt"  />
+                            <x-input type="text" name="lastname" id="lastname" :value="old('lastname')" placeholder="Betancourt" required />
                         </div>
                         <div>
                             <x-label for="email" value="{{ __('Email') }}" />
-                            <x-input type="email" name="email" id="email" :value="old('email')" placeholder="name@company.com"  />
+                            <x-input type="email" name="email" id="email" :value="old('email')" placeholder="name@company.com" required />
                         </div>
                         <div>
                             <x-label for="phone" value="Teléfono" />
@@ -414,8 +414,11 @@
                         </div>
                         <div class="lg:col-span-2">
                             <x-label for="message" value="Mensaje" />
-                            <x-textarea name="message" id="message" placeholder="Deja tu mensaje..."></x-textarea>
+                            <x-textarea name="message" id="message" placeholder="Deja tu mensaje..." required></x-textarea>
                         </div>
+                    </div>
+                    <div class="hidden">
+                        <input type="text" id="mielabeja" name="mielabeja" value="" />
                     </div>
                     <x-button>Enviar</x-button>
                 </form>
