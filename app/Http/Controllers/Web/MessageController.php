@@ -24,7 +24,8 @@ class MessageController extends Controller
             'lastname' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'nullable|string',
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'mielabeja' => 'present'
         ], [
             'firstname.required' => 'El Nombre es Obligatorio',
             'firstname.max' => 'El Nombre debe ser de máximo 255 caracteres',
@@ -43,6 +44,10 @@ class MessageController extends Controller
  
         // Retrieve the validated input...
         $validated = $validator->validated();
+
+        if ($validated['mielabeja'] != '') {
+            return redirect()->back();
+        }
 
         $message = Message::create([
             'firstname' => $validated['firstname'],
