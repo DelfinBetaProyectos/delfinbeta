@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +8,7 @@ use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Oneduo\RecaptchaEnterprise\Rules\Recaptcha;
 
 class MessageController extends Controller
 {
@@ -25,7 +26,7 @@ class MessageController extends Controller
             'email' => 'required|email',
             'phone' => 'nullable|string',
             'message' => 'required|string',
-            'mielabeja' => 'present'
+            'g-recaptcha-response' => ['required', new Recaptcha()]
         ], [
             'firstname.required' => 'El Nombre es Obligatorio',
             'firstname.max' => 'El Nombre debe ser de máximo 255 caracteres',
@@ -44,10 +45,6 @@ class MessageController extends Controller
  
         // Retrieve the validated input...
         $validated = $validator->validated();
-
-        if ($validated['mielabeja'] != '') {
-            return redirect()->back();
-        }
 
         $message = Message::create([
             'firstname' => $validated['firstname'],
