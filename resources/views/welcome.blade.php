@@ -19,6 +19,9 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    <!-- ReCaptcha Enterprise -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ldq9hcoAAAAAOJFe_xzecIabm42tPiMxNlkCBtv"></script>
 </head>
 <body class="font-sans antialiased">
     <nav id="menu" class="sticky top-0 z-20 px-4 lg:px-6 py-2.5 dark:bg-delfinbeta-dark">
@@ -356,7 +359,7 @@
                         </p>
                     </div>
                 </div>
-                <form action="{{ route('contact.store') }}" method="POST" class="space-y-8 lg:col-span-2">
+                <form action="{{ route('contact.store') }}" method="POST" id="form-contact" class="space-y-8 lg:col-span-2">
                     @csrf
                     @if(session()->has('message'))
                     <div id="alert-border-3" class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-400" role="alert">
@@ -417,10 +420,10 @@
                             <x-textarea name="message" id="message" placeholder="Deja tu mensaje..." required></x-textarea>
                         </div>
                     </div>
-                    <div class="hidden">
-                        <input type="text" id="mielabeja" name="mielabeja" value="" />
+                    <div>
+                        <button class="g-recaptcha w-full px-3 lg:px-5 py-2 lg:py-2.5 text-white text-sm text-center font-medium rounded-lg border border-delfinbeta-medium_dark bg-delfinbeta-medium_dark hover:border-delfinbeta-medium hover:bg-delfinbeta-medium focus:ring-4 focus:outline-none focus:ring-delfinbeta-light dark:border-delfinbeta-medium_dark dark:bg-delfinbeta-medium_dark dark:hover:bg-delfinbeta-medium dark:focus:ring-delfinbeta-medium" data-sitekey="6Ldq9hcoAAAAAOJFe_xzecIabm42tPiMxNlkCBtv" data-callback='onSubmit' data-action='submit'>Enviar</button>
                     </div>
-                    <x-button>Enviar</x-button>
+                    <!-- <x-button>Enviar</x-button> -->
                 </form>
             </div>
         </div>
@@ -554,6 +557,12 @@
         gtag('js', new Date());
 
         gtag('config', 'G-5FZYDWTH61');
+    </script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("form-contact").submit();
+        }
     </script>
 
     <script>
