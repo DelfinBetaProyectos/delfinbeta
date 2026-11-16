@@ -34,8 +34,6 @@
                     @auth
                         <x-button-link-outline href="{{ route('dashboard') }}">{{ Auth::user()->name }}</x-button-link-outline>
                     @else
-                        <x-button-link-outline href="{{ route('login') }}">Iniciar Sesión</x-button-link-outline>
-
                         @if (Route::has('register'))
                             <x-button-link href="{{ route('register') }}">Registro</x-button-link>
                         @endif
@@ -59,9 +57,9 @@
                     <li>
                         <x-nav-link href="#skills">Habilidades</x-nav-link>
                     </li>
-                    <li>
+                    <!-- <li>
                         <x-nav-link href="#blog">Blog</x-nav-link>
-                    </li>
+                    </li> -->
                     <!-- <li>
                         <x-nav-link href="#">Portafolio</x-nav-link>
                     </li> -->
@@ -84,7 +82,8 @@
                 </svg>
             </a> -->
             <h1 class="mb-7 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                Desarrollo Web - Frontend y Backend
+                Arquitecta de soluciones cloud y
+desarrolladora full stack
             </h1>
             <p class="mb-7 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
                 ¡Hola! Soy Dayan Betancourt #MamaDeveloper
@@ -111,10 +110,10 @@
     <section id="about" class="bg-white dark:bg-gray-900">
         <div class="py-12 lg:py-28 px-4 lg:px-6 mx-auto max-w-screen-xl items-center lg:grid lg:gap-16 lg:grid-cols-2">
             <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">¡Hola chamos! yo soy @delfinbeta</h2>
-                <p class="mb-4">@delfinbeta es mi apodo en redes sociales, mi nombre es Dayan Betancourt 👧🏾. Me dedico al desarrollo web Frontend y Backend. Fundé Tecno D 2.0 un pequeño emprendimiento y soy Líder de la la comunidad de tecnología H/F Maracay. Y soy orgullosamente Venezolana.</p>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Hola yo soy @delfinbeta</h2>
+                <p class="mb-4">@delfinbeta es mi apodo en redes sociales, mi nombre es Dayan Betancourt 👧🏾. Me dedico al desarrollo web Frontend y Backend. Fundé Tecno D 2.0 y actualmente soy Co-fundadora de AraguaneyCode. Fui Líder de la la comunidad de tecnología H/F Maracay. Y soy orgullosamente Venezolana.</p>
                 <p class="mb-4">💻 Actualmente utilizo PHP bajo el framework Laravel.</p>
-                <p class="mb-4">📘 Estoy interesada en aprender sobre Frontend (Js - Vue - React) y Transformación Digital.</p>
+                <p class="mb-4">📘 Integro IA en todo el ciclo de desarrollo para entregar mas rápido y con mejor calidad.</p>
                 <p class="mb-4">💬 Puedes preguntarme sobre HTML, CSS, PHP y Laravel</p>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-8">
@@ -465,9 +464,6 @@
                     <div>
                         <h2 class="my-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Trabajo</h2>
                         <ul class="text-gray-600 dark:text-gray-400">
-                            <li class="mb-4">
-                                <a href="#" class="hover:underline">Portafolio</a>
-                            </li>
                             <li>
                                 <a href="https://github.com/delfinbeta/" target="_blank" class="hover:underline">Github</a>
                             </li>
