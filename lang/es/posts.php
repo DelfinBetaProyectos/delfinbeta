@@ -1,14 +1,14 @@
 <?php
 
 /*
-| Contenido provisional: se reemplazará por el modelo Post con traducciones.
+| Contenido estático: se reemplazará por el modelo Post con traducciones.
 | La sección Contenido solo se muestra con 3 o más artículos.
 */
 
 return [
     'items' => [
-        ['pillar' => 'Cloud', 'date' => '2026-11-10', 'title' => 'Título del artículo', 'summary' => 'Resumen provisional de dos líneas sobre el tema del artículo.', 'href' => null],
-        ['pillar' => 'Laravel', 'date' => '2026-10-22', 'title' => 'Título del artículo', 'summary' => 'Resumen provisional de dos líneas sobre el tema del artículo.', 'href' => null],
-        ['pillar' => 'IA', 'date' => '2026-10-03', 'title' => 'Título del artículo', 'summary' => 'Resumen provisional de dos líneas sobre el tema del artículo.', 'href' => null],
+        ['pillar' => 'Experiencia técnica', 'date' => null, 'title' => 'Git, GitHub y GitLab: la guía, actualizada', 'summary' => '[Resumen de 2 líneas del artículo]', 'href' => '#'],
+        ['pillar' => 'Experiencia técnica', 'date' => null, 'title' => 'Claude Code en un proyecto real', 'summary' => '[Resumen de 2 líneas del artículo]', 'href' => '#'],
+        ['pillar' => '#MamaDeveloper', 'date' => null, 'title' => 'Programar con un niño pequeño en casa', 'summary' => '[Resumen de 2 líneas del artículo]', 'href' => '#'],
     ],
 ];

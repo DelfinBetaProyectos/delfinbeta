@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'work_together' => 'Trabajemos juntos en AraguaneyCode',
+    'tagline' => 'Maracay, Venezuela · #MamaDeveloper',
+    'built_with' => 'Hecho con Laravel + Tailwind',
+    'source' => 'código en GitHub',
 ];

@@ -3,12 +3,13 @@
 return [
     'label' => 'Main',
     'open_menu' => 'Open menu',
-    'switch_language' => 'Switch language',
+    'language' => 'Language',
+    'download_cv' => 'Download CV',
     'sections' => [
-        'about' => ['label' => 'About', 'anchor' => 'about'],
+        'story' => ['label' => 'My story', 'anchor' => 'story'],
         'projects' => ['label' => 'Projects', 'anchor' => 'projects'],
-        'experience' => ['label' => 'Experience', 'anchor' => 'experience'],
+        'community' => ['label' => 'Community', 'anchor' => 'community'],
+        'content' => ['label' => 'Blog', 'anchor' => 'writing'],
         'contact' => ['label' => 'Contact', 'anchor' => 'contact'],
     ],
-    'content_anchor' => 'writing',
 ];

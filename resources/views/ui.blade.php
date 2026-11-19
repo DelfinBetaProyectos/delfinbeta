@@ -14,7 +14,7 @@
     @endphp
 
     <div class="bg-mist text-navy">
-        <div class="mx-auto flex max-w-6xl flex-col gap-20 px-4 py-16 sm:px-6">
+        <div class="mx-auto flex max-w-site flex-col gap-20 px-4 py-16 sm:px-6">
             <x-section-heading
                 on="light"
                 :level="1"
@@ -79,18 +79,15 @@
                             <x-tag>GitHub Actions</x-tag>
                         </div>
 
-                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." href="#">
-                            <x-tag>Laravel</x-tag>
-                        </x-project-card>
+                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." capture="[CAPTURA] proyecto" href="#" />
 
-                        <x-input label="Campo de formulario" name="email" type="email" placeholder="tu@correo.com" />
+                        <x-talk-card meta="x-talk-card · 45 min" title="Título de la charla" summary="Descripción breve de la charla." />
 
-                        <ol>
-                            <x-timeline-item period="2020 — hoy" role="Arquitecta cloud" organization="x-timeline-item">
-                                Descripción breve del rol y del impacto.
-                            </x-timeline-item>
-                            <x-timeline-item period="2008 — 2020" role="Desarrolladora full-stack" organization="Empresa anterior" />
-                        </ol>
+                        <x-input label="x-input" name="email" type="email" placeholder="tu@correo.com" />
+                        <x-select label="x-select" name="topic" :options="['a' => 'Opción A', 'b' => 'Opción B']" />
+                        <x-input label="x-input type=textarea" name="message" type="textarea" />
+
+                        <x-photo-placeholder variant="dark" label="x-photo-placeholder variant=dark" />
                     </div>
 
                     <div class="flex flex-col gap-6 rounded-card border border-line-light bg-white p-6">
@@ -109,6 +106,11 @@
                         <p>Un enlace en texto corrido usa <a href="#" class="text-deep underline underline-offset-2 hover:no-underline">Azul profundo</a>, nunca Azul mar.</p>
 
                         <x-post-card pillar="Pilar" date="2026-11-19" title="Título del artículo" summary="Resumen de dos líneas." href="#" />
+
+                        <ol class="border-l-2 border-ice">
+                            <x-timeline-item period="2008" role="x-timeline-item" />
+                            <x-timeline-item period="Hoy" role="Rol actual" />
+                        </ol>
 
                         <x-photo-placeholder label="x-photo-placeholder · mientras llegan las fotos" />
                     </div>

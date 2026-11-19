@@ -25,6 +25,13 @@
     --color-ink: #35506a;
     --color-line-dark: #1a4a85;
     --color-line-light: #c9dae6;
+    --color-line-subtle: #0b2e62;
+    --color-line-strong: #2a5a92;
+    --color-line-dashed: #4a7aae;
+    --color-deep-dark: #00366b;
+    --color-ink-strong: #1f3550;
+
+    --container-site: 75rem;
 
     --radius-btn: 8px;
     --radius-card: 16px;

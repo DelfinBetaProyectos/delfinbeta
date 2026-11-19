@@ -22,8 +22,8 @@
             <link rel="alternate" hreflang="x-default" href="{{ route('home') }}" />
         @endif
     </head>
-    <body class="flex min-h-screen flex-col bg-navy font-sans text-mist antialiased">
-        <x-nav :alternate-locales="$localeUrls->except(app()->getLocale())" />
+    <body class="flex min-h-screen flex-col bg-navy font-sans text-[17px] leading-relaxed text-white antialiased">
+        <x-nav :locale-urls="$localeUrls" />
 
         <main class="flex-1">
             {{ $slot }}

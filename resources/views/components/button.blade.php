@@ -6,7 +6,7 @@
 
 @php
     $variantClasses = match ($variant) {
-        'secondary' => 'border border-muted text-mist hover:bg-white/5',
+        'secondary' => 'border border-ice text-ice hover:bg-ice/10 hover:text-mist',
         'dark' => 'bg-navy text-white hover:bg-deep',
         'outline' => 'border border-deep text-deep hover:bg-deep/5',
         default => 'bg-ice text-navy hover:bg-white',

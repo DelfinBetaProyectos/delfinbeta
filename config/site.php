@@ -46,8 +46,18 @@ return [
     */
 
     'social' => [
-        'GitHub' => env('SITE_GITHUB_URL', 'https://github.com/delfinbeta'),
         'LinkedIn' => env('SITE_LINKEDIN_URL', 'https://www.linkedin.com/in/delfinbeta'),
+        'GitHub' => env('SITE_GITHUB_URL', 'https://github.com/delfinbeta'),
+        'Medium' => env('SITE_MEDIUM_URL', 'https://medium.com/@delfinbeta'),
+        'Instagram' => env('SITE_INSTAGRAM_URL', 'https://instagram.com/delfinbeta'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contact
+    |--------------------------------------------------------------------------
+    */
+
+    'email' => env('SITE_EMAIL', 'hola@delfinbeta.tech'),
 
 ];

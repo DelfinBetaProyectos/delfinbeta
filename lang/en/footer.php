@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'work_together' => "Let's work together at AraguaneyCode",
+    'tagline' => 'Maracay, Venezuela · #MamaDeveloper',
+    'built_with' => 'Built with Laravel + Tailwind',
+    'source' => 'source on GitHub',
 ];

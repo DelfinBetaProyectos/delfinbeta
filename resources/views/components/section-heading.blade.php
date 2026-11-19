@@ -16,7 +16,7 @@
     @endif
 
     <h{{ $level }} @class([
-        'font-display text-3xl font-bold tracking-tight md:text-[2.75rem] md:leading-tight',
+        'font-display text-3xl leading-[1.1] font-bold tracking-[-0.02em] md:text-[2.75rem]',
         'text-white' => $on === 'dark',
         'text-navy' => $on === 'light',
     ])>{{ $title }}</h{{ $level }}>

@@ -19,24 +19,28 @@ it('renders the home page in the requested locale', function (string $locale, st
         ->assertSeeText($heading)
         ->assertSee('href="'.url($alternateUrl).'"', false);
 })->with([
-    'spanish' => ['es', 'Proyectos seleccionados', '/en'],
-    'english' => ['en', 'Selected projects', '/es'],
+    'spanish' => ['es', 'Plataformas reales, con nombre y resultado', '/en'],
+    'english' => ['en', 'Real platforms, with names and results', '/es'],
 ]);
 
 it('returns 404 for an unsupported locale prefix', function () {
     $this->get('/fr')->assertNotFound();
 });
 
-it('hides the writing section when there are fewer than three articles', function () {
+it('hides the writing section and renumbers the next ones when there are fewer than three articles', function () {
     app('translator')->addLines(['posts.items' => [
-        ['pillar' => 'Cloud', 'date' => '2026-11-10', 'title' => 'Único artículo', 'summary' => 'Resumen.', 'href' => null],
+        ['pillar' => 'Cloud', 'date' => '2026-11-10', 'title' => 'Único artículo', 'summary' => 'Resumen.', 'href' => '#'],
     ]], 'es');
 
     $response = $this->get('/es');
 
-    $response->assertOk()->assertDontSeeText('Artículos recientes');
+    $response->assertOk()
+        ->assertDontSeeText('Últimos artículos')
+        ->assertSeeText('04 · ¿Tienes un proyecto?')
+        ->assertSeeText('05 · Contacto');
 });
 
 it('shows the writing section with three or more articles', function () {
-    $this->get('/es')->assertOk()->assertSeeText('Artículos recientes');
+    $this->get('/es')->assertOk()
+        ->assertSeeTextInOrder(['01 · Mi historia', '02 · Proyectos seleccionados', '03 · Comunidad y charlas', '04 · Contenido', '05 · ¿Tienes un proyecto?', '06 · Contacto']);
 });

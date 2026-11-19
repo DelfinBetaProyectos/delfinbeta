@@ -2,25 +2,33 @@
     'title',
     'summary',
     'label' => null,
+    'capture' => null,
     'href' => null,
+    'linkText' => null,
 ])
 
-<article {{ $attributes->class('group relative flex flex-col gap-3 rounded-card bg-deep p-6 transition-colors has-[a:hover]:bg-[#00508f]') }}>
-    @if ($label)
-        <p class="font-mono text-xs font-medium text-muted">{{ $label }}</p>
-    @endif
-
-    <h3 class="font-display text-xl font-bold text-white md:text-2xl">
-        @if ($href)
-            <a href="{{ $href }}" class="after:absolute after:inset-0 after:rounded-card focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ice">{{ $title }}</a>
+<article {{ $attributes->class('flex flex-col overflow-hidden rounded-card border border-line-subtle bg-deep') }}>
+    <div class="flex aspect-video items-center justify-center bg-deep-dark p-6">
+        @if (isset($media))
+            {{ $media }}
         @else
-            {{ $title }}
+            <p class="font-mono text-[13px] text-muted">{{ $capture }}</p>
         @endif
-    </h3>
+    </div>
 
-    <p class="text-sm text-muted">{{ $summary }}</p>
+    <div class="flex grow flex-col gap-3 p-7">
+        @if ($label)
+            <p class="font-mono text-[13px] font-medium text-ice">{{ $label }}</p>
+        @endif
 
-    @if ($slot->isNotEmpty())
-        <div class="relative mt-2 flex flex-wrap gap-2">{{ $slot }}</div>
-    @endif
+        <h3 class="font-display text-[1.625rem] leading-tight font-bold text-white">{{ $title }}</h3>
+
+        <p class="text-muted">{{ $summary }}</p>
+
+        @if ($href)
+            <a href="{{ $href }}" class="mt-auto pt-2 font-medium text-ice underline underline-offset-4 hover:text-mist">
+                {{ $linkText ?? __('components.view_case') }} <span aria-hidden="true">→</span>
+            </a>
+        @endif
+    </div>
 </article>

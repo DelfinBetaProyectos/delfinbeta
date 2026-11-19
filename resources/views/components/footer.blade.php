@@ -1,24 +1,9 @@
-<footer {{ $attributes->class('border-t border-line-dark bg-navy') }}>
-    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <div class="flex flex-col gap-1">
-            <p class="font-display text-lg font-bold text-white">Dayan Betancourt</p>
-            <p class="text-sm text-muted">&copy; {{ now()->year }} delfinbeta.tech</p>
-        </div>
-
-        <ul class="flex flex-wrap items-center gap-6">
-            @foreach (array_filter(config('site.social')) as $network => $url)
-                <li>
-                    <a href="{{ $url }}" rel="me noopener" target="_blank" class="text-sm font-medium text-muted transition-colors hover:text-white">{{ $network }}</a>
-                </li>
-            @endforeach
-
-            @if (config('site.araguaneycode_url'))
-                <li>
-                    <x-button variant="secondary" :href="config('site.araguaneycode_url')" rel="noopener" target="_blank">
-                        {{ __('footer.work_together') }}
-                    </x-button>
-                </li>
-            @endif
-        </ul>
+<footer {{ $attributes->class('border-t border-line-subtle') }}>
+    <div class="mx-auto flex max-w-site flex-wrap justify-between gap-4 px-4 py-8 text-sm text-muted sm:px-6">
+        <p>&copy; {{ now()->year }} Dayan Betancourt · {{ __('footer.tagline') }}</p>
+        <p class="font-mono text-[13px]">
+            {{ __('footer.built_with') }} ·
+            <a href="{{ config('site.social.GitHub') }}" class="text-ice underline underline-offset-4 hover:text-mist">{{ __('footer.source') }}</a>
+        </p>
     </div>
 </footer>

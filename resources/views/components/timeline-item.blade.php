@@ -2,41 +2,33 @@
     'period',
     'role',
     'organization' => null,
-    'on' => 'dark',
+    'on' => 'light',
 ])
 
-<li {{ $attributes->class([
-    'relative flex flex-col gap-1 border-l-2 border-sea pb-10 pl-8 last:pb-0',
-]) }}>
-    <span aria-hidden="true" @class([
-        'absolute top-1 -left-[9px] size-4 rounded-full border-2 border-sea',
-        'bg-navy' => $on === 'dark',
-        'bg-mist' => $on === 'light',
-    ])></span>
-
-    <p @class([
-        'font-mono text-xs font-medium',
+<li {{ $attributes->class('flex flex-col pb-6 pl-6 last:pb-0') }}>
+    <span @class([
+        'font-mono text-[13px] font-medium',
         'text-ice' => $on === 'dark',
         'text-deep' => $on === 'light',
-    ])>{{ $period }}</p>
+    ])>{{ $period }}</span>
 
-    <h3 @class([
-        'font-display text-xl font-bold',
+    <p @class([
+        'mt-0.5 font-medium',
         'text-white' => $on === 'dark',
         'text-navy' => $on === 'light',
-    ])>{{ $role }}</h3>
+    ])>{{ $role }}</p>
 
     @if ($organization)
         <p @class([
-            'font-medium',
-            'text-mist' => $on === 'dark',
+            'text-sm',
+            'text-muted' => $on === 'dark',
             'text-ink' => $on === 'light',
         ])>{{ $organization }}</p>
     @endif
 
     @if ($slot->isNotEmpty())
         <div @class([
-            'mt-2 text-sm',
+            'mt-1 text-sm',
             'text-muted' => $on === 'dark',
             'text-ink' => $on === 'light',
         ])>{{ $slot }}</div>
