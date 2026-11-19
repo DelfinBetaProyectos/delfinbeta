@@ -12,8 +12,14 @@ export default defineConfig({
             ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
+                bunny('Space Grotesk', {
+                    weights: [500, 700],
+                }),
+                bunny('Inter', {
                     weights: [400, 500, 600],
+                }),
+                bunny('Fira Code', {
+                    weights: [500],
                 }),
             ],
         }),

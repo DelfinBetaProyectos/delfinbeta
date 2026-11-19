@@ -9,7 +9,25 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Space Grotesk', Arial, Helvetica, sans-serif;
+    --font-sans: 'Inter', Arial, Helvetica, sans-serif;
+    --font-mono: 'Fira Code', Consolas, Menlo, monospace;
+
+    /* Brand palette (mar abierto) */
+    --color-navy: #001b48;
+    --color-deep: #004581;
+    --color-sea: #018abd;
+    --color-ice: #97cbdc;
+    --color-mist: #dde8f0;
+
+    /* Support tokens */
+    --color-muted: #a9c3d6;
+    --color-ink: #35506a;
+    --color-line-dark: #1a4a85;
+    --color-line-light: #c9dae6;
+
+    --radius-btn: 8px;
+    --radius-card: 16px;
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -23,16 +41,16 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    --color-accent: var(--color-deep);
+    --color-accent-content: var(--color-deep);
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent: var(--color-ice);
+        --color-accent-content: var(--color-ice);
+        --color-accent-foreground: var(--color-navy);
     }
 }
 
