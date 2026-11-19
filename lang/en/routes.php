@@ -5,5 +5,6 @@
 */
 
 return [
+    'projects' => 'projects',
     'story' => 'my-story',
 ];

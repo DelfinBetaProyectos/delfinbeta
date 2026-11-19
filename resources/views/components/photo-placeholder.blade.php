@@ -8,6 +8,7 @@
     'flex items-center justify-center p-6 text-center',
     match ($aspect) {
         '1/1' => 'aspect-square',
+        '2/1' => 'aspect-[2/1]',
         '4/5' => 'aspect-[4/5]',
         '16/9' => 'aspect-video',
         default => 'aspect-[4/3]',

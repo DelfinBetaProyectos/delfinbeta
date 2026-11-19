@@ -96,8 +96,8 @@
         </div>
 
         <div class="grid grid-cols-[repeat(auto-fit,minmax(min(20rem,100%),1fr))] gap-6">
-            @foreach ($projects as $project)
-                <x-project-card :label="$project['label']" :title="$project['title']" :summary="$project['summary']" :capture="$project['capture']" :href="$project['href']">
+            @foreach ($projects as $projectSlug => $project)
+                <x-project-card :label="$project['label']" :title="$project['title']" :summary="$project['summary']" :capture="$project['capture']" :href="URL::localizedRoute('projects.show', ['project' => $projectSlug])">
                     @if ($project['code'])
                         <x-slot:media>
                             <pre class="font-mono text-[13px] leading-[1.7] text-mist">{{ $project['code'] }}</pre>

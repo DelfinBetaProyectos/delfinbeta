@@ -7,7 +7,11 @@
     $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
         'label' => $section['label'],
         'href' => $key === 'story' ? URL::localizedRoute('story') : $homeUrl.'#'.$section['anchor'],
-        'current' => $key === 'story' && request()->routeIs('*.story'),
+        'current' => match ($key) {
+            'story' => request()->routeIs('*.story'),
+            'projects' => request()->routeIs('*.projects.show'),
+            default => false,
+        },
     ]);
     $contactUrl = $homeUrl.'#'.__('nav.sections.contact.anchor');
 @endphp
