@@ -33,7 +33,7 @@
         </div>
 
         <div class="relative min-w-0 flex-[1_1_24rem]">
-            <x-photo-placeholder variant="portrait" :label="__('home.hero.photo')" />
+            <x-photo-placeholder variant="portrait" aspect="4/5" :label="__('home.hero.photo')" />
 
             <div class="absolute bottom-8 -left-2 rounded-xl border border-line-dark bg-navy px-5 py-4 font-mono text-[13px] leading-[1.7] shadow-[0_18px_40px_rgba(0,0,0,0.45)] sm:-left-6" aria-hidden="true">
                 <div class="text-muted">{{ __('home.hero.stack_command') }}</div>
@@ -75,7 +75,7 @@
                     <p class="text-ink-strong">{{ $paragraph }}</p>
                 @endforeach
 
-                <a href="#" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
+                <a href="{{ URL::localizedRoute('story') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
                     {{ __('home.story.read_more') }} <span aria-hidden="true">→</span>
                 </a>
             </div>
@@ -114,7 +114,7 @@
             <div class="flex min-w-0 flex-[1_1_25rem] flex-col gap-5">
                 <x-section-heading :eyebrow="$eyebrows['community']" :title="__('home.community.title')" />
                 <p class="text-muted">{{ __('home.community.body') }}</p>
-                <x-photo-placeholder variant="dark" :label="__('home.community.photo')" />
+                <x-photo-placeholder variant="dark" aspect="16/9" :label="__('home.community.photo')" />
             </div>
 
             <div class="flex min-w-0 flex-[1_1_27.5rem] flex-col gap-4">

@@ -87,7 +87,8 @@
                         <x-select label="x-select" name="topic" :options="['a' => 'Opción A', 'b' => 'Opción B']" />
                         <x-input label="x-input type=textarea" name="message" type="textarea" />
 
-                        <x-photo-placeholder variant="dark" label="x-photo-placeholder variant=dark" />
+                        <x-photo-placeholder variant="dark" aspect="16/9" label="x-photo-placeholder variant=dark" />
+                        <x-photo-placeholder variant="deep" aspect="1/1" label="x-photo-placeholder variant=deep" />
                     </div>
 
                     <div class="flex flex-col gap-6 rounded-card border border-line-light bg-white p-6">

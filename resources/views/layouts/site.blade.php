@@ -1,11 +1,13 @@
 @php
     $currentRoute = request()->route();
-    $localeUrls = $currentRoute?->hasParameter('locale')
+    $routeLocale = \Illuminate\Support\Str::before((string) $currentRoute?->getName(), '.');
+    $localeUrls = in_array($routeLocale, config('site.locales'), true)
         ? collect(config('site.locales'))->mapWithKeys(fn (string $locale): array => [
-            $locale => route($currentRoute->getName(), [
-                ...\Illuminate\Support\Arr::only($currentRoute->parameters(), $currentRoute->parameterNames()),
-                'locale' => $locale,
-            ]),
+            $locale => URL::localizedRoute(
+                \Illuminate\Support\Str::after($currentRoute->getName(), '.'),
+                \Illuminate\Support\Arr::only($currentRoute->parameters(), $currentRoute->parameterNames()),
+                $locale,
+            ),
         ])
         : collect();
 @endphp

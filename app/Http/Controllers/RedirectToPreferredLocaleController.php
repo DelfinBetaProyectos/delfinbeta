@@ -12,8 +12,8 @@ class RedirectToPreferredLocaleController extends Controller
      */
     public function __invoke(Request $request): RedirectResponse
     {
-        return redirect()->route('site.home', [
-            'locale' => $request->getPreferredLanguage(config('site.locales')),
-        ]);
+        $locale = $request->getPreferredLanguage(config('site.locales'));
+
+        return redirect()->route("{$locale}.home");
     }
 }

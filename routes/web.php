@@ -6,13 +6,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', RedirectToPreferredLocaleController::class)->name('home');
 
-Route::prefix('{locale}')
-    ->whereIn('locale', config('site.locales'))
-    ->middleware(SetLocale::class)
-    ->name('site.')
-    ->group(function () {
-        Route::view('/', 'home')->name('home');
-    });
+foreach (config('site.locales') as $locale) {
+    Route::prefix($locale)
+        ->middleware(SetLocale::class.':'.$locale)
+        ->name("{$locale}.")
+        ->group(function () use ($locale) {
+            Route::view('/', 'home')->name('home');
+            Route::view(trans('routes.story', locale: $locale), 'story')->name('story');
+        });
+}
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

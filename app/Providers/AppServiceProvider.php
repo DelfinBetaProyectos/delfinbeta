@@ -25,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureLocalizedRoutes();
+    }
+
+    /**
+     * Register `URL::localizedRoute()` to build public URLs for the current (or a given) locale.
+     *
+     * Public routes are named per locale (`es.story`, `en.story`) because their slugs are translated.
+     */
+    protected function configureLocalizedRoutes(): void
+    {
+        URL::macro('localizedRoute', function (string $name, array $parameters = [], ?string $locale = null): string {
+            return route(($locale ?? app()->getLocale()).'.'.$name, $parameters);
+        });
     }
 
     /**
@@ -33,8 +46,6 @@ class AppServiceProvider extends ServiceProvider
     protected function configureDefaults(): void
     {
         Date::use(CarbonImmutable::class);
-
-        URL::defaults(['locale' => config('app.locale')]);
 
         DB::prohibitDestructiveCommands(
             app()->isProduction(),

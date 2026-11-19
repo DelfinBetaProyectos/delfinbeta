@@ -3,7 +3,7 @@
 it('redirects the root to the home page in the browser language', function (string $acceptLanguage, string $expectedLocale) {
     $response = $this->get('/', ['Accept-Language' => $acceptLanguage]);
 
-    $response->assertRedirect(route('site.home', ['locale' => $expectedLocale]));
+    $response->assertRedirect(route("{$expectedLocale}.home"));
 })->with([
     'english browser' => ['en-US,en;q=0.9', 'en'],
     'spanish browser' => ['es-VE,es;q=0.9', 'es'],

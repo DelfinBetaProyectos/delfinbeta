@@ -3,21 +3,29 @@
 ])
 
 @php
-    $links = collect(__('nav.sections'))
-        ->mapWithKeys(fn (array $section): array => [$section['label'] => route('site.home').'#'.$section['anchor']]);
-    $contactUrl = route('site.home').'#'.__('nav.sections.contact.anchor');
+    $homeUrl = URL::localizedRoute('home');
+    $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
+        'label' => $section['label'],
+        'href' => $key === 'story' ? URL::localizedRoute('story') : $homeUrl.'#'.$section['anchor'],
+        'current' => $key === 'story' && request()->routeIs('*.story'),
+    ]);
+    $contactUrl = $homeUrl.'#'.__('nav.sections.contact.anchor');
 @endphp
 
 <header {{ $attributes->class('sticky top-0 z-40 border-b border-line-subtle bg-navy') }}>
     <nav class="mx-auto flex max-w-site items-center justify-between gap-4 px-4 py-[18px] sm:px-6" aria-label="{{ __('nav.label') }}">
-        <a href="{{ route('site.home') }}" class="font-display text-[22px] font-bold tracking-[-0.01em] text-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
+        <a href="{{ $homeUrl }}" class="font-display text-[22px] font-bold tracking-[-0.01em] text-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
             delfinbeta<span class="text-ice">.tech</span>
         </a>
 
         <ul class="hidden items-center gap-7 text-[15px] font-medium lg:flex">
-            @foreach ($links as $label => $href)
+            @foreach ($links as $link)
                 <li>
-                    <a href="{{ $href }}" class="text-mist transition-colors hover:text-ice focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">{{ $label }}</a>
+                    <a href="{{ $link['href'] }}" @if ($link['current']) aria-current="page" @endif @class([
+                        'transition-colors hover:text-ice focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice',
+                        'text-ice' => $link['current'],
+                        'text-mist' => ! $link['current'],
+                    ])>{{ $link['label'] }}</a>
                 </li>
             @endforeach
         </ul>
@@ -51,9 +59,13 @@
                 </summary>
 
                 <ul class="absolute right-0 mt-2 flex w-60 flex-col rounded-card border border-line-dark bg-navy p-2 shadow-xl">
-                    @foreach ($links as $label => $href)
+                    @foreach ($links as $link)
                         <li>
-                            <a href="{{ $href }}" class="block rounded-btn px-4 py-3 font-medium text-mist hover:bg-deep">{{ $label }}</a>
+                            <a href="{{ $link['href'] }}" @if ($link['current']) aria-current="page" @endif @class([
+                                'block rounded-btn px-4 py-3 font-medium hover:bg-deep',
+                                'text-ice' => $link['current'],
+                                'text-mist' => ! $link['current'],
+                            ])>{{ $link['label'] }}</a>
                         </li>
                     @endforeach
                     <li class="sm:hidden">
