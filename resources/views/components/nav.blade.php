@@ -6,10 +6,15 @@
     $homeUrl = URL::localizedRoute('home');
     $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
         'label' => $section['label'],
-        'href' => $key === 'story' ? URL::localizedRoute('story') : $homeUrl.'#'.$section['anchor'],
+        'href' => match ($key) {
+            'story' => URL::localizedRoute('story'),
+            'content' => URL::localizedRoute('blog.index'),
+            default => $homeUrl.'#'.$section['anchor'],
+        },
         'current' => match ($key) {
             'story' => request()->routeIs('*.story'),
             'projects' => request()->routeIs('*.projects.show'),
+            'content' => request()->routeIs('*.blog.*'),
             default => false,
         },
     ]);

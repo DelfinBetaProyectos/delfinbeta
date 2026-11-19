@@ -7,7 +7,7 @@
                 \Illuminate\Support\Str::after($currentRoute->getName(), '.'),
                 \Illuminate\Support\Arr::only($currentRoute->parameters(), $currentRoute->parameterNames()),
                 $locale,
-            ),
+            ).(request()->getQueryString() ? '?'.request()->getQueryString() : ''),
         ])
         : collect();
 @endphp

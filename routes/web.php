@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RedirectToPreferredLocaleController;
 use App\Http\Middleware\SetLocale;
@@ -14,6 +15,7 @@ foreach (config('site.locales') as $locale) {
         ->group(function () use ($locale) {
             Route::view('/', 'home')->name('home');
             Route::view(trans('routes.story', locale: $locale), 'story')->name('story');
+            Route::get(trans('routes.blog', locale: $locale), [BlogController::class, 'index'])->name('blog.index');
             Route::get(trans('routes.projects', locale: $locale).'/{project}', [ProjectController::class, 'show'])->name('projects.show');
         });
 }

@@ -29,7 +29,7 @@ it('returns 404 for an unsupported locale prefix', function () {
 
 it('hides the writing section and renumbers the next ones when there are fewer than three articles', function () {
     app('translator')->addLines(['posts.items' => [
-        ['pillar' => 'Cloud', 'date' => '2026-11-10', 'title' => 'Único artículo', 'summary' => 'Resumen.', 'href' => '#'],
+        'unico' => ['pillar' => 'tech', 'date' => '2026-11-10', 'title' => 'Único artículo', 'summary' => 'Resumen.'],
     ]], 'es');
 
     $response = $this->get('/es');

@@ -5,6 +5,7 @@
 */
 
 return [
+    'blog' => 'blog',
     'projects' => 'proyectos',
     'story' => 'mi-historia',
 ];

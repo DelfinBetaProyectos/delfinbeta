@@ -3,8 +3,9 @@
         $anchors = collect(__('nav.sections'))->map(fn (array $section): string => $section['anchor']);
         $projects = __('projects.items');
         $talks = __('talks.items');
-        $posts = __('posts.items');
-        $showContent = count($posts) >= 3;
+        $posts = collect(__('posts.items'))->take(3);
+        $pillars = __('blog.pillars');
+        $showContent = $posts->count() >= 3;
         $eyebrows = collect(['story', 'projects', 'community', ...($showContent ? ['content'] : []), 'araguaneycode', 'contact'])
             ->values()
             ->mapWithKeys(fn (string $section, int $index): array => [
@@ -137,14 +138,14 @@
             <div class="mx-auto flex max-w-site flex-col gap-10 px-4 py-24 sm:px-6">
                 <div class="flex flex-wrap items-end justify-between gap-4">
                     <x-section-heading on="light" :eyebrow="$eyebrows['content']" :title="__('home.content.title')" />
-                    <a href="#" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
+                    <a href="{{ URL::localizedRoute('blog.index') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
                         {{ __('home.content.view_all') }} <span aria-hidden="true">→</span>
                     </a>
                 </div>
 
                 <div class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
                     @foreach ($posts as $post)
-                        <x-post-card :pillar="$post['pillar']" :date="$post['date']" :title="$post['title']" :summary="$post['summary']" :href="$post['href']" />
+                        <x-post-card :pillar="$pillars[$post['pillar']]['label']" :date="$post['date']" :title="$post['title']" :summary="$post['summary']" href="#" />
                     @endforeach
                 </div>
             </div>

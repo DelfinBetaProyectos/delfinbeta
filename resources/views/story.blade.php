@@ -45,7 +45,7 @@
 
             <p class="text-muted">{{ __('story.mama_developer.body') }}</p>
 
-            <a href="#" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
+            <a href="{{ URL::localizedRoute('blog.index').'?pillar=mama' }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
                 {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
             </a>
         </div>
