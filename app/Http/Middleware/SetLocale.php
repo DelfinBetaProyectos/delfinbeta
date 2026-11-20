@@ -10,27 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 class SetLocale
 {
     /**
-     * Apply the request locale.
+     * Apply the visitor's language to every page.
      *
-     * Public pages pass their route-group locale (/es, /en), which is also remembered in the session.
-     * Unprefixed pages (auth, dashboard, settings) use that remembered locale, then the browser's
-     * preferred language, falling back to the first supported locale.
+     * Uses the signed-in user's saved language, then the language picked on the site (remembered in
+     * the session), then the browser's preferred language, falling back to the first supported locale.
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next, ?string $locale = null): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $supportedLocales = config('site.locales');
+        $userLocale = $request->user()?->locale;
+        $rememberedLocale = $request->session()->get('locale');
 
-        if ($locale !== null) {
-            $request->session()->put('locale', $locale);
-        } else {
-            $rememberedLocale = $request->session()->get('locale');
-
-            $locale = in_array($rememberedLocale, $supportedLocales, true)
-                ? $rememberedLocale
-                : $request->getPreferredLanguage($supportedLocales);
-        }
+        $locale = match (true) {
+            in_array($userLocale, $supportedLocales, true) => $userLocale,
+            in_array($rememberedLocale, $supportedLocales, true) => $rememberedLocale,
+            default => $request->getPreferredLanguage($supportedLocales),
+        };
 
         App::setLocale($locale);
 

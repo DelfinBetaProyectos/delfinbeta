@@ -1,6 +1,6 @@
 <x-layouts::site :title="__('blog.meta_title')">
     @php
-        $blogUrl = URL::localizedRoute('blog.index');
+        $blogUrl = route('blog.index');
         $mediumLink = '<a href="'.e(config('site.social.Medium')).'" rel="me noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">Medium</a>';
         $filters = ['' => __('blog.all')] + collect($pillars)->map(fn (array $pillar): string => $pillar['filter'])->all();
     @endphp

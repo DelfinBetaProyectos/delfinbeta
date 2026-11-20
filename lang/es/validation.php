@@ -180,6 +180,9 @@ return [
 
     'attributes' => [
         'name' => 'nombre',
+        'firstname' => 'nombre',
+        'lastname' => 'apellido',
+        'locale' => 'idioma',
         'email' => 'correo electrónico',
         'password' => 'contraseña',
         'password_confirmation' => 'confirmación de contraseña',

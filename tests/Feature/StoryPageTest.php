@@ -1,26 +1,25 @@
 <?php
 
-it('renders the story page at its translated slug', function (string $url, string $locale, string $heading, string $alternateUrl) {
-    $response = $this->get($url);
+it('renders the story page in the visitor language', function (string $locale, string $heading) {
+    $response = $this->withSession(['locale' => $locale])->get('/mi-historia');
 
     $response->assertOk()
         ->assertSee("<html lang=\"{$locale}\"", false)
-        ->assertSeeText($heading)
-        ->assertSee('href="'.url($alternateUrl).'"', false);
+        ->assertSeeText($heading);
 })->with([
-    'spanish' => ['/es/mi-historia', 'es', 'Cada etapa dejó algo que hoy uso', '/en/my-story'],
-    'english' => ['/en/my-story', 'en', 'Every stage left something I still use', '/es/mi-historia'],
+    'spanish' => ['es', 'Cada etapa dejó algo que hoy uso'],
+    'english' => ['en', 'Every stage left something I still use'],
 ]);
 
-it('returns 404 when a slug is used with the other locale prefix', function (string $url) {
+it('no longer serves the locale-prefixed urls', function (string $url) {
     $this->get($url)->assertNotFound();
 })->with([
-    '/es/my-story',
-    '/en/mi-historia',
+    '/es/mi-historia',
+    '/en/my-story',
 ]);
 
 it('marks the story link as the current page in the navigation', function () {
-    $response = $this->get('/es/mi-historia');
+    $response = $this->get('/mi-historia');
 
-    $response->assertSee('href="'.url('/es/mi-historia').'" aria-current="page"', false);
+    expect($response->getContent())->toMatch('#href="'.preg_quote(url('/mi-historia'), '#').'"\s+aria-current="page"#');
 });

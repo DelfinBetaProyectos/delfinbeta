@@ -2,7 +2,7 @@
     @php
         $case = $project['case'];
         $sections = __('project.sections');
-        $projectsUrl = URL::localizedRoute('home').'#'.__('nav.sections.projects.anchor');
+        $projectsUrl = route('home').'#'.__('nav.sections.projects.anchor');
         $meta = array_filter([
             'role' => $case['role'],
             'period' => $case['period'],
@@ -113,13 +113,13 @@
     <nav aria-label="{{ __('project.more_projects') }}" class="mx-auto flex max-w-site flex-wrap gap-6 px-4 py-18 sm:px-6">
         <x-pager-link
             direction="previous"
-            :href="URL::localizedRoute('projects.show', ['project' => $previous['slug']])"
+            :href="route('projects.show', ['project' => $previous['slug']])"
             :label="__('project.previous')"
             :title="$previous['title']"
         />
         <x-pager-link
             direction="next"
-            :href="URL::localizedRoute('projects.show', ['project' => $next['slug']])"
+            :href="route('projects.show', ['project' => $next['slug']])"
             :label="__('project.next')"
             :title="$next['title']"
         />

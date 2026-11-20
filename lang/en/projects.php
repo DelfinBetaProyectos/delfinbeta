@@ -2,7 +2,7 @@
 
 /*
 | Static content: will be replaced by the translatable Project model.
-| Keyed by slug (/en/projects/{slug}). Each item mirrors the future model
+| Keyed by slug (/proyectos/{slug}). Each item mirrors the future model
 | fields: card (label, title, summary, capture, code) and case study (case).
 */
 

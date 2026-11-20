@@ -2,7 +2,7 @@
 
 /*
 | Contenido estático: se reemplazará por el modelo Project con traducciones.
-| Indexado por slug (/es/proyectos/{slug}). Cada item tiene la forma de los
+| Indexado por slug (/proyectos/{slug}). Cada item tiene la forma de los
 | campos futuros del modelo: tarjeta (label, title, summary, capture, code)
 | y caso (case).
 */

@@ -1,20 +1,16 @@
-@props([
-    'localeUrls' => [],
-])
-
 @php
-    $homeUrl = URL::localizedRoute('home');
+    $homeUrl = route('home');
     $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
         'label' => $section['label'],
         'href' => match ($key) {
-            'story' => URL::localizedRoute('story'),
-            'content' => URL::localizedRoute('blog.index'),
+            'story' => route('story'),
+            'content' => route('blog.index'),
             default => $homeUrl.'#'.$section['anchor'],
         },
         'current' => match ($key) {
-            'story' => request()->routeIs('*.story'),
-            'projects' => request()->routeIs('*.projects.show'),
-            'content' => request()->routeIs('*.blog.*'),
+            'story' => request()->routeIs('story'),
+            'projects' => request()->routeIs('projects.show'),
+            'content' => request()->routeIs('blog.*'),
             default => false,
         },
     ]);
@@ -41,17 +37,16 @@
         </ul>
 
         <div class="flex items-center gap-3">
-            @if (count($localeUrls) > 1)
-                <div role="group" aria-label="{{ __('nav.language') }}" class="flex overflow-hidden rounded-btn border border-line-strong font-mono text-[13px] font-medium">
-                    @foreach ($localeUrls as $locale => $url)
-                        @if ($locale === app()->getLocale())
-                            <a href="{{ $url }}" aria-current="page" lang="{{ $locale }}" class="bg-ice px-3 py-2.5 text-navy uppercase">{{ $locale }}</a>
-                        @else
-                            <a href="{{ $url }}" hreflang="{{ $locale }}" lang="{{ $locale }}" class="px-3 py-2.5 text-mist uppercase transition-colors hover:bg-deep">{{ $locale }}</a>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
+            <form method="POST" action="{{ route('locale.update') }}" role="group" aria-label="{{ __('nav.language') }}" class="flex overflow-hidden rounded-btn border border-line-strong font-mono text-[13px] font-medium">
+                @csrf
+                @foreach (config('site.locales') as $locale)
+                    @if ($locale === app()->getLocale())
+                        <span aria-current="true" lang="{{ $locale }}" class="bg-ice px-3 py-2.5 text-navy uppercase">{{ $locale }}</span>
+                    @else
+                        <button type="submit" name="locale" value="{{ $locale }}" lang="{{ $locale }}" aria-label="{{ config("site.locale_names.{$locale}") }}" class="cursor-pointer px-3 py-2.5 text-mist uppercase transition-colors hover:bg-deep">{{ $locale }}</button>
+                    @endif
+                @endforeach
+            </form>
 
             <a href="{{ $contactUrl }}" class="hidden min-h-11 items-center rounded-btn border border-ice px-[18px] text-[15px] font-medium text-ice transition-colors hover:bg-ice/10 hover:text-mist sm:inline-flex">
                 {{ __('nav.download_cv') }}

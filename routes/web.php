@@ -2,23 +2,15 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RedirectToPreferredLocaleController;
-use App\Http\Middleware\SetLocale;
+use App\Http\Controllers\UpdateLocaleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', RedirectToPreferredLocaleController::class)->name('home');
+Route::view('/', 'home')->name('home');
+Route::view('mi-historia', 'story')->name('story');
+Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('proyectos/{project}', [ProjectController::class, 'show'])->name('projects.show');
 
-foreach (config('site.locales') as $locale) {
-    Route::prefix($locale)
-        ->middleware(SetLocale::class.':'.$locale)
-        ->name("{$locale}.")
-        ->group(function () use ($locale) {
-            Route::view('/', 'home')->name('home');
-            Route::view(trans('routes.story', locale: $locale), 'story')->name('story');
-            Route::get(trans('routes.blog', locale: $locale), [BlogController::class, 'index'])->name('blog.index');
-            Route::get(trans('routes.projects', locale: $locale).'/{project}', [ProjectController::class, 'show'])->name('projects.show');
-        });
-}
+Route::post('idioma', UpdateLocaleController::class)->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

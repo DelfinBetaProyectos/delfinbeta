@@ -76,7 +76,7 @@
                     <p class="text-ink-strong">{{ $paragraph }}</p>
                 @endforeach
 
-                <a href="{{ URL::localizedRoute('story') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
+                <a href="{{ route('story') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
                     {{ __('home.story.read_more') }} <span aria-hidden="true">→</span>
                 </a>
             </div>
@@ -98,7 +98,7 @@
 
         <div class="grid grid-cols-[repeat(auto-fit,minmax(min(20rem,100%),1fr))] gap-6">
             @foreach ($projects as $projectSlug => $project)
-                <x-project-card :label="$project['label']" :title="$project['title']" :summary="$project['summary']" :capture="$project['capture']" :href="URL::localizedRoute('projects.show', ['project' => $projectSlug])">
+                <x-project-card :label="$project['label']" :title="$project['title']" :summary="$project['summary']" :capture="$project['capture']" :href="route('projects.show', ['project' => $projectSlug])">
                     @if ($project['code'])
                         <x-slot:media>
                             <pre class="font-mono text-[13px] leading-[1.7] text-mist">{{ $project['code'] }}</pre>
@@ -138,7 +138,7 @@
             <div class="mx-auto flex max-w-site flex-col gap-10 px-4 py-24 sm:px-6">
                 <div class="flex flex-wrap items-end justify-between gap-4">
                     <x-section-heading on="light" :eyebrow="$eyebrows['content']" :title="__('home.content.title')" />
-                    <a href="{{ URL::localizedRoute('blog.index') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
+                    <a href="{{ route('blog.index') }}" class="font-medium text-deep underline underline-offset-4 hover:no-underline">
                         {{ __('home.content.view_all') }} <span aria-hidden="true">→</span>
                     </a>
                 </div>

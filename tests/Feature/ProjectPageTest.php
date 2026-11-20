@@ -1,19 +1,22 @@
 <?php
 
-it('renders a project case study at its translated url', function (string $url, string $locale, string $heading, string $alternateUrl) {
-    $response = $this->get($url);
+beforeEach(function () {
+    $this->withSession(['locale' => 'es']);
+});
+
+it('renders a project case study in the visitor language', function (string $locale, string $heading) {
+    $response = $this->withSession(['locale' => $locale])->get('/proyectos/felaban');
 
     $response->assertOk()
         ->assertSee("<html lang=\"{$locale}\"", false)
-        ->assertSeeText($heading)
-        ->assertSee('href="'.url($alternateUrl).'"', false);
+        ->assertSeeText($heading);
 })->with([
-    'spanish' => ['/es/proyectos/felaban', 'es', 'Una plataforma de registro para todos los congresos de FELABAN', '/en/projects/felaban'],
-    'english' => ['/en/projects/felaban', 'en', 'One registration platform for every FELABAN conference', '/es/proyectos/felaban'],
+    'spanish' => ['es', 'Una plataforma de registro para todos los congresos de FELABAN'],
+    'english' => ['en', 'One registration platform for every FELABAN conference'],
 ]);
 
 it('returns 404 for an unknown project', function () {
-    $this->get('/es/proyectos/no-existe')->assertNotFound();
+    $this->get('/proyectos/no-existe')->assertNotFound();
 });
 
 it('links to the previous and next projects, wrapping around the list', function (string $url, string $previousUrl, string $nextUrl) {
@@ -22,14 +25,14 @@ it('links to the previous and next projects, wrapping around the list', function
     $response->assertSee('href="'.url($previousUrl).'" rel="prev"', false)
         ->assertSee('href="'.url($nextUrl).'" rel="next"', false);
 })->with([
-    'first project' => ['/es/proyectos/felaban', '/es/proyectos/ci-cd', '/es/proyectos/kopaplay'],
-    'last project' => ['/es/proyectos/ci-cd', '/es/proyectos/squaad', '/es/proyectos/felaban'],
+    'first project' => ['/proyectos/felaban', '/proyectos/ci-cd', '/proyectos/kopaplay'],
+    'last project' => ['/proyectos/ci-cd', '/proyectos/squaad', '/proyectos/felaban'],
 ]);
 
 it('hides the live link when the project has no public url', function () {
-    $this->get('/es/proyectos/kopaplay')->assertOk()->assertDontSeeText('En vivo');
+    $this->get('/proyectos/kopaplay')->assertOk()->assertDontSeeText('En vivo');
 });
 
 it('links each home project card to its case study', function () {
-    $this->get('/es')->assertSee('href="'.url('/es/proyectos/felaban').'"', false);
+    $this->get('/')->assertSee('href="'.url('/proyectos/felaban').'"', false);
 });

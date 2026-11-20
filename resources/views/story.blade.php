@@ -1,6 +1,6 @@
 <x-layouts::site :title="__('story.meta_title')">
     @php
-        $homeUrl = URL::localizedRoute('home');
+        $homeUrl = route('home');
     @endphp
 
     {{-- Intro --}}
@@ -45,7 +45,7 @@
 
             <p class="text-muted">{{ __('story.mama_developer.body') }}</p>
 
-            <a href="{{ URL::localizedRoute('blog.index').'?pillar=mama' }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
+            <a href="{{ route('blog.index').'?pillar=mama' }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
                 {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
             </a>
         </div>

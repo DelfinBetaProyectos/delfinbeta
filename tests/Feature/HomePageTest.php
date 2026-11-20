@@ -1,38 +1,27 @@
 <?php
 
-it('redirects the root to the home page in the browser language', function (string $acceptLanguage, string $expectedLocale) {
+it('renders the home page at the root in the browser language', function (string $acceptLanguage, string $locale, string $heading) {
     $response = $this->get('/', ['Accept-Language' => $acceptLanguage]);
-
-    $response->assertRedirect(route("{$expectedLocale}.home"));
-})->with([
-    'english browser' => ['en-US,en;q=0.9', 'en'],
-    'spanish browser' => ['es-VE,es;q=0.9', 'es'],
-    'unsupported language' => ['fr-FR,fr;q=0.9', 'es'],
-    'empty language header' => ['', 'es'],
-]);
-
-it('renders the home page in the requested locale', function (string $locale, string $heading, string $alternateUrl) {
-    $response = $this->get("/{$locale}");
 
     $response->assertOk()
         ->assertSee("<html lang=\"{$locale}\"", false)
-        ->assertSeeText($heading)
-        ->assertSee('href="'.url($alternateUrl).'"', false);
+        ->assertSeeText($heading);
 })->with([
-    'spanish' => ['es', 'Plataformas reales, con nombre y resultado', '/en'],
-    'english' => ['en', 'Real platforms, with names and results', '/es'],
+    'spanish browser' => ['es-VE,es;q=0.9', 'es', 'Plataformas reales, con nombre y resultado'],
+    'english browser' => ['en-US,en;q=0.9', 'en', 'Real platforms, with names and results'],
+    'unsupported language' => ['fr-FR,fr;q=0.9', 'es', 'Plataformas reales, con nombre y resultado'],
 ]);
 
-it('returns 404 for an unsupported locale prefix', function () {
-    $this->get('/fr')->assertNotFound();
-});
+it('no longer serves the locale-prefixed home pages', function (string $url) {
+    $this->get($url)->assertNotFound();
+})->with(['/es', '/en']);
 
 it('hides the writing section and renumbers the next ones when there are fewer than three articles', function () {
     app('translator')->addLines(['posts.items' => [
         'unico' => ['pillar' => 'tech', 'date' => '2026-11-10', 'title' => 'Único artículo', 'summary' => 'Resumen.'],
     ]], 'es');
 
-    $response = $this->get('/es');
+    $response = $this->withSession(['locale' => 'es'])->get('/');
 
     $response->assertOk()
         ->assertDontSeeText('Últimos artículos')
@@ -41,16 +30,16 @@ it('hides the writing section and renumbers the next ones when there are fewer t
 });
 
 it('shows the writing section with three or more articles', function () {
-    $this->get('/es')->assertOk()
+    $this->withSession(['locale' => 'es'])->get('/')->assertOk()
         ->assertSeeTextInOrder(['01 · Mi historia', '02 · Proyectos seleccionados', '03 · Comunidad y charlas', '04 · Contenido', '05 · ¿Tienes un proyecto?', '06 · Contacto']);
 });
 
 it('shares the page with open graph tags and the brand image', function () {
-    $response = $this->get('/es');
+    $response = $this->withSession(['locale' => 'es'])->get('/');
 
     $response->assertOk()
         ->assertSee('<meta property="og:title" content="'.e(__('home.meta_title', [], 'es').' - '.config('app.name')).'" />', false)
-        ->assertSee('<meta property="og:url" content="'.url('/es').'" />', false)
+        ->assertSee('<meta property="og:url" content="'.url('/').'" />', false)
         ->assertSee('<meta property="og:image" content="'.asset('images/brand/DelfinBeta_OG.png').'" />', false)
         ->assertSee('<meta property="og:locale" content="es_VE" />', false);
 });

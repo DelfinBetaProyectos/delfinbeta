@@ -7,12 +7,22 @@ return [
     | Locales
     |--------------------------------------------------------------------------
     |
-    | Every public page lives under an explicit prefix (/es, /en). The first
-    | locale is the fallback when the browser language is not supported.
+    | Public pages have a single, unprefixed URL. The language comes from the
+    | signed-in user, then the session, then the browser. The first locale is
+    | the fallback when the browser language is not supported.
     |
     */
 
     'locales' => ['es', 'en'],
+
+    /*
+    | Each language's name written in that language, used by language pickers.
+    */
+
+    'locale_names' => [
+        'es' => 'Español',
+        'en' => 'English',
+    ],
 
     /*
     |--------------------------------------------------------------------------
