@@ -58,7 +58,7 @@
 
             <div class="flex flex-wrap gap-3.5">
                 <x-button :href="$homeUrl.'#'.__('nav.sections.projects.anchor')" class="focus-visible:ring-offset-deep">{{ __('story.cta.projects') }}</x-button>
-                <x-button variant="secondary" :href="$homeUrl.'#'.__('nav.sections.contact.anchor')" class="focus-visible:ring-offset-deep">{{ __('story.cta.cv') }}</x-button>
+                <x-resume-dropdown :label="__('story.cta.cv')" align="left" trigger-class="min-h-12 px-6" />
             </div>
         </div>
     </section>

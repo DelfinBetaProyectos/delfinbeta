@@ -14,7 +14,6 @@
             default => false,
         },
     ]);
-    $contactUrl = $homeUrl.'#'.__('nav.sections.contact.anchor');
 @endphp
 
 <header {{ $attributes->class('sticky top-0 z-40 border-b border-line-subtle bg-navy') }}>
@@ -48,11 +47,9 @@
                 @endforeach
             </form>
 
-            <a href="{{ $contactUrl }}" class="hidden min-h-11 items-center rounded-btn border border-ice px-[18px] text-[15px] font-medium text-ice transition-colors hover:bg-ice/10 hover:text-mist sm:inline-flex">
-                {{ __('nav.download_cv') }}
-            </a>
+            <x-resume-dropdown class="hidden sm:block" trigger-class="min-h-11 px-[18px] text-[15px]" />
 
-            <details class="group relative lg:hidden">
+            <details data-dropdown class="group relative lg:hidden">
                 <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-btn border border-line-strong text-mist [&::-webkit-details-marker]:hidden">
                     <span class="sr-only">{{ __('nav.open_menu') }}</span>
                     <svg class="size-5 group-open:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -73,8 +70,15 @@
                             ])>{{ $link['label'] }}</a>
                         </li>
                     @endforeach
-                    <li class="sm:hidden">
-                        <a href="{{ $contactUrl }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ __('nav.download_cv') }}</a>
+                    <li class="mt-1 border-t border-line-dark pt-1 sm:hidden">
+                        <p class="px-4 pt-2 pb-1 font-mono text-xs text-mist/70 uppercase">{{ __('nav.download_cv') }}</p>
+                        <ul>
+                            @foreach (config('site.locales') as $resumeLocale)
+                                <li>
+                                    <a href="{{ Storage::disk('public')->url(config("site.resumes.{$resumeLocale}")) }}" download hreflang="{{ $resumeLocale }}" lang="{{ $resumeLocale }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ config("site.locale_names.{$resumeLocale}") }} (PDF)</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
                 </ul>
             </details>

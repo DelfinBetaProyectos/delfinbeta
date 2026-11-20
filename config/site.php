@@ -70,4 +70,18 @@ return [
 
     'email' => env('SITE_EMAIL', 'hola@delfinbeta.tech'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Resume
+    |--------------------------------------------------------------------------
+    |
+    | One PDF per locale, stored on the "public" disk.
+    |
+    */
+
+    'resumes' => [
+        'es' => 'resume/Dayan_Betancourt_ATS_ES.pdf',
+        'en' => 'resume/Dayan_Betancourt_ATS_EN.pdf',
+    ],
+
 ];
