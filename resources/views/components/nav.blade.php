@@ -23,8 +23,9 @@
 
 <header {{ $attributes->class('sticky top-0 z-40 border-b border-line-subtle bg-navy') }}>
     <nav class="mx-auto flex max-w-site items-center justify-between gap-4 px-4 py-[18px] sm:px-6" aria-label="{{ __('nav.label') }}">
-        <a href="{{ $homeUrl }}" class="font-display text-[22px] font-bold tracking-[-0.01em] text-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
-            delfinbeta<span class="text-ice">.tech</span>
+        <a href="{{ $homeUrl }}" class="-my-1.5 flex shrink-0 items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
+            <img src="{{ asset('images/brand/DelfinBeta_Isotipo_White.png') }}" alt="" width="800" height="450" class="hidden h-10 w-auto sm:block">
+            <img src="{{ asset('images/brand/DelfinBeta_Logotipo_White.png') }}" alt="{{ config('app.name') }}" width="1500" height="400" class="h-10 w-auto">
         </a>
 
         <ul class="hidden items-center gap-7 text-[15px] font-medium lg:flex">

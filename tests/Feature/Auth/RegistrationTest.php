@@ -9,7 +9,9 @@ beforeEach(function () {
 test('registration screen can be rendered', function () {
     $response = $this->get(route('register'));
 
-    $response->assertOk();
+    $response->assertOk()
+        ->assertSeeText('Already have an account?')
+        ->assertSee('href="'.route('login').'"', false);
 });
 
 test('new users can register', function () {

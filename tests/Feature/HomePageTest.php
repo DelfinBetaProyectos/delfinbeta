@@ -44,3 +44,13 @@ it('shows the writing section with three or more articles', function () {
     $this->get('/es')->assertOk()
         ->assertSeeTextInOrder(['01 · Mi historia', '02 · Proyectos seleccionados', '03 · Comunidad y charlas', '04 · Contenido', '05 · ¿Tienes un proyecto?', '06 · Contacto']);
 });
+
+it('shares the page with open graph tags and the brand image', function () {
+    $response = $this->get('/es');
+
+    $response->assertOk()
+        ->assertSee('<meta property="og:title" content="'.e(__('home.meta_title', [], 'es').' - '.config('app.name')).'" />', false)
+        ->assertSee('<meta property="og:url" content="'.url('/es').'" />', false)
+        ->assertSee('<meta property="og:image" content="'.asset('images/brand/DelfinBeta_OG.png').'" />', false)
+        ->assertSee('<meta property="og:locale" content="es_VE" />', false);
+});
