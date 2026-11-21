@@ -5,14 +5,14 @@ beforeEach(function () {
 });
 
 it('renders a project case study in the visitor language', function (string $locale, string $heading) {
-    $response = $this->withSession(['locale' => $locale])->get('/proyectos/felaban');
+    $response = $this->withSession(['locale' => $locale])->get('/proyectos/registro-congresos');
 
     $response->assertOk()
         ->assertSee("<html lang=\"{$locale}\"", false)
         ->assertSeeText($heading);
 })->with([
-    'spanish' => ['es', 'Una plataforma de registro para todos los congresos de FELABAN'],
-    'english' => ['en', 'One registration platform for every FELABAN conference'],
+    'spanish' => ['es', 'Una plataforma de registro para todos los congresos de una federación bancaria'],
+    'english' => ['en', 'One registration platform for every conference of a banking federation'],
 ]);
 
 it('returns 404 for an unknown project', function () {
@@ -25,8 +25,8 @@ it('links to the previous and next projects, wrapping around the list', function
     $response->assertSee('href="'.url($previousUrl).'" rel="prev"', false)
         ->assertSee('href="'.url($nextUrl).'" rel="next"', false);
 })->with([
-    'first project' => ['/proyectos/felaban', '/proyectos/ci-cd', '/proyectos/kopaplay'],
-    'last project' => ['/proyectos/ci-cd', '/proyectos/squaad', '/proyectos/felaban'],
+    'first project' => ['/proyectos/registro-congresos', '/proyectos/squaad', '/proyectos/kopaplay'],
+    'last project' => ['/proyectos/squaad', '/proyectos/kopaplay', '/proyectos/registro-congresos'],
 ]);
 
 it('hides the live link when the project has no public url', function () {
@@ -34,5 +34,5 @@ it('hides the live link when the project has no public url', function () {
 });
 
 it('links each home project card to its case study', function () {
-    $this->get('/')->assertSee('href="'.url('/proyectos/felaban').'"', false);
+    $this->get('/')->assertSee('href="'.url('/proyectos/registro-congresos').'"', false);
 });

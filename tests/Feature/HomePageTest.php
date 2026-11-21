@@ -43,3 +43,11 @@ it('shares the page with open graph tags and the brand image', function () {
         ->assertSee('<meta property="og:image" content="'.asset('images/brand/DelfinBeta_OG.png').'" />', false)
         ->assertSee('<meta property="og:locale" content="es_VE" />', false);
 });
+
+it('shows the years of experience in the story heading', function () {
+    config(['site.career_started_at' => '2008-01-01']);
+    $this->travelTo('2026-11-20');
+
+    $this->withSession(['locale' => 'es'])->get('/')->assertOk()
+        ->assertSeeText('18 años construyendo software y fundando empresas');
+});

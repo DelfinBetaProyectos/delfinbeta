@@ -21,6 +21,6 @@ return [
         'pagos-recurrentes-saas' => ['pillar' => 'tech', 'date' => null, 'title' => 'Pagos recurrentes en un SaaS: lo que no te cuentan', 'summary' => '[Resumen de 2 líneas]'],
         'cofundar-una-agencia' => ['pillar' => 'business', 'date' => null, 'title' => 'Cofundar una agencia con socios', 'summary' => '[Resumen de 2 líneas]'],
         'aws-o-digitalocean' => ['pillar' => 'tech', 'date' => null, 'title' => 'AWS o DigitalOcean: cómo elijo para cada proyecto', 'summary' => '[Resumen de 2 líneas]'],
-        'startup-weekend-maracay' => ['pillar' => 'mama', 'date' => null, 'title' => 'Lo que aprendí organizando Startup Weekend Maracay', 'summary' => '[Resumen de 2 líneas]'],
+        'startup-weekend-maracay' => ['pillar' => 'mama', 'date' => null, 'title' => 'Lo que aprendí co-organizando Startup Weekend Maracay', 'summary' => '[Resumen de 2 líneas]'],
     ],
 ];

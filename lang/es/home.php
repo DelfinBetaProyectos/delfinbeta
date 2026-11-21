@@ -18,26 +18,26 @@ return [
         'label' => 'En cifras',
         'items' => [
             ['value' => '+:years', 'label' => 'años construyendo software, desde 2008'],
-            ['value' => '11', 'label' => 'años dirigiendo mi primera empresa, Tecno D 2.0'],
-            ['value' => '7–10', 'label' => 'congresos al año corren sobre la plataforma que creé para FELABAN'],
+            ['value' => '11', 'label' => 'años dirigiendo mi primera empresa tech; hoy, cofundadora de AraguaneyCode'],
+            ['value' => '7–10', 'label' => 'congresos al año y 3.000 registros corren sobre una plataforma que construí'],
             ['value' => '1.º', 'label' => 'capítulo de Hackers & Founders en Venezuela, que lideré 2017–2020'],
         ],
     ],
 
     'story' => [
         'eyebrow' => 'Mi historia',
-        'title' => 'De mi primera empresa a plataformas para EE. UU.',
+        'title' => ':years años construyendo software y fundando empresas',
         'body' => [
             'Diseño y construyo plataformas web y SaaS de punta a punta: arquitectura, modelo de datos, integraciones de pago y despliegue en AWS y DigitalOcean.',
-            'Fundé Tecno D 2.0 y la dirigí durante 11 años en Venezuela. Hoy soy cofundadora de AraguaneyCode. Soy mamá y lo cuento con #MamaDeveloper: una carrera técnica sólida y una familia presente no se excluyen.',
+            'Cofundé Tecno D 2.0 y la dirigí durante 11 años en Venezuela. Hoy soy cofundadora de AraguaneyCode. Soy mamá y lo cuento con #MamaDeveloper: una carrera técnica sólida y una familia presente no se excluyen.',
         ],
         'read_more' => 'Leer mi historia completa',
         'timeline' => [
-            ['period' => '2008', 'role' => 'Saintel Consultores'],
-            ['period' => '2010 – 2021', 'role' => 'Fundadora y directora de Tecno D 2.0'],
+            ['period' => '2008', 'role' => 'Consultora web en Saintel Consultores'],
+            ['period' => '2010 – 2021', 'role' => 'Cofundadora y Directora de Tecno D 2.0'],
             ['period' => '2017 – 2020', 'role' => 'Líder de H/F Maracay'],
-            ['period' => '2022 – 2023', 'role' => 'Desarrolladora principal en Kubilabs · FELABAN'],
-            ['period' => '2024 – 2026', 'role' => 'Arquitecta de soluciones · GlobalPay Networks'],
+            ['period' => '2022 – 2023', 'role' => 'Desarrolladora principal en Kubilabs'],
+            ['period' => '2024 – 2026', 'role' => 'Arquitecta de soluciones en GlobalPay Networks'],
             ['period' => 'Hoy', 'role' => 'Cofundadora de AraguaneyCode'],
         ],
     ],
@@ -51,9 +51,11 @@ return [
     'community' => [
         'eyebrow' => 'Comunidad y charlas',
         'title' => 'Lo que aprendo, lo comparto',
-        'body' => 'Entre 2017 y 2020 lideré el capítulo Maracay de Hackers & Founders, el primero en Venezuela. Co-organicé Startup Weekend Maracay en 2017, lo lideré en 2018 y gané el 1er lugar como participante.',
-        'photo' => '[FOTO] Charla en H/F Maracay o Startup Weekend',
-        'talks_title' => 'Charlas disponibles',
+        'body' => 'Entre 2017 y 2020 lideré el capítulo Maracay de Hackers & Founders, el primero en Venezuela. En 2016 gané el 1er lugar (en grupo) del Startup Weekend Maracay, lo co-organicé en 2017 y fui colaboradora en 2018.',
+        'photos' => [
+            'startup_weekend' => 'Dayan con su credencial de organizadora en Startup Weekend Maracay',
+            'hf_maracay' => 'Camisas del capítulo Hackers & Founders Maracay',
+        ],
         'cta' => 'Invítame a tu comunidad',
     ],
 
@@ -67,7 +69,6 @@ return [
         'eyebrow' => '¿Tienes un proyecto?',
         'title' => 'Lo construimos en AraguaneyCode',
         'body' => 'Con mis socios Oscar y Adriana hacemos software a medida, webs e IA para negocios en Venezuela y el exterior. Si necesitas construir algo, empieza por un diagnóstico con el equipo.',
-        'logo' => '[LOGO] AraguaneyCode horizontal',
         'cta' => 'Ir a araguaneycode.com',
     ],
 
@@ -84,9 +85,9 @@ return [
             'email' => 'Correo',
             'topic' => '¿De qué quieres hablar?',
             'topics' => [
-                'role' => 'Un rol remoto',
+                'project' => 'Un proyecto',
                 'talk' => 'Una charla o evento',
-                'project' => 'Un proyecto (lo atiende AraguaneyCode)',
+                'role' => 'Un rol remoto',
                 'other' => 'Otro tema',
             ],
             'message' => 'Mensaje',

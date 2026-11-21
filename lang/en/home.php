@@ -18,26 +18,26 @@ return [
         'label' => 'In numbers',
         'items' => [
             ['value' => '+:years', 'label' => 'years building software, since 2008'],
-            ['value' => '11', 'label' => 'years running my first company, Tecno D 2.0'],
-            ['value' => '7–10', 'label' => 'conferences a year run on the platform I built for FELABAN'],
+            ['value' => '11', 'label' => 'years running my first tech company; today, co-founder of AraguaneyCode'],
+            ['value' => '7–10', 'label' => 'conferences and 3,000 registrations a year run on a platform I built'],
             ['value' => '1st', 'label' => 'Hackers & Founders chapter in Venezuela, which I led 2017–2020'],
         ],
     ],
 
     'story' => [
         'eyebrow' => 'My story',
-        'title' => 'From my first company to platforms for the US',
+        'title' => ':years years building software and founding companies',
         'body' => [
             'I design and build web platforms and SaaS end to end: architecture, data modeling, payment integrations and deployment on AWS and DigitalOcean.',
-            'I founded Tecno D 2.0 and ran it for 11 years in Venezuela. Today I am a co-founder of AraguaneyCode. I am a mom and I share it with #MamaDeveloper: a solid technical career and a present family are not mutually exclusive.',
+            'I co-founded Tecno D 2.0 and ran it for 11 years in Venezuela. Today I am a co-founder of AraguaneyCode. I am a mom and I share it with #MamaDeveloper: a solid technical career and a present family are not mutually exclusive.',
         ],
         'read_more' => 'Read my full story',
         'timeline' => [
-            ['period' => '2008', 'role' => 'Saintel Consultores'],
-            ['period' => '2010 – 2021', 'role' => 'Founder and director of Tecno D 2.0'],
+            ['period' => '2008', 'role' => 'Web consultant at Saintel Consultores'],
+            ['period' => '2010 – 2021', 'role' => 'Co-founder and Director of Tecno D 2.0'],
             ['period' => '2017 – 2020', 'role' => 'H/F Maracay chapter lead'],
-            ['period' => '2022 – 2023', 'role' => 'Lead developer at Kubilabs · FELABAN'],
-            ['period' => '2024 – 2026', 'role' => 'Solutions architect · GlobalPay Networks'],
+            ['period' => '2022 – 2023', 'role' => 'Lead developer at Kubilabs'],
+            ['period' => '2024 – 2026', 'role' => 'Solutions architect at GlobalPay Networks'],
             ['period' => 'Today', 'role' => 'Co-founder of AraguaneyCode'],
         ],
     ],
@@ -51,9 +51,11 @@ return [
     'community' => [
         'eyebrow' => 'Community and talks',
         'title' => 'What I learn, I share',
-        'body' => 'From 2017 to 2020 I led the Maracay chapter of Hackers & Founders, the first one in Venezuela. I co-organized Startup Weekend Maracay in 2017, led it in 2018 and won 1st place as a participant.',
-        'photo' => '[PHOTO] Talk at H/F Maracay or Startup Weekend',
-        'talks_title' => 'Available talks',
+        'body' => 'From 2017 to 2020 I led the Maracay chapter of Hackers & Founders, the first one in Venezuela. In 2016 my team won 1st place at Startup Weekend Maracay; I co-organized it in 2017 and volunteered in 2018.',
+        'photos' => [
+            'startup_weekend' => 'Dayan wearing an organizer badge at Startup Weekend Maracay',
+            'hf_maracay' => 'Hackers & Founders Maracay chapter T-shirts',
+        ],
         'cta' => 'Invite me to your community',
     ],
 
@@ -67,7 +69,6 @@ return [
         'eyebrow' => 'Have a project?',
         'title' => 'We build it at AraguaneyCode',
         'body' => 'With my partners Oscar and Adriana we build custom software, websites and AI for businesses in Venezuela and abroad. If you need to build something, start with a diagnosis with the team.',
-        'logo' => '[LOGO] AraguaneyCode horizontal',
         'cta' => 'Go to araguaneycode.com',
     ],
 
@@ -84,9 +85,9 @@ return [
             'email' => 'Email',
             'topic' => 'What would you like to talk about?',
             'topics' => [
-                'role' => 'A remote role',
+                'project' => 'A project',
                 'talk' => 'A talk or event',
-                'project' => 'A project (handled by AraguaneyCode)',
+                'role' => 'A remote role',
                 'other' => 'Something else',
             ],
             'message' => 'Message',

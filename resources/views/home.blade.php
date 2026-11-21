@@ -2,7 +2,6 @@
     @php
         $anchors = collect(__('nav.sections'))->map(fn (array $section): string => $section['anchor']);
         $projects = __('projects.items');
-        $talks = __('talks.items');
         $posts = collect(__('posts.items'))->take(3);
         $pillars = __('blog.pillars');
         $showContent = $posts->count() >= 3;
@@ -70,7 +69,9 @@
     <section id="{{ $anchors['story'] }}" class="scroll-mt-20 bg-mist text-navy">
         <div class="mx-auto flex max-w-site flex-wrap gap-16 px-4 py-24 sm:px-6">
             <div class="flex min-w-0 flex-[999_1_30rem] flex-col gap-5">
-                <x-section-heading on="light" :eyebrow="$eyebrows['story']" :title="__('home.story.title')" />
+                <x-section-heading on="light" :eyebrow="$eyebrows['story']">
+                    <x-slot:title><x-years-of-experience :text="__('home.story.title')" /></x-slot:title>
+                </x-section-heading>
 
                 @foreach (__('home.story.body') as $paragraph)
                     <p class="text-ink-strong">{{ $paragraph }}</p>
@@ -115,19 +116,15 @@
             <div class="flex min-w-0 flex-[1_1_25rem] flex-col gap-5">
                 <x-section-heading :eyebrow="$eyebrows['community']" :title="__('home.community.title')" />
                 <p class="text-muted">{{ __('home.community.body') }}</p>
-                <x-photo-placeholder variant="dark" aspect="16/9" :label="__('home.community.photo')" />
-            </div>
-
-            <div class="flex min-w-0 flex-[1_1_27.5rem] flex-col gap-4">
-                <h3 class="font-display text-xl font-bold">{{ __('home.community.talks_title') }}</h3>
-
-                @foreach ($talks as $talk)
-                    <x-talk-card :meta="$talk['meta']" :title="$talk['title']" :summary="$talk['summary']" />
-                @endforeach
 
                 <div class="pt-2">
                     <x-button :href="'#'.$anchors['contact']" class="focus-visible:ring-offset-deep">{{ __('home.community.cta') }}</x-button>
                 </div>
+            </div>
+
+            <div class="grid min-w-0 flex-[1_1_27.5rem] grid-cols-[696fr_872fr] items-start gap-4 self-center">
+                <img src="{{ asset('images/StartupWeekend.jpg') }}" alt="{{ __('home.community.photos.startup_weekend') }}" width="696" height="873" loading="lazy" class="h-auto w-full rounded-card border border-line-dark">
+                <img src="{{ asset('images/HFMaracay.jpg') }}" alt="{{ __('home.community.photos.hf_maracay') }}" width="872" height="873" loading="lazy" class="h-auto w-full rounded-card border border-line-dark">
             </div>
         </div>
     </section>
@@ -155,9 +152,7 @@
     {{-- AraguaneyCode --}}
     <section aria-labelledby="araguaneycode-title" class="mx-auto max-w-site px-4 py-24 sm:px-6">
         <div class="flex flex-wrap items-center gap-12 rounded-3xl border border-line-dark bg-deep p-8 md:p-14">
-            <div role="img" aria-label="AraguaneyCode" class="flex h-[120px] w-[200px] flex-none items-center justify-center rounded-xl border border-dashed border-line-dashed bg-navy p-4 text-center font-mono text-xs text-muted">
-                {{ __('home.araguaneycode.logo') }}
-            </div>
+            <img src="{{ asset('images/AraguaneyCode.jpg') }}" alt="AraguaneyCode" width="160" height="160" loading="lazy" class="size-40 flex-none rounded-xl border border-line-dark">
 
             <div class="flex min-w-0 flex-[999_1_26rem] flex-col gap-3.5">
                 <p class="font-mono text-sm font-medium text-ice">{{ $eyebrows['araguaneycode'] }}</p>

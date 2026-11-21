@@ -50,7 +50,7 @@
                     <dd class="font-display text-3xl font-bold tracking-tight md:text-[2.75rem]">Proyectos seleccionados</dd>
 
                     <dt class="font-mono text-xs text-ink">H3 · Space Grotesk 700</dt>
-                    <dd class="font-display text-xl font-bold md:text-2xl">FELABAN · Registro a congresos</dd>
+                    <dd class="font-display text-xl font-bold md:text-2xl">Registro a congresos internacionales</dd>
 
                     <dt class="font-mono text-xs text-ink">Texto · Inter 400/500</dt>
                     <dd class="text-[17px]">Más de <x-years-of-experience /> años diseñando y construyendo plataformas en la nube de punta a punta, con IA en todo el ciclo de desarrollo.</dd>

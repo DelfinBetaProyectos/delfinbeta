@@ -21,6 +21,6 @@ return [
         'pagos-recurrentes-saas' => ['pillar' => 'tech', 'date' => null, 'title' => 'Recurring payments in a SaaS: what nobody tells you', 'summary' => '[2-line summary]'],
         'cofundar-una-agencia' => ['pillar' => 'business', 'date' => null, 'title' => 'Co-founding an agency with partners', 'summary' => '[2-line summary]'],
         'aws-o-digitalocean' => ['pillar' => 'tech', 'date' => null, 'title' => 'AWS or DigitalOcean: how I choose for each project', 'summary' => '[2-line summary]'],
-        'startup-weekend-maracay' => ['pillar' => 'mama', 'date' => null, 'title' => 'What I learned organizing Startup Weekend Maracay', 'summary' => '[2-line summary]'],
+        'startup-weekend-maracay' => ['pillar' => 'mama', 'date' => null, 'title' => 'What I learned co-organizing Startup Weekend Maracay', 'summary' => '[2-line summary]'],
     ],
 ];
