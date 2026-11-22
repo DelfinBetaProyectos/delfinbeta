@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
+
 it('renders the home page at the root in the browser language', function (string $acceptLanguage, string $locale, string $heading) {
     $response = $this->get('/', ['Accept-Language' => $acceptLanguage]);
 
@@ -50,4 +53,11 @@ it('shows the years of experience in the story heading', function () {
 
     $this->withSession(['locale' => 'es'])->get('/')->assertOk()
         ->assertSeeText('18 años construyendo software y fundando empresas');
+});
+
+it('shows the screenshot on each project card that has one', function () {
+    Project::factory()->create(['image' => 'projects/KOPAPLAY.jpg']);
+
+    $this->withSession(['locale' => 'es'])->get('/')->assertOk()
+        ->assertSee('src="'.Storage::disk('public')->url('projects/KOPAPLAY.jpg').'"', false);
 });

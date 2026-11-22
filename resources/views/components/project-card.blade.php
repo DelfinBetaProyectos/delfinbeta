@@ -2,17 +2,17 @@
     'title',
     'summary',
     'label' => null,
-    'capture' => null,
+    'image' => null,
     'href' => null,
     'linkText' => null,
 ])
 
 <article {{ $attributes->class('flex flex-col overflow-hidden rounded-card border border-line-subtle bg-deep') }}>
-    <div class="flex aspect-video items-center justify-center bg-deep-dark p-6">
-        @if (isset($media))
-            {{ $media }}
+    <div @class(['flex aspect-video items-center justify-center bg-deep-dark', 'p-6' => ! $image])>
+        @if ($image)
+            <img src="{{ Storage::disk('public')->url($image) }}" alt="{{ $title }}" loading="lazy" class="size-full object-cover object-top">
         @else
-            <p class="font-mono text-[13px] text-muted">{{ $capture }}</p>
+            <p class="font-mono text-[13px] text-muted">{{ __('components.capture_placeholder') }}</p>
         @endif
     </div>
 

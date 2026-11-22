@@ -2,30 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
     /**
-     * Show a project case study from the static, per-locale project list.
+     * List every published project.
      */
-    public function show(string $project): View
+    public function index(): View
     {
-        /** @var array<string, array<string, mixed>> $projects */
-        $projects = __('projects.items');
+        return view('projects.index', [
+            'projects' => Project::query()->published()->ordered()->get(),
+        ]);
+    }
 
-        abort_unless(isset($projects[$project]), 404);
+    /**
+     * Show a published project's case study, linking to its neighbours (wrapping around the list).
+     */
+    public function show(string $slug): View
+    {
+        $projects = Project::query()->published()->ordered()->get(['id', 'slug', 'title'])->values();
 
-        $slugs = array_keys($projects);
-        $position = array_search($project, $slugs, true);
-        $previousSlug = $slugs[($position - 1 + count($slugs)) % count($slugs)];
-        $nextSlug = $slugs[($position + 1) % count($slugs)];
+        $position = $projects->search(fn (Project $project): bool => $project->slug === $slug);
+
+        abort_if($position === false, 404);
+
+        $count = $projects->count();
 
         return view('projects.show', [
-            'project' => $projects[$project],
-            'slug' => $project,
-            'previous' => ['slug' => $previousSlug, 'title' => $projects[$previousSlug]['title']],
-            'next' => ['slug' => $nextSlug, 'title' => $projects[$nextSlug]['title']],
+            'project' => Project::query()->findOrFail($projects[$position]->id),
+            'previous' => $projects[($position - 1 + $count) % $count],
+            'next' => $projects[($position + 1) % $count],
         ]);
     }
 }

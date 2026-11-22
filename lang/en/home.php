@@ -46,6 +46,7 @@ return [
         'eyebrow' => 'Selected projects',
         'title' => 'Real platforms, with names and results',
         'description' => 'Each case covers the context, the problem, what I built, the stack and the result.',
+        'view_all' => 'See all projects',
     ],
 
     'community' => [

@@ -46,6 +46,7 @@ return [
         'eyebrow' => 'Proyectos seleccionados',
         'title' => 'Plataformas reales, con nombre y resultado',
         'description' => 'Cada caso cuenta el contexto, el problema, qué construí, el stack y el resultado.',
+        'view_all' => 'Ver todos los proyectos',
     ],
 
     'community' => [

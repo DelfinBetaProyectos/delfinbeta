@@ -4,12 +4,13 @@
         'label' => $section['label'],
         'href' => match ($key) {
             'story' => route('story'),
+            'projects' => route('projects.index'),
             'content' => route('blog.index'),
             default => $homeUrl.'#'.$section['anchor'],
         },
         'current' => match ($key) {
             'story' => request()->routeIs('story'),
-            'projects' => request()->routeIs('projects.show'),
+            'projects' => request()->routeIs('projects.*'),
             'content' => request()->routeIs('blog.*'),
             default => false,
         },

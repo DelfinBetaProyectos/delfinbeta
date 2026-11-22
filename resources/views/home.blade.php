@@ -1,7 +1,6 @@
 <x-layouts::site :title="__('home.meta_title')">
     @php
         $anchors = collect(__('nav.sections'))->map(fn (array $section): string => $section['anchor']);
-        $projects = __('projects.items');
         $posts = collect(__('posts.items'))->take(3);
         $pillars = __('blog.pillars');
         $showContent = $posts->count() >= 3;
@@ -98,16 +97,16 @@
         </div>
 
         <div class="grid grid-cols-[repeat(auto-fit,minmax(min(20rem,100%),1fr))] gap-6">
-            @foreach ($projects as $projectSlug => $project)
-                <x-project-card :label="$project['label']" :title="$project['title']" :summary="$project['summary']" :capture="$project['capture']" :href="route('projects.show', ['project' => $projectSlug])">
-                    @if ($project['code'])
-                        <x-slot:media>
-                            <pre class="font-mono text-[13px] leading-[1.7] text-mist">{{ $project['code'] }}</pre>
-                        </x-slot:media>
-                    @endif
-                </x-project-card>
+            @foreach ($projects as $project)
+                <x-project-card :label="$project->label" :title="$project->title" :summary="$project->summary" :image="$project->image" :href="route('projects.show', $project)" />
             @endforeach
         </div>
+
+        @if ($hasMoreProjects)
+            <a href="{{ route('projects.index') }}" class="self-start font-medium text-ice underline underline-offset-4 hover:text-mist">
+                {{ __('home.projects.view_all') }} <span aria-hidden="true">→</span>
+            </a>
+        @endif
     </section>
 
     {{-- Comunidad y charlas --}}

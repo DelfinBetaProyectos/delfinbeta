@@ -1,12 +1,11 @@
-<x-layouts::site :title="$project['title']">
+<x-layouts::site :title="$project->title">
     @php
-        $case = $project['case'];
         $sections = __('project.sections');
-        $projectsUrl = route('home').'#'.__('nav.sections.projects.anchor');
+        $projectsUrl = route('projects.index');
         $meta = array_filter([
-            'role' => $case['role'],
-            'period' => $case['period'],
-            'stack' => $case['stack'],
+            'role' => $project->role,
+            'period' => $project->period,
+            'stack' => $project->stack,
         ]);
     @endphp
 
@@ -16,13 +15,13 @@
             <ol class="flex flex-wrap gap-2 font-mono text-sm text-muted">
                 <li><a href="{{ $projectsUrl }}" class="underline underline-offset-4 hover:text-mist">{{ __('project.breadcrumb') }}</a></li>
                 <li aria-hidden="true">/</li>
-                <li aria-current="page" class="text-ice">{{ $case['breadcrumb'] }}</li>
+                <li aria-current="page" class="text-ice">{{ $project->slug }}</li>
             </ol>
         </nav>
 
-        <h1 class="max-w-[900px] font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] font-bold tracking-[-0.03em]">{{ $case['title'] }}</h1>
+        <h1 class="max-w-[900px] font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] font-bold tracking-[-0.03em]">{{ $project->title }}</h1>
 
-        <p class="max-w-[760px] text-[19px] text-muted">{{ $case['lead'] }}</p>
+        <p class="max-w-[760px] text-[19px] text-muted">{{ $project->summary }}</p>
 
         <dl class="mt-4 grid grid-cols-[repeat(auto-fit,minmax(12.5rem,1fr))] gap-6 border-y border-line-subtle py-7">
             @foreach ($meta as $key => $value)
@@ -32,11 +31,11 @@
                 </div>
             @endforeach
 
-            @if ($case['live_url'])
+            @if ($project->live_url)
                 <div>
                     <dt class="font-mono text-[13px] text-ice">{{ __('project.meta.live') }}</dt>
                     <dd class="mt-1">
-                        <a href="{{ $case['live_url'] }}" rel="noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">{{ parse_url($case['live_url'], PHP_URL_HOST) }}</a>
+                        <a href="{{ $project->live_url }}" rel="noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">{{ parse_url($project->live_url, PHP_URL_HOST) }}</a>
                     </dd>
                 </div>
             @endif
@@ -45,7 +44,11 @@
 
     {{-- Captura principal --}}
     <section class="mx-auto max-w-site px-4 pb-18 sm:px-6">
-        <x-photo-placeholder variant="deep" aspect="2/1" :label="$case['capture']" />
+        @if ($project->image)
+            <img src="{{ Storage::disk('public')->url($project->image) }}" alt="{{ $project->title }}" class="mx-auto h-auto w-full max-w-4xl rounded-[20px] border border-line-dark">
+        @else
+            <x-photo-placeholder variant="deep" aspect="2/1" :label="__('components.capture_placeholder')" />
+        @endif
     </section>
 
     {{-- Cuerpo del caso --}}
@@ -66,44 +69,47 @@
             <div class="flex max-w-[720px] min-w-0 flex-[999_1_35rem] flex-col gap-14">
                 <div id="{{ $sections['context']['anchor'] }}" class="flex scroll-mt-24 flex-col gap-3.5">
                     <h2 class="font-display text-[2rem] font-bold">{{ $sections['context']['title'] }}</h2>
-                    <p class="text-ink-strong">{{ $case['context'] }}</p>
+                    <p class="text-ink-strong">{{ $project->context }}</p>
                 </div>
 
                 <div id="{{ $sections['problem']['anchor'] }}" class="flex scroll-mt-24 flex-col gap-3.5">
                     <h2 class="font-display text-[2rem] font-bold">{{ $sections['problem']['title'] }}</h2>
-                    <p class="text-ink-strong">{{ $case['problem'] }}</p>
+                    <p class="text-ink-strong">{{ $project->problem }}</p>
                 </div>
 
                 <div id="{{ $sections['built']['anchor'] }}" class="flex scroll-mt-24 flex-col gap-3.5">
                     <h2 class="font-display text-[2rem] font-bold">{{ $sections['built']['title'] }}</h2>
 
-                    <ul class="flex list-disc flex-col gap-2 pl-[22px] text-ink-strong">
-                        @foreach ($case['built'] as $item)
-                            <li>{{ $item }}</li>
-                        @endforeach
-                    </ul>
-
-                    @if ($case['built_captures'])
-                        <div class="grid grid-cols-2 gap-4 pt-2">
-                            @foreach ($case['built_captures'] as $capture)
-                                <x-photo-placeholder :label="$capture" />
+                    @if ($project->built)
+                        <ul class="flex list-disc flex-col gap-2 pl-[22px] text-ink-strong">
+                            @foreach ($project->built as $item)
+                                <li>{{ $item }}</li>
                             @endforeach
-                        </div>
+                        </ul>
                     @endif
+
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        @forelse ($project->built_images ?? [] as $builtImage)
+                            <img src="{{ Storage::disk('public')->url($builtImage) }}" alt="{{ $project->title }}" loading="lazy" class="aspect-video w-full rounded-card border border-line-light object-cover object-top">
+                        @empty
+                            <x-photo-placeholder aspect="16/9" :label="__('components.capture_placeholder')" />
+                            <x-photo-placeholder aspect="16/9" :label="__('components.capture_placeholder')" />
+                        @endforelse
+                    </div>
                 </div>
 
                 <div id="{{ $sections['result']['anchor'] }}" class="flex scroll-mt-24 flex-col gap-5">
                     <h2 class="font-display text-[2rem] font-bold">{{ $sections['result']['title'] }}</h2>
 
-                    @if ($case['stats'])
+                    @if ($project->stats)
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                            @foreach ($case['stats'] as $stat)
+                            @foreach ($project->stats as $stat)
                                 <x-stat-card :value="$stat['value']" :label="$stat['label']" />
                             @endforeach
                         </div>
                     @endif
 
-                    <p class="text-ink-strong">{{ $case['result'] }}</p>
+                    <p class="text-ink-strong">{{ $project->result }}</p>
                 </div>
             </div>
         </div>
@@ -113,15 +119,15 @@
     <nav aria-label="{{ __('project.more_projects') }}" class="mx-auto flex max-w-site flex-wrap gap-6 px-4 py-18 sm:px-6">
         <x-pager-link
             direction="previous"
-            :href="route('projects.show', ['project' => $previous['slug']])"
+            :href="route('projects.show', $previous)"
             :label="__('project.previous')"
-            :title="$previous['title']"
+            :title="$previous->title"
         />
         <x-pager-link
             direction="next"
-            :href="route('projects.show', ['project' => $next['slug']])"
+            :href="route('projects.show', $next)"
             :label="__('project.next')"
-            :title="$next['title']"
+            :title="$next->title"
         />
     </nav>
 

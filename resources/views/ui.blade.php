@@ -79,7 +79,7 @@
                             <x-tag>GitHub Actions</x-tag>
                         </div>
 
-                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." capture="[CAPTURA] proyecto" href="#" />
+                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." href="#" />
 
                         <x-talk-card meta="x-talk-card · 45 min" title="Título de la charla" summary="Descripción breve de la charla." />
 

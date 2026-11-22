@@ -17,7 +17,7 @@ return [
             ['period' => '2008 – 2010', 'title' => 'Consultora web en Saintel Consultores', 'body' => 'Mis primeros años como desarrolladora web profesional.'],
             ['period' => '2010 – 2021', 'title' => 'Cofundadora y Directora de Tecno D 2.0', 'body' => 'Cofundé y dirigí mi primera empresa durante 11 años en Venezuela. Ahí aprendí a liderar proyectos y equipos y a trabajar con clientes del exterior.'],
             ['period' => '2017 – 2020', 'title' => 'Líder de H/F Maracay', 'body' => 'Lideré el capítulo Maracay de Hackers & Founders, el primero en Venezuela, y co-organicé Startup Weekend Maracay.'],
-            ['period' => '2022 – 2023', 'title' => 'Desarrolladora principal en Kubilabs', 'body' => 'Creé la plataforma de registro a congresos de una federación bancaria latinoamericana, que hoy gestiona entre 7 y 10 congresos al año. Sigo a cargo de sus actualizaciones.'],
+            ['period' => '2022 – 2023', 'title' => 'Desarrolladora principal en Kubilabs', 'body' => 'Creé la plataforma de registro a congresos de una federación latinoamericana, que hoy gestiona entre 7 y 10 congresos al año. Sigo a cargo de sus actualizaciones.'],
             ['period' => '2024 – 2026', 'title' => 'Arquitecta de soluciones en GlobalPay Networks', 'body' => 'Plataformas de gestión deportiva y pagos para el mercado de EE. UU.: KOPAPLAY y SQUAAD. Integro IA como Claude Code en todo el ciclo de desarrollo.'],
             ['period' => 'Hoy', 'title' => 'Cofundadora de AraguaneyCode', 'body' => 'Con mis socios construimos software que hace florecer negocios.', 'link' => 'araguaneycode.com'],
         ],
