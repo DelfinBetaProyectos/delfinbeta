@@ -29,14 +29,14 @@ return [
         'title' => ':years years building software and founding companies',
         'body' => [
             'I design and build web platforms and SaaS end to end: architecture, data modeling, payment integrations and deployment on AWS and DigitalOcean.',
-            'I co-founded Tecno D 2.0 and ran it for 11 years in Venezuela. Today I am a co-founder of AraguaneyCode. I am a mom and I share it with #MamaDeveloper: a solid technical career and a present family are not mutually exclusive.',
+            'I co-founded Tecno D 2.0 and ran it for 11 years in Venezuela. Today I am a co-founder of AraguaneyCode. With #MamaDeveloper I share my everyday life as a passionate professional and a mom in love with her family.',
         ],
         'read_more' => 'Read my full story',
         'timeline' => [
             ['period' => '2008', 'role' => 'Web consultant at Saintel Consultores'],
             ['period' => '2010 – 2021', 'role' => 'Co-founder and Director of Tecno D 2.0'],
-            ['period' => '2017 – 2020', 'role' => 'H/F Maracay chapter lead'],
-            ['period' => '2022 – 2023', 'role' => 'Lead developer at Kubilabs'],
+            ['period' => '2016 – 2020', 'role' => 'Winner of the 1st Startup Weekend Maracay and H/F Maracay chapter lead'],
+            ['period' => '2022 – 2023', 'role' => 'Tech lead at Kubilabs'],
             ['period' => '2024 – 2026', 'role' => 'Solutions architect at GlobalPay Networks'],
             ['period' => 'Today', 'role' => 'Co-founder of AraguaneyCode'],
         ],

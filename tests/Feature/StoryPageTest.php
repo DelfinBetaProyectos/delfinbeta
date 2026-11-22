@@ -23,3 +23,10 @@ it('marks the story link as the current page in the navigation', function () {
 
     expect($response->getContent())->toMatch('#href="'.preg_quote(url('/mi-historia'), '#').'"\s+aria-current="page"#');
 });
+
+it('links the projects call to action to the projects page', function () {
+    $this->get('/mi-historia')
+        ->assertOk()
+        ->assertSee('href="'.route('projects.index').'"', false)
+        ->assertDontSee(route('home').'#'.__('nav.sections.projects.anchor'), false);
+});

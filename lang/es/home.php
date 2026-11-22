@@ -29,14 +29,14 @@ return [
         'title' => ':years años construyendo software y fundando empresas',
         'body' => [
             'Diseño y construyo plataformas web y SaaS de punta a punta: arquitectura, modelo de datos, integraciones de pago y despliegue en AWS y DigitalOcean.',
-            'Cofundé Tecno D 2.0 y la dirigí durante 11 años en Venezuela. Hoy soy cofundadora de AraguaneyCode. Soy mamá y lo cuento con #MamaDeveloper: una carrera técnica sólida y una familia presente no se excluyen.',
+            'Cofundé Tecno D 2.0 y la dirigí durante 11 años en Venezuela. Hoy soy cofundadora de AraguaneyCode. Con #MamaDeveloper cuento mi día a día como profesional apasionada, mamá enamorada.',
         ],
         'read_more' => 'Leer mi historia completa',
         'timeline' => [
             ['period' => '2008', 'role' => 'Consultora web en Saintel Consultores'],
             ['period' => '2010 – 2021', 'role' => 'Cofundadora y Directora de Tecno D 2.0'],
-            ['period' => '2017 – 2020', 'role' => 'Líder de H/F Maracay'],
-            ['period' => '2022 – 2023', 'role' => 'Desarrolladora principal en Kubilabs'],
+            ['period' => '2016 – 2020', 'role' => 'Ganadora del 1er Startup Weekend Maracay y Líder de H/F Maracay'],
+            ['period' => '2022 – 2023', 'role' => 'Líder técnica en Kubilabs'],
             ['period' => '2024 – 2026', 'role' => 'Arquitecta de soluciones en GlobalPay Networks'],
             ['period' => 'Hoy', 'role' => 'Cofundadora de AraguaneyCode'],
         ],

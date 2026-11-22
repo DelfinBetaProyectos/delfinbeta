@@ -1,8 +1,4 @@
 <x-layouts::site :title="__('story.meta_title')">
-    @php
-        $homeUrl = route('home');
-    @endphp
-
     {{-- Intro --}}
     <section class="mx-auto flex max-w-site flex-wrap items-center gap-14 px-4 pt-16 pb-16 sm:px-6 md:pt-22">
         <div class="flex min-w-0 flex-[999_1_32rem] flex-col gap-[22px]">
@@ -57,7 +53,7 @@
             <h2 class="max-w-[620px] font-display text-[2rem] leading-tight font-bold">{{ __('story.cta.title') }}</h2>
 
             <div class="flex flex-wrap gap-3.5">
-                <x-button :href="$homeUrl.'#'.__('nav.sections.projects.anchor')" class="focus-visible:ring-offset-deep">{{ __('story.cta.projects') }}</x-button>
+                <x-button :href="route('projects.index')" class="focus-visible:ring-offset-deep">{{ __('story.cta.projects') }}</x-button>
                 <x-resume-dropdown :label="__('story.cta.cv')" align="left" trigger-class="min-h-12 px-6" />
             </div>
         </div>
