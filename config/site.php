@@ -89,13 +89,10 @@ return [
     'email' => env('SITE_EMAIL', 'hola@delfinbeta.tech'),
 
     /*
-    | Promised reply time for contact form messages, and the timezone the
-    | notification email shows the date in (Maracay, UTC-4).
+    | Promised reply time for contact form messages.
     */
 
     'reply_within_hours' => 48,
-
-    'timezone' => 'America/Caracas',
 
     /*
     |--------------------------------------------------------------------------

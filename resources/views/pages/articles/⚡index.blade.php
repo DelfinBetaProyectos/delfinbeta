@@ -85,7 +85,7 @@ new #[Title('Articles')] class extends Component {
      */
     public function publicationDate(Article $article): string
     {
-        return $article->published_at->timezone(config('site.timezone'))->locale(app()->getLocale())->isoFormat('D MMM YYYY');
+        return $article->published_at->locale(app()->getLocale())->isoFormat('D MMM YYYY');
     }
 }; ?>
 

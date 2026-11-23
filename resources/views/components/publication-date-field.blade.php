@@ -15,7 +15,7 @@
         <div class="w-48">
             <flux:input wire:model="{{ $model }}" type="date" :aria-label="__('Publication date')" />
         </div>
-        <flux:button size="sm" variant="ghost" wire:click="$set('{{ $model }}', '{{ now(config('site.timezone'))->toDateString() }}')">{{ __('Today') }}</flux:button>
+        <flux:button size="sm" variant="ghost" wire:click="$set('{{ $model }}', '{{ now()->toDateString() }}')">{{ __('Today') }}</flux:button>
         @if (filled($value))
             <flux:button size="sm" variant="ghost" wire:click="$set('{{ $model }}', '')">{{ __('Back to draft') }}</flux:button>
         @endif

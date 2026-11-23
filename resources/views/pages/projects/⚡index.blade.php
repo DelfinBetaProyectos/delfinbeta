@@ -44,7 +44,7 @@ new #[Title('Projects')] class extends Component {
      */
     public function publicationDate(Project $project): string
     {
-        return $project->published_at->timezone(config('site.timezone'))->locale(app()->getLocale())->isoFormat('D MMM YYYY');
+        return $project->published_at->locale(app()->getLocale())->isoFormat('D MMM YYYY');
     }
 
     /**

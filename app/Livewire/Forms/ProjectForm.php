@@ -127,7 +127,7 @@ class ProjectForm extends Form
         $this->project = $project;
         $this->slug = $project->slug;
         $this->sort_order = $project->sort_order;
-        $this->published_on = $project->published_at?->timezone(config('site.timezone'))->toDateString() ?? '';
+        $this->published_on = $project->published_at?->toDateString() ?? '';
         $this->live_url = $project->live_url ?? '';
         $this->built_images = $project->built_images ?? [];
 

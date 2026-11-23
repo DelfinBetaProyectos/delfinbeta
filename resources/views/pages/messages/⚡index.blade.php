@@ -191,7 +191,7 @@ new #[Title('Messages')] class extends Component {
      */
     public function sentAt(ContactMessage $contactMessage): string
     {
-        return $contactMessage->created_at->timezone(config('site.timezone'))->locale(app()->getLocale())->isoFormat('D MMM YYYY, h:mm a');
+        return $contactMessage->created_at->locale(app()->getLocale())->isoFormat('D MMM YYYY, h:mm a');
     }
 }; ?>
 

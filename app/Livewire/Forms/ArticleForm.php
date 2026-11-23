@@ -78,7 +78,7 @@ class ArticleForm extends Form
         $this->article = $article;
         $this->slug = $article->slug;
         $this->category = $article->category->value;
-        $this->published_on = $article->published_at?->timezone(config('site.timezone'))->toDateString() ?? '';
+        $this->published_on = $article->published_at?->toDateString() ?? '';
         $this->is_featured = $article->is_featured;
         $this->medium_url = $article->medium_url ?? '';
         $this->dev_url = $article->dev_url ?? '';
@@ -216,7 +216,7 @@ class ArticleForm extends Form
     }
 
     /**
-     * The start of the chosen day in Maracay, stored in UTC; null for a draft.
+     * The start of the chosen day in Maracay; null for a draft.
      */
     private function publishedAt(): ?CarbonInterface
     {

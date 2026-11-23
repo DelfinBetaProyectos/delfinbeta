@@ -30,7 +30,7 @@ class ProjectSeeder extends Seeder
             [
                 'slug' => 'registro-congresos',
                 'sort_order' => 1,
-                'published_at' => '2026-11-22 04:00:00',
+                'published_at' => '2026-11-22 00:00:00',
                 'title' => [
                     'es' => 'Plataforma de registro para todos los congresos de una federación',
                     'en' => 'Registration platform for every conference of a federation',
@@ -125,7 +125,7 @@ class ProjectSeeder extends Seeder
             [
                 'slug' => 'kopaplay',
                 'sort_order' => 2,
-                'published_at' => '2026-11-22 04:00:00',
+                'published_at' => '2026-11-22 00:00:00',
                 'title' => [
                     'es' => 'KOPAPLAY: Arquitectura para la gestión de torneos de fútbol',
                     'en' => 'KOPAPLAY: Architecture for soccer tournament management',
@@ -222,7 +222,7 @@ class ProjectSeeder extends Seeder
             [
                 'slug' => 'squaad',
                 'sort_order' => 3,
-                'published_at' => '2026-11-22 04:00:00',
+                'published_at' => '2026-11-22 00:00:00',
                 'title' => [
                     'es' => 'SQUAAD: Gestión y cobros para academias deportivas',
                     'en' => 'SQUAAD: Management and billing for sports academies',

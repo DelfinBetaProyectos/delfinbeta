@@ -69,7 +69,6 @@ class ContactReceived extends Mailable implements ShouldQueue
             view: 'mail.contact-received',
             with: [
                 'sentAt' => $this->contactMessage->created_at
-                    ->timezone(config('site.timezone'))
                     ->locale('es')
                     ->isoFormat('D MMM YYYY, h:mm a'),
                 'localeName' => __("emails.received.locales.{$this->contactMessage->locale}"),

@@ -272,7 +272,7 @@ it('schedules a project and keeps it off the site until that day', function () {
 });
 
 it('loads the publication day in the edit form and can send the project back to draft', function () {
-    $project = Project::factory()->create(['published_at' => '2026-11-10 04:00:00']);
+    $project = Project::factory()->create(['published_at' => '2026-11-10 00:00:00']);
     $this->actingAs(User::factory()->create());
 
     Livewire::test('pages::projects.form', ['project' => $project])

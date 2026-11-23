@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
  * Publication by date, stored in a nullable `published_at` column:
  * no date is a draft, a past date is published and a future date is scheduled.
  *
- * Days are picked in the site timezone (Maracay) and stored in UTC. The model must cast
+ * Days are picked and stored in the app timezone (Maracay). The model must cast
  * `published_at` to `datetime`.
  */
 trait HasPublicationDate
@@ -49,13 +49,11 @@ trait HasPublicationDate
     }
 
     /**
-     * The start of the given day ("Y-m-d", default today) in the site timezone, in UTC as it is stored.
+     * The start of the given day ("Y-m-d", default today) in the app timezone (Maracay).
      */
     public static function startOfDayInSiteTimezone(?string $day = null): CarbonInterface
     {
-        $timezone = config('site.timezone');
-
-        return ($day === null ? now($timezone) : Carbon::createFromFormat('Y-m-d', $day, $timezone))->startOfDay()->utc();
+        return ($day === null ? now() : Carbon::createFromFormat('Y-m-d', $day))->startOfDay();
     }
 
     /**
