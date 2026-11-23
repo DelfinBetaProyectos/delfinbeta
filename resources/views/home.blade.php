@@ -193,11 +193,27 @@
                 </div>
             </div>
 
-            <form class="flex min-w-0 flex-[1_1_27.5rem] flex-col gap-[18px] rounded-card border border-line-dark bg-deep p-8">
-                <x-input :label="__('home.contact.form.name')" name="name" autocomplete="name" />
-                <x-input :label="__('home.contact.form.email')" name="email" type="email" autocomplete="email" />
-                <x-select :label="__('home.contact.form.topic')" name="topic" :options="__('home.contact.form.topics')" />
-                <x-input :label="__('home.contact.form.message')" name="message" type="textarea" />
+            <form method="POST" action="{{ route('contact.store') }}" class="flex min-w-0 flex-[1_1_27.5rem] flex-col gap-[18px] rounded-card border border-line-dark bg-deep p-8">
+                @csrf
+
+                @if (session('contact_sent'))
+                    <div role="status" class="flex flex-col gap-1 rounded-btn border border-ice/60 bg-navy px-4 py-3.5">
+                        <p class="font-medium text-white">{{ __('home.contact.form.sent_title') }}</p>
+                        <p class="text-[15px] text-muted">{{ __('home.contact.form.sent_body', ['hours' => config('site.reply_within_hours')]) }}</p>
+                    </div>
+                @endif
+
+                <x-input :label="__('home.contact.form.name')" name="name" autocomplete="name" required maxlength="120" />
+                <x-input :label="__('home.contact.form.email')" name="email" type="email" autocomplete="email" required maxlength="255" />
+                <x-select :label="__('home.contact.form.topic')" name="topic" :options="__('home.contact.form.topics')" required />
+                <x-input :label="__('home.contact.form.message')" name="message" type="textarea" required minlength="10" maxlength="5000" />
+
+                {{-- Honeypot: hidden from people, filled in by bots. Inline styles so it stays hidden even without the compiled CSS. --}}
+                <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true">
+                    <label for="{{ App\Http\Requests\StoreContactMessageRequest::HONEYPOT_FIELD }}">{{ __('home.contact.form.honeypot') }}</label>
+                    <input type="text" name="{{ App\Http\Requests\StoreContactMessageRequest::HONEYPOT_FIELD }}" id="{{ App\Http\Requests\StoreContactMessageRequest::HONEYPOT_FIELD }}" value="" tabindex="-1" autocomplete="off">
+                </div>
+
                 <x-button type="submit" class="w-full focus-visible:ring-offset-deep">{{ __('home.contact.form.submit') }}</x-button>
             </form>
         </div>

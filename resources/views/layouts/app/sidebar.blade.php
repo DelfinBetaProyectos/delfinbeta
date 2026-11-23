@@ -19,6 +19,28 @@
                     <flux:sidebar.item icon="briefcase" :href="route('dashboard.projects.index')" :current="request()->routeIs('dashboard.projects.*')" wire:navigate>
                         {{ __('Projects') }}
                     </flux:sidebar.item>
+
+                    @php($unreadMessages = App\Models\ContactMessage::query()->unread()->count())
+                    {{-- The badge follows the messages page live through the "unread-messages-updated" event --}}
+                    <flux:sidebar.item
+                        icon="inbox"
+                        :href="route('dashboard.messages.index')"
+                        :current="request()->routeIs('dashboard.messages.*')"
+                        wire:navigate
+                        x-data="{ unread: {{ $unreadMessages }} }"
+                        x-on:unread-messages-updated.window="unread = $event.detail.count"
+                        badge-color="sky"
+                        badge:x-show="unread > 0"
+                        :badge:style="$unreadMessages > 0 ? '' : 'display: none'"
+                    >
+                        {{ __('Messages') }}
+
+                        <x-slot:badge><span x-text="unread">{{ $unreadMessages }}</span></x-slot:badge>
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="envelope" :href="route('dashboard.mails.index')" :current="request()->routeIs('dashboard.mails.*')" wire:navigate>
+                        {{ __('Mails') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

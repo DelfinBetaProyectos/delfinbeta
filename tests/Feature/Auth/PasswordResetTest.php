@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Support\Facades\Notification;
 use Laravel\Fortify\Features;
 
@@ -22,7 +22,7 @@ test('reset password link can be requested', function () {
 
     $this->post(route('password.request'), ['email' => $user->email]);
 
-    Notification::assertSentTo($user, ResetPassword::class);
+    Notification::assertSentTo($user, ResetPasswordNotification::class);
 });
 
 test('reset password screen can be rendered', function () {
@@ -32,7 +32,7 @@ test('reset password screen can be rendered', function () {
 
     $this->post(route('password.request'), ['email' => $user->email]);
 
-    Notification::assertSentTo($user, ResetPassword::class, function ($notification) {
+    Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) {
         $response = $this->get(route('password.reset', $notification->token));
 
         $response->assertOk();
@@ -48,7 +48,7 @@ test('password can be reset with valid token', function () {
 
     $this->post(route('password.request'), ['email' => $user->email]);
 
-    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+    Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) use ($user) {
         $response = $this->post(route('password.update'), [
             'token' => $notification->token,
             'email' => $user->email,
@@ -61,5 +61,23 @@ test('password can be reset with valid token', function () {
             ->assertRedirect(route('login', absolute: false));
 
         return true;
+    });
+});
+
+test('reset password email uses the site template in the user saved language', function () {
+    Notification::fake();
+
+    $user = User::factory()->create(['firstname' => 'Dayan', 'locale' => 'es']);
+
+    $this->post(route('password.request'), ['email' => $user->email], ['Accept-Language' => 'en-US,en;q=0.9']);
+
+    Notification::assertSentTo($user, ResetPasswordNotification::class, function (ResetPasswordNotification $notification, array $channels, User $notifiable, ?string $locale) use ($user) {
+        app()->setLocale($locale);
+        $html = (string) $notification->toMail($user)->render();
+
+        return $locale === 'es'
+            && str_contains($html, 'Hola, Dayan:')
+            && str_contains($html, 'Restablecer contraseña')
+            && str_contains($html, 'DelfinBeta_Logotipo_White.png');
     });
 });

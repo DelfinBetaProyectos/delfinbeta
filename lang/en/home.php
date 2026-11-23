@@ -93,6 +93,10 @@ return [
             ],
             'message' => 'Message',
             'submit' => 'Send message',
+            'sent_title' => 'Thanks for reaching out!',
+            'sent_body' => 'I got your message and will reply personally within :hours hours. A copy is on its way to your inbox.',
+            'throttled' => 'You sent several messages in a row. Please wait a moment before trying again.',
+            'honeypot' => 'Leave this field empty',
         ],
     ],
 ];

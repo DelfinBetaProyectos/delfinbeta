@@ -47,6 +47,12 @@ return [
     'araguaneycode_url' => env('SITE_ARAGUANEYCODE_URL', 'https://araguaneycode.com/'),
 
     /*
+    | Project inquiries from the contact form are copied to this address.
+    */
+
+    'araguaneycode_email' => env('SITE_ARAGUANEYCODE_EMAIL', 'info@araguaneycode.com'),
+
+    /*
     |--------------------------------------------------------------------------
     | Social links
     |--------------------------------------------------------------------------
@@ -80,6 +86,15 @@ return [
     */
 
     'email' => env('SITE_EMAIL', 'hola@delfinbeta.tech'),
+
+    /*
+    | Promised reply time for contact form messages, and the timezone the
+    | notification email shows the date in (Maracay, UTC-4).
+    */
+
+    'reply_within_hours' => 48,
+
+    'timezone' => 'America/Caracas',
 
     /*
     |--------------------------------------------------------------------------

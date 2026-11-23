@@ -93,6 +93,10 @@ return [
             ],
             'message' => 'Mensaje',
             'submit' => 'Enviar mensaje',
+            'sent_title' => '¡Gracias por escribirme!',
+            'sent_body' => 'Recibí tu mensaje y te respondo personalmente en menos de :hours horas. Te envié una copia a tu correo.',
+            'throttled' => 'Enviaste varios mensajes seguidos. Espera un momento antes de volver a intentarlo.',
+            'honeypot' => 'Deja este campo vacío',
         ],
     ],
 ];

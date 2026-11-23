@@ -189,6 +189,8 @@ return [
         'current_password' => 'contraseña actual',
         'code' => 'código',
         'recovery_code' => 'código de recuperación',
+        'topic' => 'motivo',
+        'message' => 'mensaje',
     ],
 
 ];
