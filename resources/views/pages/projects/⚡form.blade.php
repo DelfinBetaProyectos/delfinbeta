@@ -84,7 +84,7 @@ new #[Title('Project')] class extends Component {
             <flux:heading size="xl" level="1">{{ $form->project ? $form->project->title : __('New project') }}</flux:heading>
         </div>
 
-        @if ($form->project?->is_published)
+        @if ($form->project?->isPublished())
             <flux:button variant="ghost" icon="arrow-top-right-on-square" :href="route('projects.show', $form->project)" target="_blank">{{ __('View on site') }}</flux:button>
         @endif
     </div>
@@ -101,7 +101,7 @@ new #[Title('Project')] class extends Component {
                 <flux:input wire:model="form.sort_order" type="number" min="0" :label="__('Order')" required />
             </div>
 
-            <flux:switch wire:model="form.is_published" :label="__('Published')" :description="__('Visible on the home page and at its case study URL.')" align="left" />
+            <x-publication-date-field :value="$form->published_on" />
 
             <flux:input wire:model="form.live_url" type="url" :label="__('Live URL')" placeholder="https://" />
 

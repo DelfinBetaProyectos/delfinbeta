@@ -1,9 +1,7 @@
 <x-layouts::site :title="__('home.meta_title')">
     @php
         $anchors = collect(__('nav.sections'))->map(fn (array $section): string => $section['anchor']);
-        $posts = collect(__('posts.items'))->take(3);
-        $pillars = __('blog.pillars');
-        $showContent = $posts->count() >= 3;
+        $showContent = $articles->count() >= App\Models\Article::HOME_MINIMUM;
         $eyebrows = collect(['story', 'projects', 'community', ...($showContent ? ['content'] : []), 'araguaneycode', 'contact'])
             ->values()
             ->mapWithKeys(fn (string $section, int $index): array => [
@@ -128,7 +126,7 @@
         </div>
     </section>
 
-    {{-- Contenido: solo con 3 o más artículos --}}
+    {{-- Contenido: solo con 3 o más artículos publicados --}}
     @if ($showContent)
         <section id="{{ $anchors['content'] }}" class="scroll-mt-20 bg-mist text-navy">
             <div class="mx-auto flex max-w-site flex-col gap-10 px-4 py-24 sm:px-6">
@@ -140,8 +138,8 @@
                 </div>
 
                 <div class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
-                    @foreach ($posts as $post)
-                        <x-post-card :pillar="$pillars[$post['pillar']]['label']" :date="$post['date']" :title="$post['title']" :summary="$post['summary']" href="#" />
+                    @foreach ($articles as $article)
+                        <x-post-card :category="$article->category->label()" :date="$article->published_at" :title="$article->title" :summary="$article->summary" :href="route('blog.show', $article)" />
                     @endforeach
                 </div>
             </div>

@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('slug')->unique();
             $table->unsignedInteger('sort_order')->default(0);
-            $table->boolean('is_published')->default(false);
+            $table->timestamp('published_at')->nullable();
 
             $table->json('title');
             $table->json('summary');
@@ -37,7 +37,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->index(['is_published', 'sort_order']);
+            $table->index(['published_at', 'sort_order']);
         });
     }
 

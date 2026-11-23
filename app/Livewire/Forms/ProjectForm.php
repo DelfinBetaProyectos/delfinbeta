@@ -56,7 +56,10 @@ class ProjectForm extends Form
 
     public int $sort_order = 0;
 
-    public bool $is_published = false;
+    /**
+     * Publication day as "Y-m-d" in the site timezone, or empty for a draft.
+     */
+    public string $published_on = '';
 
     public string $live_url = '';
 
@@ -124,7 +127,7 @@ class ProjectForm extends Form
         $this->project = $project;
         $this->slug = $project->slug;
         $this->sort_order = $project->sort_order;
-        $this->is_published = $project->is_published;
+        $this->published_on = $project->published_at?->timezone(config('site.timezone'))->toDateString() ?? '';
         $this->live_url = $project->live_url ?? '';
         $this->built_images = $project->built_images ?? [];
 
@@ -161,7 +164,7 @@ class ProjectForm extends Form
             ...$translatedTexts,
             'slug' => $this->slug,
             'sort_order' => $this->sort_order,
-            'is_published' => $this->is_published,
+            'published_at' => blank($this->published_on) ? null : Project::startOfDayInSiteTimezone($this->published_on),
             'live_url' => filled($this->live_url) ? $this->live_url : null,
             'built' => $this->translatedList($this->built, fn (string $line): string => $line),
             'stats' => $this->translatedList($this->stats, function (string $line): array {
@@ -214,7 +217,7 @@ class ProjectForm extends Form
         $rules = [
             'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('projects', 'slug')->ignore($this->project)],
             'sort_order' => ['required', 'integer', 'min:0'],
-            'is_published' => ['boolean'],
+            'published_on' => ['nullable', 'date_format:Y-m-d'],
             'live_url' => ['nullable', 'url:https,http', 'max:255'],
             'image' => ['nullable', 'image', 'max:4096'],
             'remove_image' => ['boolean'],
@@ -258,6 +261,7 @@ class ProjectForm extends Form
     protected function validationAttributes(): array
     {
         $attributes = [
+            'published_on' => __('Publication date'),
             'new_built_images' => __('Build screenshots'),
             'new_built_images.*' => __('Build screenshots'),
         ];

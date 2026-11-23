@@ -41,9 +41,11 @@
 
             <p class="text-muted">{{ __('story.mama_developer.body') }}</p>
 
-            <a href="{{ route('blog.index').'?pillar=mama' }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
-                {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
-            </a>
+            @if (App\Models\Article::hasPublished(App\Enums\ArticleCategory::Mama))
+                <a href="{{ route('blog.index').'?category='.App\Enums\ArticleCategory::Mama->value }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
+                    {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
+                </a>
+            @endif
         </div>
     </section>
 

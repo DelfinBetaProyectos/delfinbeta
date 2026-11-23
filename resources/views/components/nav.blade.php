@@ -1,6 +1,8 @@
 @php
     $homeUrl = route('home');
-    $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
+    $links = collect(__('nav.sections'))
+        ->when(! App\Models\Article::hasPublished(), fn ($sections) => $sections->except('content'))
+        ->map(fn (array $section, string $key): array => [
         'label' => $section['label'],
         'href' => match ($key) {
             'story' => route('story'),

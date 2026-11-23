@@ -3,12 +3,12 @@
 use App\Models\User;
 
 it('switches the public pages to the chosen language', function () {
-    $this->from('/blog')
+    $this->from('/proyectos')
         ->post(route('locale.update'), ['locale' => 'en'])
-        ->assertRedirect('/blog')
+        ->assertRedirect('/proyectos')
         ->assertSessionHas('locale', 'en');
 
-    $this->get('/blog', ['Accept-Language' => 'es-VE,es;q=0.9'])
+    $this->get('/proyectos', ['Accept-Language' => 'es-VE,es;q=0.9'])
         ->assertOk()
         ->assertSee('<html lang="en"', false);
 });

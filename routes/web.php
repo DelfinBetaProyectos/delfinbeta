@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class)->name('home');
 Route::view('mi-historia', 'story')->name('story');
 Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('blog/{article}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('proyectos', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('proyectos/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 
@@ -24,6 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('dashboard/projects', 'pages::projects.index')->name('dashboard.projects.index');
     Route::livewire('dashboard/projects/create', 'pages::projects.form')->name('dashboard.projects.create');
     Route::livewire('dashboard/projects/{project}/edit', 'pages::projects.form')->name('dashboard.projects.edit');
+
+    Route::livewire('dashboard/articles', 'pages::articles.index')->name('dashboard.articles.index');
+    Route::livewire('dashboard/articles/create', 'pages::articles.form')->name('dashboard.articles.create');
+    Route::livewire('dashboard/articles/{article}/edit', 'pages::articles.form')->name('dashboard.articles.edit');
 
     Route::livewire('dashboard/messages', 'pages::messages.index')->name('dashboard.messages.index');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasPublicationDate;
 use App\Models\Concerns\HasTranslations;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Storage;
  * @property int $id
  * @property string $slug
  * @property int $sort_order
- * @property bool $is_published
+ * @property Carbon|null $published_at
  * @property string $title
  * @property string $summary
  * @property string|null $label
@@ -38,14 +39,14 @@ use Illuminate\Support\Facades\Storage;
  * @property Carbon|null $updated_at
  */
 #[Fillable([
-    'slug', 'sort_order', 'is_published', 'title', 'summary', 'label', 'image',
+    'slug', 'sort_order', 'published_at', 'title', 'summary', 'label', 'image',
     'role', 'period', 'stack', 'live_url', 'context', 'problem', 'built',
     'built_images', 'stats', 'result',
 ])]
 class Project extends Model
 {
     /** @use HasFactory<ProjectFactory> */
-    use HasFactory, HasTranslations;
+    use HasFactory, HasPublicationDate, HasTranslations;
 
     /**
      * Attributes stored as {"es": ..., "en": ...}.
@@ -76,7 +77,7 @@ class Project extends Model
     {
         return [
             'sort_order' => 'integer',
-            'is_published' => 'boolean',
+            'published_at' => 'datetime',
             'built_images' => 'array',
             ...array_fill_keys($this->translatable, 'array'),
         ];
@@ -99,16 +100,5 @@ class Project extends Model
     protected function ordered(Builder $query): void
     {
         $query->orderBy('sort_order')->orderBy('id');
-    }
-
-    /**
-     * Only projects visible on the public site.
-     *
-     * @param  Builder<self>  $query
-     */
-    #[Scope]
-    protected function published(Builder $query): void
-    {
-        $query->where('is_published', true);
     }
 }

@@ -65,6 +65,7 @@ return [
         'LinkedIn' => env('SITE_LINKEDIN_URL', 'https://www.linkedin.com/in/delfinbeta'),
         'GitHub' => env('SITE_GITHUB_URL', 'https://github.com/delfinbeta'),
         'Medium' => env('SITE_MEDIUM_URL', 'https://medium.com/@delfinbeta'),
+        'DEV' => env('SITE_DEV_URL', 'https://dev.to/delfinbeta'),
         'Instagram' => env('SITE_INSTAGRAM_URL', 'https://instagram.com/delfinbeta'),
     ],
 

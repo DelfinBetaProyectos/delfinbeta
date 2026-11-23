@@ -22,15 +22,29 @@ new #[Title('Projects')] class extends Component {
     }
 
     /**
-     * Show or hide a project on the public site.
+     * Publish a project today, or send it back to draft. A scheduled project is published today.
      */
     public function togglePublished(int $projectId): void
     {
         $project = Project::query()->findOrFail($projectId);
 
-        $project->update(['is_published' => ! $project->is_published]);
+        if ($project->isPublished()) {
+            $project->unpublish();
+        } else {
+            $project->publishToday();
+        }
 
-        Flux::toast(variant: 'success', text: $project->is_published ? __('Project published.') : __('Project hidden.'));
+        unset($this->projects);
+
+        Flux::toast(variant: 'success', text: $project->isPublished() ? __('Project published.') : __('Project hidden.'));
+    }
+
+    /**
+     * A publication date in Maracay time and the dashboard language.
+     */
+    public function publicationDate(Project $project): string
+    {
+        return $project->published_at->timezone(config('site.timezone'))->locale(app()->getLocale())->isoFormat('D MMM YYYY');
     }
 
     /**
@@ -77,7 +91,7 @@ new #[Title('Projects')] class extends Component {
                 <flux:table.column>{{ __('Order') }}</flux:table.column>
                 <flux:table.column>{{ __('Title') }}</flux:table.column>
                 <flux:table.column>{{ __('Slug') }}</flux:table.column>
-                <flux:table.column>{{ __('Status') }}</flux:table.column>
+                <flux:table.column>{{ __('Published') }}</flux:table.column>
                 <flux:table.column><span class="sr-only">{{ __('Actions') }}</span></flux:table.column>
             </flux:table.columns>
 
@@ -93,11 +107,24 @@ new #[Title('Projects')] class extends Component {
                         <flux:table.cell class="font-mono">{{ $project->slug }}</flux:table.cell>
 
                         <flux:table.cell>
-                            @if ($project->is_published)
-                                <flux:badge color="green" size="sm" inset="top bottom">{{ __('Published') }}</flux:badge>
-                            @else
-                                <flux:badge color="zinc" size="sm" inset="top bottom">{{ __('Draft') }}</flux:badge>
-                            @endif
+                            <div class="flex items-center gap-3">
+                                <flux:switch
+                                    wire:key="publish-project-{{ $project->id }}-{{ $project->published_at?->timestamp }}"
+                                    :checked="$project->isPublished()"
+                                    wire:change="togglePublished({{ $project->id }})"
+                                    :aria-label="__('Published').': '.$project->title"
+                                />
+
+                                <span class="text-xs whitespace-nowrap">
+                                    @if ($project->isPublished())
+                                        {{ $this->publicationDate($project) }}
+                                    @elseif ($project->isScheduled())
+                                        <span class="text-sky-500 dark:text-sky-400">{{ __('Scheduled') }} · {{ $this->publicationDate($project) }}</span>
+                                    @else
+                                        {{ __('Draft') }}
+                                    @endif
+                                </span>
+                            </div>
                         </flux:table.cell>
 
                         <flux:table.cell align="end">
@@ -107,11 +134,8 @@ new #[Title('Projects')] class extends Component {
                                 <flux:menu>
                                     <flux:menu.item icon="pencil-square" :href="route('dashboard.projects.edit', $project)" wire:navigate>{{ __('Edit') }}</flux:menu.item>
 
-                                    @if ($project->is_published)
+                                    @if ($project->isPublished())
                                         <flux:menu.item icon="arrow-top-right-on-square" :href="route('projects.show', $project)" target="_blank">{{ __('View on site') }}</flux:menu.item>
-                                        <flux:menu.item icon="eye-slash" wire:click="togglePublished({{ $project->id }})">{{ __('Hide') }}</flux:menu.item>
-                                    @else
-                                        <flux:menu.item icon="eye" wire:click="togglePublished({{ $project->id }})">{{ __('Publish') }}</flux:menu.item>
                                     @endif
 
                                     <flux:menu.separator />

@@ -23,7 +23,7 @@ class ProjectFactory extends Factory
         return [
             'slug' => Str::slug($title),
             'sort_order' => 0,
-            'is_published' => true,
+            'published_at' => now()->subDay(),
             'label' => $this->translated('Laravel · AWS'),
             'title' => ['es' => "{$title} (es)", 'en' => "{$title} (en)"],
             'summary' => $this->translated(fake()->sentence()),
@@ -42,11 +42,19 @@ class ProjectFactory extends Factory
     }
 
     /**
-     * A project hidden from the public site.
+     * An unpublished draft.
      */
     public function unpublished(): static
     {
-        return $this->state(fn (array $attributes): array => ['is_published' => false]);
+        return $this->state(fn (array $attributes): array => ['published_at' => null]);
+    }
+
+    /**
+     * A project scheduled for next week.
+     */
+    public function scheduled(): static
+    {
+        return $this->state(fn (array $attributes): array => ['published_at' => now()->addWeek()]);
     }
 
     /**

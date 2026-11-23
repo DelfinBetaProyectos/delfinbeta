@@ -20,6 +20,10 @@
                         {{ __('Projects') }}
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="newspaper" :href="route('dashboard.articles.index')" :current="request()->routeIs('dashboard.articles.*')" wire:navigate>
+                        {{ __('Articles') }}
+                    </flux:sidebar.item>
+
                     @php($unreadMessages = App\Models\ContactMessage::query()->unread()->count())
                     {{-- The badge follows the messages page live through the "unread-messages-updated" event --}}
                     <flux:sidebar.item

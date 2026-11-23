@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\ArticleCategory;
+use App\Models\Article;
+
 it('renders the story page in the visitor language', function (string $locale, string $heading) {
     $response = $this->withSession(['locale' => $locale])->get('/mi-historia');
 
@@ -29,4 +32,14 @@ it('links the projects call to action to the projects page', function () {
         ->assertOk()
         ->assertSee('href="'.route('projects.index').'"', false)
         ->assertDontSee(route('home').'#'.__('nav.sections.projects.anchor'), false);
+});
+
+it('links to the #MamaDeveloper articles only when one is published', function () {
+    $mamaArticlesUrl = route('blog.index').'?category=mama';
+
+    Article::factory()->category(ArticleCategory::Tech)->create();
+    $this->get('/mi-historia')->assertOk()->assertDontSee('href="'.$mamaArticlesUrl.'"', false);
+
+    Article::factory()->category(ArticleCategory::Mama)->create();
+    $this->get('/mi-historia')->assertOk()->assertSee('href="'.$mamaArticlesUrl.'"', false);
 });

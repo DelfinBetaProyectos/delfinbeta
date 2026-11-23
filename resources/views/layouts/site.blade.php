@@ -6,7 +6,9 @@
         @php
             $metaTitle = filled($title ?? null) ? $title.' - '.config('app.name') : config('app.name');
             $metaDescription = $description ?? __('home.hero.lead');
-            $ogImage = asset('images/brand/DelfinBeta_OG.png');
+            // A page can pass its own share image (e.g. an article cover); otherwise the brand image is used.
+            $hasOwnImage = filled($image ?? null);
+            $ogImage = $hasOwnImage ? url($image) : asset('images/brand/DelfinBeta_OG.png');
         @endphp
         <meta name="description" content="{{ $metaDescription }}" />
         <meta property="og:type" content="website" />
@@ -16,9 +18,11 @@
         <meta property="og:url" content="{{ url()->current() }}" />
         <meta property="og:locale" content="{{ app()->getLocale() === 'es' ? 'es_VE' : 'en_US' }}" />
         <meta property="og:image" content="{{ $ogImage }}" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="{{ config('app.name') }}" />
+        @unless ($hasOwnImage)
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+        @endunless
+        <meta property="og:image:alt" content="{{ $hasOwnImage ? $metaTitle : config('app.name') }}" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="{{ $metaTitle }}" />
         <meta name="twitter:description" content="{{ $metaDescription }}" />

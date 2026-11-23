@@ -50,7 +50,7 @@ it('creates a project with both languages, lists and a screenshot', function () 
 
     $component = fillRequiredProjectFields(Livewire::test('pages::projects.form'))
         ->set('form.slug', 'nuevo-proyecto')
-        ->set('form.is_published', true)
+        ->set('form.published_on', now('America/Caracas')->toDateString())
         ->set('form.built.es', "Pagos\n\nReportes ")
         ->set('form.stats.es', "+12 | ligas\n2022 | en uso desde")
         ->set('form.image', UploadedFile::fake()->image('captura.jpg'))
@@ -62,7 +62,7 @@ it('creates a project with both languages, lists and a screenshot', function () 
     $component->assertRedirect(route('dashboard.projects.edit', $project));
 
     expect($project->slug)->toBe('nuevo-proyecto')
-        ->and($project->is_published)->toBeTrue()
+        ->and($project->isPublished())->toBeTrue()
         ->and($project->getTranslations('title'))->toBe(['es' => 'Título es', 'en' => 'Título en'])
         ->and($project->label)->toBeNull()
         ->and($project->getTranslations('built'))->toBe(['es' => ['Pagos', 'Reportes'], 'en' => []])
@@ -166,7 +166,7 @@ it('toggles whether a project is published', function () {
 
     Livewire::test('pages::projects.index')->call('togglePublished', $project->id);
 
-    expect($project->refresh()->is_published)->toBeTrue();
+    expect($project->refresh()->isPublished())->toBeTrue();
 });
 
 it('deletes a project and its screenshot after confirmation', function () {
@@ -222,4 +222,64 @@ it('limits the number of build screenshots', function () {
         ->set('form.new_built_images', [UploadedFile::fake()->image('a.jpg'), UploadedFile::fake()->image('b.jpg')])
         ->call('save')
         ->assertHasErrors(['form.new_built_images' => 'max']);
+});
+
+it('shows a publish switch for each project in the list', function () {
+    $published = Project::factory()->create();
+    $hidden = Project::factory()->unpublished()->create();
+    $this->actingAs(User::factory()->create());
+
+    $html = Livewire::test('pages::projects.index')->html();
+
+    expect($html)
+        ->toMatch('/<ui-switch[^>]*wire:change="togglePublished\('.$published->id.'\)"[^>]*checked data-checked/')
+        ->toMatch('/<ui-switch[^>]*wire:change="togglePublished\('.$hidden->id.'\)"(?![^>]*data-checked)[^>]*>/');
+});
+
+it('hides a published project from the switch', function () {
+    $project = Project::factory()->create();
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::projects.index')->call('togglePublished', $project->id);
+
+    expect($project->refresh()->published_at)->toBeNull();
+});
+
+it('publishes a draft project today from the switch, in Maracay time', function () {
+    $this->travelTo(now('America/Caracas')->setTime(15, 30));
+    $project = Project::factory()->unpublished()->create();
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::projects.index')->call('togglePublished', $project->id);
+
+    expect($project->refresh()->published_at->timezone('America/Caracas')->format('Y-m-d H:i'))
+        ->toBe(now('America/Caracas')->format('Y-m-d').' 00:00');
+});
+
+it('schedules a project and keeps it off the site until that day', function () {
+    $this->actingAs(User::factory()->create());
+
+    $component = fillRequiredProjectFields(Livewire::test('pages::projects.form'))
+        ->set('form.slug', 'programado')
+        ->set('form.published_on', now('America/Caracas')->addWeek()->toDateString())
+        ->call('save')
+        ->assertHasNoErrors();
+
+    $project = Project::query()->sole();
+    expect($project)->isScheduled()->toBeTrue()->isPublished()->toBeFalse();
+
+    $this->get(route('projects.show', $project))->assertNotFound();
+});
+
+it('loads the publication day in the edit form and can send the project back to draft', function () {
+    $project = Project::factory()->create(['published_at' => '2026-11-10 04:00:00']);
+    $this->actingAs(User::factory()->create());
+
+    Livewire::test('pages::projects.form', ['project' => $project])
+        ->assertSet('form.published_on', '2026-11-10')
+        ->set('form.published_on', '')
+        ->call('save')
+        ->assertHasNoErrors();
+
+    expect($project->refresh()->published_at)->toBeNull();
 });

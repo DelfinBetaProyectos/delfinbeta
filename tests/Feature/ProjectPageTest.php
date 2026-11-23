@@ -63,7 +63,7 @@ it('links to the previous and next projects in order, wrapping around the list',
 it('skips unpublished projects in the previous and next links', function () {
     Project::factory()->count(3)->sequence(
         ['slug' => 'primero', 'sort_order' => 1],
-        ['slug' => 'oculto', 'sort_order' => 2, 'is_published' => false],
+        ['slug' => 'oculto', 'sort_order' => 2, 'published_at' => null],
         ['slug' => 'tercero', 'sort_order' => 3],
     )->create();
 
@@ -127,7 +127,7 @@ it('lists every published project in order on the projects page', function () {
         ['slug' => 'primero', 'sort_order' => 1, 'title' => ['es' => 'Primer proyecto', 'en' => 'First']],
         ['slug' => 'tercero', 'sort_order' => 3, 'title' => ['es' => 'Tercer proyecto', 'en' => 'Third']],
         ['slug' => 'cuarto', 'sort_order' => 4, 'title' => ['es' => 'Cuarto proyecto', 'en' => 'Fourth']],
-        ['slug' => 'oculto', 'sort_order' => 2, 'title' => ['es' => 'Proyecto oculto', 'en' => 'Hidden'], 'is_published' => false],
+        ['slug' => 'oculto', 'sort_order' => 2, 'title' => ['es' => 'Proyecto oculto', 'en' => 'Hidden'], 'published_at' => null],
     )->create();
 
     $this->get('/proyectos')->assertOk()

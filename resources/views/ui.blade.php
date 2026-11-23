@@ -106,7 +106,7 @@
 
                         <p>Un enlace en texto corrido usa <a href="#" class="text-deep underline underline-offset-2 hover:no-underline">Azul profundo</a>, nunca Azul mar.</p>
 
-                        <x-post-card pillar="Pilar" date="2026-11-19" title="Título del artículo" summary="Resumen de dos líneas." href="#" />
+                        <x-post-card category="Categoría" date="2026-11-19" title="Título del artículo" summary="Resumen de dos líneas." href="#" />
 
                         <ol class="border-l-2 border-ice">
                             <x-timeline-item period="2008" role="x-timeline-item" />

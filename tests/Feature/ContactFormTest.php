@@ -3,6 +3,7 @@
 use App\Enums\ContactTopic;
 use App\Mail\ContactConfirmation;
 use App\Mail\ContactReceived;
+use App\Models\Article;
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
 
@@ -144,3 +145,19 @@ it('retries the emails when a delivery attempt fails or hangs', function (string
         ->backoff->toBe([10, 60])
         ->timeout->toBeLessThan(60);
 })->with([ContactReceived::class, ContactConfirmation::class]);
+
+it('links to the blog in the confirmation only once an article is published', function () {
+    $contactMessage = ContactMessage::factory()->create();
+    $blogLink = 'href="'.route('blog.index').'"';
+
+    (new ContactConfirmation($contactMessage))->assertDontSeeInHtml($blogLink, false);
+
+    Article::factory()->create();
+
+    (new ContactConfirmation($contactMessage))->assertSeeInHtml($blogLink, false);
+});
+
+it('signs the confirmation with the DEV profile among the social links', function () {
+    (new ContactConfirmation(ContactMessage::factory()->create()))
+        ->assertSeeInHtml('href="https://dev.to/delfinbeta"', false);
+});
