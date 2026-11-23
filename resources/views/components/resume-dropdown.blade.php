@@ -23,7 +23,7 @@
     ])>
         @foreach (config('site.locales') as $resumeLocale)
             <li>
-                <a href="{{ Storage::disk('public')->url(config("site.resumes.{$resumeLocale}")) }}" download hreflang="{{ $resumeLocale }}" class="flex items-center gap-3 rounded-btn px-4 py-3 text-[15px] font-medium text-mist hover:bg-deep hover:text-ice">
+                <a href="{{ route('resume.download', $resumeLocale) }}" download hreflang="{{ $resumeLocale }}" class="flex items-center gap-3 rounded-btn px-4 py-3 text-[15px] font-medium text-mist hover:bg-deep hover:text-ice">
                     <svg class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 3v12" /><path d="M7 10l5 5 5-5" /><path d="M5 21h14" />
                     </svg>

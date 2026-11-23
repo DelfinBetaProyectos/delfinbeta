@@ -173,3 +173,19 @@ it('updates the sidebar badge when the unread count changes', function () {
         ->call('markAllAsRead')
         ->assertDispatched('unread-messages-updated', count: 0);
 });
+
+it('records and undoes the reply to a message', function () {
+    $this->travelTo(now()->setTime(10, 0));
+    $contactMessage = ContactMessage::factory()->create(['created_at' => now()->subHours(5)]);
+
+    Livewire::test('pages::messages.index')
+        ->call('markAsResponded', $contactMessage->id)
+        ->assertSeeText('Respondido');
+
+    expect($contactMessage->refresh()->responseHours())->toBe(5)
+        ->and($contactMessage->isRead())->toBeTrue();
+
+    Livewire::test('pages::messages.index')->call('markAsNotResponded', $contactMessage->id);
+
+    expect($contactMessage->refresh()->isResponded())->toBeFalse();
+});

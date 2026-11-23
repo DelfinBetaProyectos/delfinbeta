@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('locale', 5);
             $table->string('page')->nullable();
             $table->timestamp('read_at')->nullable();
+            $table->timestamp('responded_at')->nullable();
             $table->timestamps();
         });
     }

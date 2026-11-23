@@ -22,6 +22,14 @@ enum ContactTopic: string
     }
 
     /**
+     * Short name for tables and reports ("Proyecto", "Rol remoto"…), in the current (or given) locale.
+     */
+    public function shortLabel(?string $locale = null): string
+    {
+        return __("emails.received.tags.{$this->value}", [], $locale);
+    }
+
+    /**
      * Project inquiries are handled by AraguaneyCode, so they get a copy.
      */
     public function isProject(): bool

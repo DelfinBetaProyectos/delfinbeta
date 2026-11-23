@@ -1,6 +1,9 @@
 <?php
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 /*
@@ -44,7 +47,48 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Point the GA4 config to a throwaway service account and answer the Data API with `$rowsFor`,
+ * which receives each runReport body and returns its rows as [[dimension values], [metric values]]
+ * (or a faked response, e.g. an error).
+ *
+ * @param  callable(array<string, mixed>): (list<array{0: list<string>, 1: list<int|float>}>|PromiseInterface)  $rowsFor
+ */
+function fakeGoogleAnalytics(callable $rowsFor): void
 {
-    // ..
+    $key = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA]);
+    openssl_pkey_export($key, $privateKey);
+
+    $credentials = tempnam(sys_get_temp_dir(), 'ga4');
+    file_put_contents($credentials, json_encode(['client_email' => 'reader@delfinbeta.iam.gserviceaccount.com', 'private_key' => $privateKey]));
+
+    config([
+        'services.google_analytics.property_id' => '123456',
+        'services.google_analytics.credentials' => $credentials,
+    ]);
+
+    Http::fake([
+        'oauth2.googleapis.com/*' => Http::response(['access_token' => 'ga-token', 'expires_in' => 3600]),
+        'analyticsdata.googleapis.com/*' => function (Request $request) use ($rowsFor) {
+            $rows = $rowsFor($request->data());
+
+            return $rows instanceof PromiseInterface ? $rows : Http::response([
+                'rows' => array_map(fn (array $row): array => [
+                    'dimensionValues' => array_map(fn ($value): array => ['value' => (string) $value], $row[0]),
+                    'metricValues' => array_map(fn ($value): array => ['value' => (string) $value], $row[1]),
+                ], $rows),
+            ]);
+        },
+    ]);
+}
+
+/**
+ * Names of the dimensions (or metrics) of a GA4 runReport body, e.g. ['pagePath'].
+ *
+ * @param  array<string, mixed>  $report
+ * @return list<string>
+ */
+function reportFields(array $report, string $type = 'dimensions'): array
+{
+    return array_column($report[$type] ?? [], 'name');
 }

@@ -128,6 +128,28 @@ new #[Title('Messages')] class extends Component {
     }
 
     /**
+     * Record that the sender was answered, for the response time in the statistics.
+     */
+    public function markAsResponded(int $messageId): void
+    {
+        ContactMessage::query()->findOrFail($messageId)->markAsResponded();
+        $this->refreshCounts();
+
+        Flux::toast(variant: 'success', text: __('Message marked as replied.'));
+    }
+
+    /**
+     * Undo a reply recorded by mistake.
+     */
+    public function markAsNotResponded(int $messageId): void
+    {
+        ContactMessage::query()->findOrFail($messageId)->markAsNotResponded();
+        $this->refreshCounts();
+
+        Flux::toast(variant: 'success', text: __('Reply removed.'));
+    }
+
+    /**
      * Mark every unread message as read.
      */
     public function markAllAsRead(): void
@@ -279,6 +301,9 @@ new #[Title('Messages')] class extends Component {
 
                         <flux:table.cell>
                             <flux:badge :color="$contactMessage->topic->isProject() ? 'sky' : 'zinc'" size="sm" inset="top bottom">{{ $contactMessage->topic->label() }}</flux:badge>
+                            @if ($contactMessage->isResponded())
+                                <flux:badge color="green" size="sm" icon="check" inset="top bottom">{{ __('Replied') }}</flux:badge>
+                            @endif
                         </flux:table.cell>
 
                         <flux:table.cell class="max-w-md truncate">{{ Str::limit(Str::squish($contactMessage->message), 90) }}</flux:table.cell>
@@ -297,6 +322,12 @@ new #[Title('Messages')] class extends Component {
                                             <flux:menu.item icon="envelope" wire:click="markAsUnread({{ $contactMessage->id }})">{{ __('Mark as unread') }}</flux:menu.item>
                                         @else
                                             <flux:menu.item icon="envelope-open" wire:click="markAsRead({{ $contactMessage->id }})">{{ __('Mark as read') }}</flux:menu.item>
+                                        @endif
+
+                                        @if ($contactMessage->isResponded())
+                                            <flux:menu.item icon="arrow-uturn-left" wire:click="markAsNotResponded({{ $contactMessage->id }})">{{ __('Mark as not replied') }}</flux:menu.item>
+                                        @else
+                                            <flux:menu.item icon="check-circle" wire:click="markAsResponded({{ $contactMessage->id }})">{{ __('Mark as replied') }}</flux:menu.item>
                                         @endif
 
                                         <flux:menu.separator />
@@ -339,6 +370,10 @@ new #[Title('Messages')] class extends Component {
                     <flux:modal.close>
                         <flux:button variant="ghost">{{ __('Close') }}</flux:button>
                     </flux:modal.close>
+
+                    @unless ($openMessage->isResponded())
+                        <flux:button icon="check-circle" wire:click="markAsResponded({{ $openMessage->id }})">{{ __('Mark as replied') }}</flux:button>
+                    @endunless
 
                     <flux:button variant="primary" icon="envelope" :href="$openMessage->replyMailto()">{{ __('Reply') }}</flux:button>
                 </div>

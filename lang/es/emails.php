@@ -58,4 +58,15 @@ return [
     'preview' => [
         'message' => "Hola Dayan,\nTe escribo porque me gustaría conversar contigo.\n¡Gracias!",
     ],
+
+    'report' => [
+        'subject' => 'Informe mensual de :month · delfinbeta.tech',
+        'tagline' => 'Informe mensual',
+        'preheader' => 'Las cifras de :month contra las metas del plan de 90 días',
+        'title' => 'Informe de :month',
+        'intro' => 'Adjunto va el informe en PDF con las cifras del mes contra las metas del plan de 90 días. Es buen momento para cargar las metas que se registran a mano.',
+        'highlights' => 'En resumen: :visits visitas, :messages mensajes del formulario y :downloads descargas del CV.',
+        'footer' => 'Recibes este informe el primer domingo de cada mes porque eres la administradora de :site.',
+        'action' => 'Abrir el panel',
+    ],
 ];

@@ -78,7 +78,7 @@
                         <ul>
                             @foreach (config('site.locales') as $resumeLocale)
                                 <li>
-                                    <a href="{{ Storage::disk('public')->url(config("site.resumes.{$resumeLocale}")) }}" download hreflang="{{ $resumeLocale }}" lang="{{ $resumeLocale }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ config("site.locale_names.{$resumeLocale}") }} (PDF)</a>
+                                    <a href="{{ route('resume.download', $resumeLocale) }}" download hreflang="{{ $resumeLocale }}" lang="{{ $resumeLocale }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ config("site.locale_names.{$resumeLocale}") }} (PDF)</a>
                                 </li>
                             @endforeach
                         </ul>

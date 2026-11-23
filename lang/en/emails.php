@@ -58,4 +58,15 @@ return [
     'preview' => [
         'message' => "Hi Dayan,\nI am writing because I would like to talk with you.\nThanks!",
     ],
+
+    'report' => [
+        'subject' => 'Monthly report for :month · delfinbeta.tech',
+        'tagline' => 'Monthly report',
+        'preheader' => 'The :month figures against the 90-day plan goals',
+        'title' => 'Report for :month',
+        'intro' => 'The PDF report with this month\'s figures against the 90-day plan goals is attached. It is a good time to enter the goals tracked by hand.',
+        'highlights' => 'In short: :visits visits, :messages form messages and :downloads resume downloads.',
+        'footer' => 'You get this report on the first Sunday of each month as the administrator of :site.',
+        'action' => 'Open the dashboard',
+    ],
 ];

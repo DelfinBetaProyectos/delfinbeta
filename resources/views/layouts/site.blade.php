@@ -27,6 +27,8 @@
         <meta name="twitter:title" content="{{ $metaTitle }}" />
         <meta name="twitter:description" content="{{ $metaDescription }}" />
         <meta name="twitter:image" content="{{ $ogImage }}" />
+
+        @include('partials.google-analytics')
     </head>
     <body class="flex min-h-screen flex-col bg-navy font-sans text-[17px] leading-relaxed text-white antialiased">
         <x-nav />

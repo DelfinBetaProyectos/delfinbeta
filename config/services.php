@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    /*
+    | Google Analytics 4: the measurement ID loads gtag.js on the public site; the property ID
+    | and a service account (JSON key with read access to the property) feed the dashboard.
+    */
+
+    'google_analytics' => [
+        'measurement_id' => env('GA4_MEASUREMENT_ID'),
+        'property_id' => env('GA4_PROPERTY_ID'),
+        'credentials' => env('GA4_CREDENTIALS', storage_path('app/private/google-analytics.json')),
+    ],
+
 ];

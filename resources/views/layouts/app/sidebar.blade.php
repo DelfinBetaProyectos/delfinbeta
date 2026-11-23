@@ -12,16 +12,8 @@
 
             <flux:sidebar.nav class="dark">
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-
-                    <flux:sidebar.item icon="briefcase" :href="route('dashboard.projects.index')" :current="request()->routeIs('dashboard.projects.*')" wire:navigate>
-                        {{ __('Projects') }}
-                    </flux:sidebar.item>
-
-                    <flux:sidebar.item icon="newspaper" :href="route('dashboard.articles.index')" :current="request()->routeIs('dashboard.articles.*')" wire:navigate>
-                        {{ __('Articles') }}
+                    <flux:sidebar.item icon="chart-bar" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                        {{ __('Statistics') }}
                     </flux:sidebar.item>
 
                     @php($unreadMessages = App\Models\ContactMessage::query()->unread()->count())
@@ -40,6 +32,22 @@
                         {{ __('Messages') }}
 
                         <x-slot:badge><span x-text="unread">{{ $unreadMessages }}</span></x-slot:badge>
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="briefcase" :href="route('dashboard.projects.index')" :current="request()->routeIs('dashboard.projects.*')" wire:navigate>
+                        {{ __('Projects') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="newspaper" :href="route('dashboard.articles.index')" :current="request()->routeIs('dashboard.articles.*')" wire:navigate>
+                        {{ __('Articles') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="flag" :href="route('dashboard.goals.index')" :current="request()->routeIs('dashboard.goals.*')" wire:navigate>
+                        {{ __('90-day goals') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="document-chart-bar" :href="route('dashboard.reports.index')" :current="request()->routeIs('dashboard.reports.*')" wire:navigate>
+                        {{ __('Reports') }}
                     </flux:sidebar.item>
 
                     <flux:sidebar.item icon="envelope" :href="route('dashboard.mails.index')" :current="request()->routeIs('dashboard.mails.*')" wire:navigate>

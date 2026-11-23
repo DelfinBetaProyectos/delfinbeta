@@ -23,10 +23,11 @@ use Illuminate\Support\Str;
  * @property string $locale
  * @property string|null $page
  * @property Carbon|null $read_at
+ * @property Carbon|null $responded_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'topic', 'message', 'locale', 'page', 'read_at'])]
+#[Fillable(['name', 'email', 'topic', 'message', 'locale', 'page', 'read_at', 'responded_at'])]
 class ContactMessage extends Model
 {
     /** @use HasFactory<ContactMessageFactory> */
@@ -42,6 +43,7 @@ class ContactMessage extends Model
         return [
             'topic' => ContactTopic::class,
             'read_at' => 'datetime',
+            'responded_at' => 'datetime',
         ];
     }
 
@@ -69,6 +71,67 @@ class ContactMessage extends Model
     public function markAsUnread(): void
     {
         $this->update(['read_at' => null]);
+    }
+
+    /**
+     * Whether the owner already replied to the sender.
+     */
+    public function isResponded(): bool
+    {
+        return $this->responded_at !== null;
+    }
+
+    /**
+     * Record the reply now (it also counts as read), keeping the first reply time.
+     */
+    public function markAsResponded(): void
+    {
+        if (! $this->isResponded()) {
+            $this->update(['responded_at' => now(), 'read_at' => $this->read_at ?? now()]);
+        }
+    }
+
+    /**
+     * Undo a reply recorded by mistake.
+     */
+    public function markAsNotResponded(): void
+    {
+        $this->update(['responded_at' => null]);
+    }
+
+    /**
+     * Project inquiries are copied to AraguaneyCode when they arrive, so they need no reply here.
+     */
+    public function isForwardedToAraguaneyCode(): bool
+    {
+        return $this->topic->isProject();
+    }
+
+    /**
+     * Whole hours between the message and the reply, or null without a reply.
+     */
+    public function responseHours(): ?int
+    {
+        return $this->responded_at === null ? null : (int) floor($this->created_at->diffInHours($this->responded_at));
+    }
+
+    /**
+     * Whole hours left of the promised reply time (`site.reply_within_hours`), never below zero.
+     */
+    public function replyHoursLeft(): int
+    {
+        $elapsedHours = (int) floor($this->created_at->diffInHours(now()));
+
+        return max(0, config('site.reply_within_hours') - $elapsedHours);
+    }
+
+    /**
+     * Whether the promised reply time was kept: forwarded to AraguaneyCode, or answered in time.
+     */
+    public function wasHandledOnTime(): bool
+    {
+        return $this->isForwardedToAraguaneyCode()
+            || ($this->isResponded() && $this->responseHours() <= config('site.reply_within_hours'));
     }
 
     /**
