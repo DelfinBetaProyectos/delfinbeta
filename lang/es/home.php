@@ -9,7 +9,7 @@ return [
         'lead' => 'Diseño y construyo plataformas en la nube de punta a punta, con IA en todo el ciclo de desarrollo, y comparto lo que aprendo en el camino.',
         'primary_cta' => 'Ver proyectos',
         'secondary_cta' => 'Escríbeme',
-        'photo' => '[FOTO] Retrato profesional · pecho hacia arriba · luz de ventana',
+        'photo' => 'Dayan Betancourt sonriendo al aire libre, con árboles desenfocados al fondo',
         'stack_command' => '$ stack --principal',
         'stack' => ['Laravel · AWS · DigitalOcean', 'GitHub Actions · Claude Code'],
     ],

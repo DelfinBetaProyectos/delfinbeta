@@ -7,7 +7,7 @@ return [
         'eyebrow' => 'Mi historia · desde 2008',
         'title' => 'Soy Dayan Betancourt, y llevo más de :years años construyendo software',
         'lead' => 'Arquitecta de soluciones cloud y desarrolladora full stack. Diseño y construyo plataformas web y SaaS de punta a punta: arquitectura, modelo de datos, integraciones de pago y despliegue en AWS y DigitalOcean.',
-        'photo' => '[FOTO] Trabajando en la computadora con código en pantalla',
+        'photo' => 'Sonriendo junto a mi laptop con código abierto, frente a una pizarra con notas de un proyecto',
     ],
 
     'career' => [
@@ -28,7 +28,7 @@ return [
         'title' => 'Profesional apasionada, mamá enamorada',
         'body' => 'Soy mamá de un niño pequeño y programo desde casa. Lo cuento con #MamaDeveloper: cómo organizo el día, qué funciona y qué no, y lo que me hubiera gustado saber antes.',
         'link' => 'Leer artículos #MamaDeveloper',
-        'photo' => '[FOTO] Escena #MamaDeveloper trabajando en casa, sin posar',
+        'photo' => 'Trabajando en la laptop desde la cama con mi bebé dormido en brazos',
     ],
 
     'cta' => [

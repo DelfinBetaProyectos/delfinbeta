@@ -30,7 +30,7 @@
         </div>
 
         <div class="relative min-w-0 flex-[1_1_24rem]">
-            <x-photo-placeholder variant="portrait" aspect="4/5" :label="__('home.hero.photo')" />
+            <img src="{{ asset('images/Dayan.jpg') }}" alt="{{ __('home.hero.photo') }}" width="960" height="1200" fetchpriority="high" class="h-auto w-full rounded-[20px] border-2 border-sea object-cover">
 
             <div class="absolute bottom-8 -left-2 rounded-xl border border-line-dark bg-navy px-5 py-4 font-mono text-[13px] leading-[1.7] shadow-[0_18px_40px_rgba(0,0,0,0.45)] sm:-left-6" aria-hidden="true">
                 <div class="text-muted">{{ __('home.hero.stack_command') }}</div>

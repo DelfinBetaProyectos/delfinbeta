@@ -11,7 +11,7 @@
             <p class="text-[19px] text-muted">{{ __('story.intro.lead') }}</p>
         </div>
 
-        <x-photo-placeholder variant="deep" aspect="1/1" :label="__('story.intro.photo')" class="min-w-0 flex-[1_1_21.25rem]" />
+        <img src="{{ asset('images/oficina.jpeg') }}" alt="{{ __('story.intro.photo') }}" width="1600" height="1107" class="h-auto w-full min-w-0 flex-[1_1_21.25rem] rounded-[20px] border border-line-dark object-cover">
     </section>
 
     {{-- Trayectoria --}}
@@ -34,7 +34,7 @@
 
     {{-- #MamaDeveloper --}}
     <section class="mx-auto flex max-w-site flex-wrap items-center gap-14 px-4 py-24 sm:px-6">
-        <x-photo-placeholder variant="deep" aspect="4/3" :label="__('story.mama_developer.photo')" class="min-w-0 flex-[1_1_25rem]" />
+        <img src="{{ asset('images/mama-developer.jpg') }}" alt="{{ __('story.mama_developer.photo') }}" width="1024" height="768" loading="lazy" class="h-auto w-full min-w-0 flex-[1_1_25rem] rounded-[20px] border border-line-dark object-cover">
 
         <div class="flex min-w-0 flex-[999_1_27.5rem] flex-col gap-5">
             <x-section-heading size="md" :eyebrow="__('story.mama_developer.eyebrow')" :title="__('story.mama_developer.title')" class="max-w-none" />

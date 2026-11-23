@@ -7,7 +7,7 @@ return [
         'eyebrow' => 'My story · since 2008',
         'title' => "I'm Dayan Betancourt, and I've been building software for more than :years years",
         'lead' => 'Cloud solutions architect and full stack developer. I design and build web platforms and SaaS end to end: architecture, data modeling, payment integrations and deployment on AWS and DigitalOcean.',
-        'photo' => '[PHOTO] Working at the computer with code on screen',
+        'photo' => 'Smiling next to my laptop with code open, in front of a whiteboard with project notes',
     ],
 
     'career' => [
@@ -28,7 +28,7 @@ return [
         'title' => 'Passionate professional, mom in love with her family',
         'body' => 'I am the mom of a little boy and I code from home. I share it with #MamaDeveloper: how I plan my day, what works and what does not, and what I wish I had known earlier.',
         'link' => 'Read #MamaDeveloper articles',
-        'photo' => '[PHOTO] #MamaDeveloper scene working at home, unposed',
+        'photo' => 'Working on my laptop from bed with my baby asleep in my arms',
     ],
 
     'cta' => [

@@ -9,7 +9,7 @@ return [
         'lead' => 'I design and build cloud platforms end to end, with AI across the whole development lifecycle, and I share what I learn along the way.',
         'primary_cta' => 'See projects',
         'secondary_cta' => 'Write to me',
-        'photo' => '[PHOTO] Professional portrait · chest up · window light',
+        'photo' => 'Dayan Betancourt smiling outdoors, with blurred trees in the background',
         'stack_command' => '$ stack --main',
         'stack' => ['Laravel · AWS · DigitalOcean', 'GitHub Actions · Claude Code'],
     ],
