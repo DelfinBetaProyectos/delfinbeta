@@ -15,7 +15,7 @@ class ResetPasswordNotification extends ResetPassword
      */
     public function toMail(mixed $notifiable): MailMessage
     {
-        return parent::toMail($notifiable)
+        return $this->buildMailMessage($this->resetUrl($notifiable))
             ->view('mail.notification')
             ->greeting(__('emails.notification.greeting', ['name' => $notifiable->firstname]));
     }
