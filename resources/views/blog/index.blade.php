@@ -1,8 +1,8 @@
 <x-layouts::site :title="__('blog.meta_title')">
     @php
-        $blogUrl = URL::localizedRoute('blog.index');
-        $mediumLink = '<a href="'.e(config('site.social.Medium')).'" rel="me noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">Medium</a>';
-        $filters = ['' => __('blog.all')] + collect($pillars)->map(fn (array $pillar): string => $pillar['filter'])->all();
+        $blogUrl = route('blog.index');
+        $profileLink = fn (string $network): string => '<a href="'.e(config("site.social.{$network}")).'" rel="me noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">'.$network.'</a>';
+        $filters = ['' => __('blog.all')] + collect(App\Enums\ArticleCategory::cases())->mapWithKeys(fn (App\Enums\ArticleCategory $category): array => [$category->value => $category->filterLabel()])->all();
     @endphp
 
     {{-- Cabecera --}}
@@ -11,13 +11,13 @@
 
         <h1 class="max-w-[860px] font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] font-bold tracking-[-0.03em]">{{ __('blog.title') }}</h1>
 
-        <p class="max-w-[680px] text-muted">{!! str_replace(':medium', $mediumLink, e(__('blog.lead'))) !!}</p>
+        <p class="max-w-[680px] text-muted">{!! strtr(e(__('blog.lead')), [':medium' => $profileLink('Medium'), ':dev' => $profileLink('DEV')]) !!}</p>
 
         <div role="group" aria-label="{{ __('blog.filter_label') }}" class="flex flex-wrap gap-2.5 pt-3">
-            @foreach ($filters as $pillarKey => $label)
-                @php($isActive = ($activePillar ?? '') === $pillarKey)
+            @foreach ($filters as $categoryKey => $label)
+                @php($isActive = ($activeCategory?->value ?? '') === $categoryKey)
                 <a
-                    href="{{ $pillarKey === '' ? $blogUrl : $blogUrl.'?pillar='.$pillarKey }}"
+                    href="{{ $categoryKey === '' ? $blogUrl : $blogUrl.'?category='.$categoryKey }}"
                     @if ($isActive) aria-current="page" @endif
                     @class([
                         'inline-flex min-h-11 items-center rounded-full border px-[18px] text-[15px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice focus-visible:ring-offset-2 focus-visible:ring-offset-navy',
@@ -30,42 +30,42 @@
     </section>
 
     {{-- Destacado --}}
-    @foreach ($featured as $post)
+    @if ($featured)
         <section class="mx-auto max-w-site px-4 pt-6 pb-12 sm:px-6">
             <article class="flex flex-wrap overflow-hidden rounded-[20px] border border-line-dark bg-deep">
-                <div class="flex min-h-[280px] flex-[1_1_27.5rem] items-center justify-center bg-deep-dark p-8">
-                    @if ($post['code'] ?? null)
-                        <pre class="overflow-x-auto font-mono text-sm leading-[1.8] text-mist">{{ $post['code'] }}</pre>
-                    @endif
-                </div>
+                @if ($featured->image)
+                    <div class="min-h-[280px] flex-[1_1_27.5rem] bg-deep-dark">
+                        <img src="{{ $featured->imageUrl() }}" alt="" loading="lazy" class="size-full max-h-[420px] object-cover">
+                    </div>
+                @endif
 
                 <div class="flex min-w-0 flex-[999_1_27.5rem] flex-col gap-3.5 p-8 md:p-10">
                     <p class="font-mono text-[13px] font-medium text-ice">
                         {{ collect([
                             __('blog.featured'),
-                            $pillars[$post['pillar']]['label'],
-                            $post['reading_time'] ? __('blog.reading_time', ['minutes' => $post['reading_time']]) : null,
+                            $featured->category->label(),
+                            __('blog.reading_time', ['minutes' => $featured->readingTime()]),
                         ])->filter()->join(' · ') }}
                     </p>
-                    <h2 class="font-display text-[2.125rem] leading-[1.15] font-bold">{{ $post['title'] }}</h2>
-                    <p class="text-muted">{{ $post['summary'] }}</p>
-                    <a href="#" class="mt-2 font-medium text-ice underline underline-offset-4 hover:text-mist">
+                    <h2 class="font-display text-[2.125rem] leading-[1.15] font-bold">{{ $featured->title }}</h2>
+                    <p class="text-muted">{{ $featured->summary }}</p>
+                    <a href="{{ route('blog.show', $featured) }}" class="mt-2 font-medium text-ice underline underline-offset-4 hover:text-mist">
                         {{ __('blog.read_article') }} <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </article>
         </section>
-    @endforeach
+    @endif
 
     {{-- Lista --}}
     <section class="bg-mist text-navy">
         <div class="mx-auto flex max-w-site flex-col gap-6 px-4 pt-18 pb-24 sm:px-6">
-            <p class="font-mono text-sm font-medium text-deep">{{ trans_choice('blog.count', $posts->count()) }}</p>
+            <p class="font-mono text-sm font-medium text-deep">{{ trans_choice('blog.count', $articles->count()) }}</p>
 
-            @if ($posts->isNotEmpty())
+            @if ($articles->isNotEmpty())
                 <div class="grid grid-cols-[repeat(auto-fill,minmax(min(18.75rem,100%),1fr))] gap-6">
-                    @foreach ($posts as $post)
-                        <x-post-card :pillar="$pillars[$post['pillar']]['label']" :date="$post['date']" :title="$post['title']" :summary="$post['summary']" href="#" />
+                    @foreach ($articles as $article)
+                        <x-post-card :category="$article->category->label()" :date="$article->published_at" :title="$article->title" :summary="$article->summary" :href="route('blog.show', $article)" />
                     @endforeach
                 </div>
             @endif

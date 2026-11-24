@@ -3,7 +3,7 @@
         <p>&copy; {{ now()->year }} Dayan Betancourt · {{ __('footer.tagline') }}</p>
         <p class="font-mono text-[13px]">
             {{ __('footer.built_with') }} ·
-            <a href="{{ config('site.social.GitHub') }}" class="text-ice underline underline-offset-4 hover:text-mist">{{ __('footer.source') }}</a>
+            <a href="{{ config('site.source_url') }}" rel="noopener" target="_blank" class="text-ice underline underline-offset-4 hover:text-mist">{{ __('footer.source') }}</a>
         </p>
     </div>
 </footer>

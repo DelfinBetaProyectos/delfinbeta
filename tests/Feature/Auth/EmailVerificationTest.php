@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Features;
 
@@ -77,4 +79,22 @@ test('already verified user visiting verification link is redirected without fir
 
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
     Event::assertNotDispatched(Verified::class);
+});
+
+test('verification email uses the site template in the user saved language', function () {
+    Notification::fake();
+
+    $user = User::factory()->unverified()->create(['firstname' => 'Dayan', 'locale' => 'es']);
+
+    $user->sendEmailVerificationNotification();
+
+    Notification::assertSentTo($user, VerifyEmailNotification::class, function (VerifyEmailNotification $notification, array $channels, User $notifiable, ?string $locale) use ($user) {
+        app()->setLocale($locale);
+        $html = (string) $notification->toMail($user)->render();
+
+        return $locale === 'es'
+            && str_contains($html, 'Hola, Dayan:')
+            && str_contains($html, 'Verifica tu correo electrónico')
+            && str_contains($html, 'DelfinBeta_Logotipo_White.png');
+    });
 });

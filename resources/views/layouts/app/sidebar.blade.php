@@ -4,33 +4,61 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.header>
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-line-subtle bg-navy">
+            <flux:sidebar.header class="dark">
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
-            <flux:sidebar.nav>
+            <flux:sidebar.nav class="dark">
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
+                    <flux:sidebar.item icon="chart-bar" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                        {{ __('Statistics') }}
+                    </flux:sidebar.item>
+
+                    @php($unreadMessages = App\Models\ContactMessage::query()->unread()->count())
+                    {{-- The badge follows the messages page live through the "unread-messages-updated" event --}}
+                    <flux:sidebar.item
+                        icon="inbox"
+                        :href="route('dashboard.messages.index')"
+                        :current="request()->routeIs('dashboard.messages.*')"
+                        wire:navigate
+                        x-data="{ unread: {{ $unreadMessages }} }"
+                        x-on:unread-messages-updated.window="unread = $event.detail.count"
+                        badge-color="sky"
+                        badge:x-show="unread > 0"
+                        :badge:style="$unreadMessages > 0 ? '' : 'display: none'"
+                    >
+                        {{ __('Messages') }}
+
+                        <x-slot:badge><span x-text="unread">{{ $unreadMessages }}</span></x-slot:badge>
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="briefcase" :href="route('dashboard.projects.index')" :current="request()->routeIs('dashboard.projects.*')" wire:navigate>
+                        {{ __('Projects') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="newspaper" :href="route('dashboard.articles.index')" :current="request()->routeIs('dashboard.articles.*')" wire:navigate>
+                        {{ __('Articles') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="flag" :href="route('dashboard.goals.index')" :current="request()->routeIs('dashboard.goals.*')" wire:navigate>
+                        {{ __('90-day goals') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="document-chart-bar" :href="route('dashboard.reports.index')" :current="request()->routeIs('dashboard.reports.*')" wire:navigate>
+                        {{ __('Reports') }}
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="envelope" :href="route('dashboard.mails.index')" :current="request()->routeIs('dashboard.mails.*')" wire:navigate>
+                        {{ __('Mails') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
-
-            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->full_name" />
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
@@ -50,12 +78,12 @@
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <flux:avatar
-                                    :name="auth()->user()->name"
+                                    :name="auth()->user()->full_name"
                                     :initials="auth()->user()->initials()"
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
+                                    <flux:heading class="truncate">{{ auth()->user()->full_name }}</flux:heading>
                                     <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
                                 </div>
                             </div>

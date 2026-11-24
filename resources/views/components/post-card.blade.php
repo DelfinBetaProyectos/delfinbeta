@@ -1,7 +1,7 @@
 @props([
     'title',
     'summary',
-    'pillar' => null,
+    'category' => null,
     'date' => null,
     'href' => null,
     'linkText' => null,
@@ -12,10 +12,10 @@
 @endphp
 
 <article {{ $attributes->class('flex flex-col gap-3 rounded-card border border-line-light bg-white p-7') }}>
-    @if ($pillar || $publishedAt)
+    @if ($category || $publishedAt)
         <p class="font-mono text-[13px] font-medium text-deep">
-            {{ $pillar }}
-            @if ($pillar && $publishedAt)
+            {{ $category }}
+            @if ($category && $publishedAt)
                 <span aria-hidden="true">·</span>
             @endif
             @if ($publishedAt)

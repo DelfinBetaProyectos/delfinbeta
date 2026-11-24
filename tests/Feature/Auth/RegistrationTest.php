@@ -9,12 +9,15 @@ beforeEach(function () {
 test('registration screen can be rendered', function () {
     $response = $this->get(route('register'));
 
-    $response->assertOk();
+    $response->assertOk()
+        ->assertSeeText('Already have an account?')
+        ->assertSee('href="'.route('login').'"', false);
 });
 
 test('new users can register', function () {
     $response = $this->post(route('register.store'), [
-        'name' => 'John Doe',
+        'firstname' => 'John',
+        'lastname' => 'Doe',
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
@@ -24,4 +27,9 @@ test('new users can register', function () {
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
+
+    expect(auth()->user())
+        ->firstname->toBe('John')
+        ->lastname->toBe('Doe')
+        ->locale->toBe(app()->getLocale());
 });

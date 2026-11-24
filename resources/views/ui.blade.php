@@ -50,7 +50,7 @@
                     <dd class="font-display text-3xl font-bold tracking-tight md:text-[2.75rem]">Proyectos seleccionados</dd>
 
                     <dt class="font-mono text-xs text-ink">H3 · Space Grotesk 700</dt>
-                    <dd class="font-display text-xl font-bold md:text-2xl">FELABAN · Registro a congresos</dd>
+                    <dd class="font-display text-xl font-bold md:text-2xl">Registro a congresos internacionales</dd>
 
                     <dt class="font-mono text-xs text-ink">Texto · Inter 400/500</dt>
                     <dd class="text-[17px]">Más de <x-years-of-experience /> años diseñando y construyendo plataformas en la nube de punta a punta, con IA en todo el ciclo de desarrollo.</dd>
@@ -79,7 +79,7 @@
                             <x-tag>GitHub Actions</x-tag>
                         </div>
 
-                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." capture="[CAPTURA] proyecto" href="#" />
+                        <x-project-card label="x-project-card" title="Nombre del proyecto" summary="Una línea con el resultado, no la lista de tecnologías." href="#" />
 
                         <x-talk-card meta="x-talk-card · 45 min" title="Título de la charla" summary="Descripción breve de la charla." />
 
@@ -106,7 +106,7 @@
 
                         <p>Un enlace en texto corrido usa <a href="#" class="text-deep underline underline-offset-2 hover:no-underline">Azul profundo</a>, nunca Azul mar.</p>
 
-                        <x-post-card pillar="Pilar" date="2026-11-19" title="Título del artículo" summary="Resumen de dos líneas." href="#" />
+                        <x-post-card category="Categoría" date="2026-11-19" title="Título del artículo" summary="Resumen de dos líneas." href="#" />
 
                         <ol class="border-l-2 border-ice">
                             <x-timeline-item period="2008" role="x-timeline-item" />

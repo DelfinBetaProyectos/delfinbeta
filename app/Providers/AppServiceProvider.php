@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,19 +28,25 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
-        $this->configureLocalizedRoutes();
+        $this->configureRateLimiting();
     }
 
     /**
-     * Register `URL::localizedRoute()` to build public URLs for the current (or a given) locale.
-     *
-     * Public routes are named per locale (`es.story`, `en.story`) because their slugs are translated.
+     * Limit the contact form per visitor, sending them back to the form with a message instead of a 429 page.
      */
-    protected function configureLocalizedRoutes(): void
+    protected function configureRateLimiting(): void
     {
-        URL::macro('localizedRoute', function (string $name, array $parameters = [], ?string $locale = null): string {
-            return route(($locale ?? app()->getLocale()).'.'.$name, $parameters);
-        });
+        RateLimiter::for('contact', fn (Request $request): array => collect([
+            'minute' => Limit::perMinute(3),
+            'day' => Limit::perDay(10),
+        ])->map(fn (Limit $limit, string $window): Limit => $limit
+            ->by("{$window}:{$request->ip()}")
+            ->response(fn (): RedirectResponse => redirect()
+                ->to(url()->previous().'#'.__('nav.sections.contact.anchor'))
+                ->withInput()
+                ->withErrors(['message' => __('home.contact.form.throttled')])))
+            ->values()
+            ->all());
     }
 
     /**

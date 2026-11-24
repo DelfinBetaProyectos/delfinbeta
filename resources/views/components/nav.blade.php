@@ -1,30 +1,29 @@
-@props([
-    'localeUrls' => [],
-])
-
 @php
-    $homeUrl = URL::localizedRoute('home');
-    $links = collect(__('nav.sections'))->map(fn (array $section, string $key): array => [
+    $homeUrl = route('home');
+    $links = collect(__('nav.sections'))
+        ->when(! App\Models\Article::hasPublished(), fn ($sections) => $sections->except('content'))
+        ->map(fn (array $section, string $key): array => [
         'label' => $section['label'],
         'href' => match ($key) {
-            'story' => URL::localizedRoute('story'),
-            'content' => URL::localizedRoute('blog.index'),
+            'story' => route('story'),
+            'projects' => route('projects.index'),
+            'content' => route('blog.index'),
             default => $homeUrl.'#'.$section['anchor'],
         },
         'current' => match ($key) {
-            'story' => request()->routeIs('*.story'),
-            'projects' => request()->routeIs('*.projects.show'),
-            'content' => request()->routeIs('*.blog.*'),
+            'story' => request()->routeIs('story'),
+            'projects' => request()->routeIs('projects.*'),
+            'content' => request()->routeIs('blog.*'),
             default => false,
         },
     ]);
-    $contactUrl = $homeUrl.'#'.__('nav.sections.contact.anchor');
 @endphp
 
 <header {{ $attributes->class('sticky top-0 z-40 border-b border-line-subtle bg-navy') }}>
     <nav class="mx-auto flex max-w-site items-center justify-between gap-4 px-4 py-[18px] sm:px-6" aria-label="{{ __('nav.label') }}">
-        <a href="{{ $homeUrl }}" class="font-display text-[22px] font-bold tracking-[-0.01em] text-mist focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
-            delfinbeta<span class="text-ice">.tech</span>
+        <a href="{{ $homeUrl }}" class="-my-1.5 flex shrink-0 items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ice">
+            <img src="{{ asset('images/brand/DelfinBeta_Isotipo_White.png') }}" alt="" width="800" height="450" class="hidden h-10 w-auto sm:block">
+            <img src="{{ asset('images/brand/DelfinBeta_Logotipo_White.png') }}" alt="{{ config('app.name') }}" width="1500" height="400" class="h-10 w-auto">
         </a>
 
         <ul class="hidden items-center gap-7 text-[15px] font-medium lg:flex">
@@ -40,23 +39,20 @@
         </ul>
 
         <div class="flex items-center gap-3">
-            @if (count($localeUrls) > 1)
-                <div role="group" aria-label="{{ __('nav.language') }}" class="flex overflow-hidden rounded-btn border border-line-strong font-mono text-[13px] font-medium">
-                    @foreach ($localeUrls as $locale => $url)
-                        @if ($locale === app()->getLocale())
-                            <a href="{{ $url }}" aria-current="page" lang="{{ $locale }}" class="bg-ice px-3 py-2.5 text-navy uppercase">{{ $locale }}</a>
-                        @else
-                            <a href="{{ $url }}" hreflang="{{ $locale }}" lang="{{ $locale }}" class="px-3 py-2.5 text-mist uppercase transition-colors hover:bg-deep">{{ $locale }}</a>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
+            <form method="POST" action="{{ route('locale.update') }}" role="group" aria-label="{{ __('nav.language') }}" class="flex overflow-hidden rounded-btn border border-line-strong font-mono text-[13px] font-medium">
+                @csrf
+                @foreach (config('site.locales') as $locale)
+                    @if ($locale === app()->getLocale())
+                        <span aria-current="true" lang="{{ $locale }}" class="bg-ice px-3 py-2.5 text-navy uppercase">{{ $locale }}</span>
+                    @else
+                        <button type="submit" name="locale" value="{{ $locale }}" lang="{{ $locale }}" aria-label="{{ config("site.locale_names.{$locale}") }}" class="cursor-pointer px-3 py-2.5 text-mist uppercase transition-colors hover:bg-deep">{{ $locale }}</button>
+                    @endif
+                @endforeach
+            </form>
 
-            <a href="{{ $contactUrl }}" class="hidden min-h-11 items-center rounded-btn border border-ice px-[18px] text-[15px] font-medium text-ice transition-colors hover:bg-ice/10 hover:text-mist sm:inline-flex">
-                {{ __('nav.download_cv') }}
-            </a>
+            <x-resume-dropdown class="hidden sm:block" trigger-class="min-h-11 px-[18px] text-[15px]" />
 
-            <details class="group relative lg:hidden">
+            <details data-dropdown class="group relative lg:hidden">
                 <summary class="flex size-11 cursor-pointer list-none items-center justify-center rounded-btn border border-line-strong text-mist [&::-webkit-details-marker]:hidden">
                     <span class="sr-only">{{ __('nav.open_menu') }}</span>
                     <svg class="size-5 group-open:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -77,8 +73,15 @@
                             ])>{{ $link['label'] }}</a>
                         </li>
                     @endforeach
-                    <li class="sm:hidden">
-                        <a href="{{ $contactUrl }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ __('nav.download_cv') }}</a>
+                    <li class="mt-1 border-t border-line-dark pt-1 sm:hidden">
+                        <p class="px-4 pt-2 pb-1 font-mono text-xs text-mist/70 uppercase">{{ __('nav.download_cv') }}</p>
+                        <ul>
+                            @foreach (config('site.locales') as $resumeLocale)
+                                <li>
+                                    <a href="{{ route('resume.download', $resumeLocale) }}" download hreflang="{{ $resumeLocale }}" lang="{{ $resumeLocale }}" class="block rounded-btn px-4 py-3 font-medium text-ice hover:bg-deep">{{ config("site.locale_names.{$resumeLocale}") }} (PDF)</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
                 </ul>
             </details>

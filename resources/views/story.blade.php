@@ -1,8 +1,4 @@
 <x-layouts::site :title="__('story.meta_title')">
-    @php
-        $homeUrl = URL::localizedRoute('home');
-    @endphp
-
     {{-- Intro --}}
     <section class="mx-auto flex max-w-site flex-wrap items-center gap-14 px-4 pt-16 pb-16 sm:px-6 md:pt-22">
         <div class="flex min-w-0 flex-[999_1_32rem] flex-col gap-[22px]">
@@ -15,7 +11,7 @@
             <p class="text-[19px] text-muted">{{ __('story.intro.lead') }}</p>
         </div>
 
-        <x-photo-placeholder variant="deep" aspect="1/1" :label="__('story.intro.photo')" class="min-w-0 flex-[1_1_21.25rem]" />
+        <img src="{{ asset('images/oficina.jpeg') }}" alt="{{ __('story.intro.photo') }}" width="1600" height="1107" class="h-auto w-full min-w-0 flex-[1_1_21.25rem] rounded-[20px] border border-line-dark object-cover">
     </section>
 
     {{-- Trayectoria --}}
@@ -38,16 +34,18 @@
 
     {{-- #MamaDeveloper --}}
     <section class="mx-auto flex max-w-site flex-wrap items-center gap-14 px-4 py-24 sm:px-6">
-        <x-photo-placeholder variant="deep" aspect="4/3" :label="__('story.mama_developer.photo')" class="min-w-0 flex-[1_1_25rem]" />
+        <img src="{{ asset('images/mama-developer.jpg') }}" alt="{{ __('story.mama_developer.photo') }}" width="1024" height="768" loading="lazy" class="h-auto w-full min-w-0 flex-[1_1_25rem] rounded-[20px] border border-line-dark object-cover">
 
         <div class="flex min-w-0 flex-[999_1_27.5rem] flex-col gap-5">
             <x-section-heading size="md" :eyebrow="__('story.mama_developer.eyebrow')" :title="__('story.mama_developer.title')" class="max-w-none" />
 
             <p class="text-muted">{{ __('story.mama_developer.body') }}</p>
 
-            <a href="{{ URL::localizedRoute('blog.index').'?pillar=mama' }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
-                {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
-            </a>
+            @if (App\Models\Article::hasPublished(App\Enums\ArticleCategory::Mama))
+                <a href="{{ route('blog.index').'?category='.App\Enums\ArticleCategory::Mama->value }}" class="font-medium text-ice underline underline-offset-4 hover:text-mist">
+                    {{ __('story.mama_developer.link') }} <span aria-hidden="true">→</span>
+                </a>
+            @endif
         </div>
     </section>
 
@@ -57,8 +55,8 @@
             <h2 class="max-w-[620px] font-display text-[2rem] leading-tight font-bold">{{ __('story.cta.title') }}</h2>
 
             <div class="flex flex-wrap gap-3.5">
-                <x-button :href="$homeUrl.'#'.__('nav.sections.projects.anchor')" class="focus-visible:ring-offset-deep">{{ __('story.cta.projects') }}</x-button>
-                <x-button variant="secondary" :href="$homeUrl.'#'.__('nav.sections.contact.anchor')" class="focus-visible:ring-offset-deep">{{ __('story.cta.cv') }}</x-button>
+                <x-button :href="route('projects.index')" class="focus-visible:ring-offset-deep">{{ __('story.cta.projects') }}</x-button>
+                <x-resume-dropdown :label="__('story.cta.cv')" align="left" trigger-class="min-h-12 px-6" />
             </div>
         </div>
     </section>
