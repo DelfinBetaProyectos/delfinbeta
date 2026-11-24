@@ -15,7 +15,7 @@ class VerifyEmailNotification extends VerifyEmail
      */
     public function toMail(mixed $notifiable): MailMessage
     {
-        return parent::toMail($notifiable)
+        return $this->buildMailMessage($this->verificationUrl($notifiable))
             ->view('mail.notification')
             ->greeting(__('emails.notification.greeting', ['name' => $notifiable->firstname]));
     }
