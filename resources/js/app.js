@@ -24,7 +24,7 @@ document.addEventListener('keydown', (event) => {
 
 /**
  * Count resume downloads (/cv/es, /cv/en) as a GA4 event ("resume_download"); GA4 adds the visitor's
- * country, which the dashboard groups by. The download itself is also counted by the server.
+ * country, which the dashboard groups by. GA4 is the only source of download counts.
  */
 document.addEventListener('click', (event) => {
     const link = event.target.closest?.('a[href]');
