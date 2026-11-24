@@ -18,22 +18,23 @@ set -euo pipefail
 
 main() {
     local branch="${1:-main}"
-    local php="${PHP_BIN:-php}"
-    local composer="${COMPOSER_BIN:-composer}"
+    local php="${PHP_BIN:-$(command -v php8.5 || command -v php8.4 || command -v php)}"
+    local composer=("$php" "${COMPOSER_BIN:-$(command -v composer)}")
 
     cd "$(dirname "$(readlink -f "$0")")"
 
-    echo "▶ Desplegando rama ${branch} en $(pwd)"
+    echo "▶ Desplegando rama ${branch} en $(pwd) con $("$php" -r 'echo PHP_VERSION;')"
 
     "$php" artisan down --retry=30 || true
-    trap '"$php" artisan up' EXIT
+    # shellcheck disable=SC2064 # expandir $php ahora: al salir la variable local ya no existe
+    trap "'$php' artisan up || true" EXIT
 
     echo "▶ Actualizando código"
     git fetch --prune origin "$branch"
     git reset --hard "origin/${branch}"
 
     echo "▶ Dependencias PHP"
-    "$composer" install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+    "${composer[@]}" install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
     if [[ "${BUILD_ASSETS:-0}" == "1" ]]; then
         echo "▶ Compilando assets"
