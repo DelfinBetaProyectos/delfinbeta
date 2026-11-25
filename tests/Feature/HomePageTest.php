@@ -86,3 +86,17 @@ it('lists the DEV profile with the other social networks in the contact section'
         ->assertSee('href="https://dev.to/delfinbeta"', false)
         ->assertSeeTextInOrder(['LinkedIn', 'GitHub', 'Medium', 'DEV', 'Instagram']);
 });
+
+it('links to WhatsApp with a prefilled message in the visitor language', function (string $locale, string $message) {
+    $this->withSession(['locale' => $locale])->get('/')->assertOk()
+        ->assertSee('href="https://wa.me/584243172126?text='.rawurlencode($message).'"', false);
+})->with([
+    'spanish' => ['es', 'Hola Dayan, vi tu sitio delfinbeta.tech y me gustaría conversar contigo.'],
+    'english' => ['en', "Hi Dayan, I saw your website delfinbeta.tech and I'd like to talk with you."],
+]);
+
+it('hides the WhatsApp link when no number is configured', function () {
+    config(['site.whatsapp' => '']);
+
+    $this->get('/')->assertOk()->assertDontSee('wa.me', false);
+});

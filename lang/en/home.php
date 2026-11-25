@@ -77,6 +77,10 @@ return [
         'eyebrow' => 'Contact',
         'title' => "Let's talk",
         'body' => 'Open to remote roles as a solutions architect or tech lead in Spanish-speaking teams. I also give talks in Spanish-speaking communities.',
+        'whatsapp' => [
+            'cta' => 'Message me on WhatsApp',
+            'message' => "Hi Dayan, I saw your website delfinbeta.tech and I'd like to talk with you.",
+        ],
         'cv' => [
             'es' => 'CV en español (PDF)',
             'en' => 'CV in English (PDF)',

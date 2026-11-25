@@ -58,3 +58,19 @@ document.addEventListener('click', (event) => {
         transport_type: 'beacon',
     });
 });
+
+/**
+ * Count clicks on the WhatsApp contact link as a GA4 event ("whatsapp_click").
+ */
+document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('a[href^="https://wa.me/"]');
+
+    if (!link || typeof window.gtag !== 'function') {
+        return;
+    }
+
+    window.gtag('event', 'whatsapp_click', {
+        site_locale: document.documentElement.lang,
+        transport_type: 'beacon',
+    });
+});
