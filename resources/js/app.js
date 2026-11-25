@@ -74,3 +74,56 @@ document.addEventListener('click', (event) => {
         transport_type: 'beacon',
     });
 });
+
+/**
+ * Two-digit country calling codes; other codes start with 1 or 7 (one digit) or are three digits.
+ */
+const TWO_DIGIT_COUNTRY_CODES = new Set([
+    '20', '27', '30', '31', '32', '33', '34', '36', '39', '40', '41', '43', '44', '45', '46', '47', '48', '49',
+    '51', '52', '53', '54', '55', '56', '57', '58', '60', '61', '62', '63', '64', '65', '66',
+    '81', '82', '84', '86', '90', '91', '92', '93', '94', '95', '98',
+]);
+
+/**
+ * Format phone digits as "+58 424 317 2126": country code, then groups of three (a lone last digit joins the group before it).
+ */
+const formatPhone = (digits) => {
+    if (digits === '') {
+        return '';
+    }
+
+    const countryCodeLength = /^[17]/.test(digits) ? 1 : TWO_DIGIT_COUNTRY_CODES.has(digits.slice(0, 2)) ? 2 : 3;
+    const countryCode = digits.slice(0, countryCodeLength);
+    const number = digits.slice(countryCodeLength);
+    const groups = number.match(/.{1,3}/g) ?? [];
+
+    if (groups.length > 2 && groups.at(-1).length === 1) {
+        const lastDigit = groups.pop();
+        groups.push(groups.pop() + lastDigit);
+    }
+
+    return ['+' + countryCode, ...groups].filter(Boolean).join(' ');
+};
+
+/**
+ * Phone inputs ([data-phone-mask]) only take digits (15 at most, the E.164 limit) and show them formatted.
+ * The server strips the mask again before saving.
+ */
+document.addEventListener('input', (event) => {
+    const input = event.target.closest?.('input[data-phone-mask]');
+
+    if (!input) {
+        return;
+    }
+
+    const digitsBeforeCaret = input.value.slice(0, input.selectionStart ?? input.value.length).replace(/\D/g, '').length;
+    input.value = formatPhone(input.value.replace(/\D/g, '').slice(0, 15));
+
+    let caret = 0;
+    for (let seenDigits = 0; caret < input.value.length && seenDigits < digitsBeforeCaret; caret++) {
+        if (/\d/.test(input.value[caret])) {
+            seenDigits++;
+        }
+    }
+    input.setSelectionRange(caret, caret);
+});

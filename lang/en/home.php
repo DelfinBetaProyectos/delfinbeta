@@ -88,6 +88,7 @@ return [
         'form' => [
             'name' => 'Name',
             'email' => 'Email',
+            'phone' => 'Phone (optional)',
             'topic' => 'What would you like to talk about?',
             'topics' => [
                 'project' => 'A project',

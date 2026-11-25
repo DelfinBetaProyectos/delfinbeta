@@ -351,6 +351,9 @@ new #[Title('Messages')] class extends Component {
                     <flux:heading size="lg" class="mt-3">{{ $openMessage->name }}</flux:heading>
                     <flux:text class="mt-1">
                         <flux:link :href="'mailto:'.$openMessage->email">{{ $openMessage->email }}</flux:link>
+                        @if ($openMessage->phone)
+                            · <flux:link :href="$openMessage->whatsappUrl()" external>{{ $openMessage->displayPhone() }}</flux:link>
+                        @endif
                         · {{ $this->sentAt($openMessage) }} · {{ config('site.locale_names.'.$openMessage->locale) }} · {{ $openMessage->reference() }}
                     </flux:text>
                 </div>

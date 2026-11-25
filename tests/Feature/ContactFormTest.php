@@ -161,3 +161,30 @@ it('signs the confirmation with the DEV profile among the social links', functio
     (new ContactConfirmation(ContactMessage::factory()->create()))
         ->assertSeeInHtml('href="https://dev.to/delfinbeta"', false);
 });
+
+it('saves the phone with only its digits', function () {
+    $this->post(route('contact.store'), contactPayload(['phone' => '+58 (424) 317-2126']))->assertRedirect();
+
+    expect(ContactMessage::sole()->phone)->toBe('584243172126');
+    Mail::assertQueued(ContactReceived::class, function (ContactReceived $mail): bool {
+        $mail->assertSeeInHtml('href="https://wa.me/584243172126"', false);
+
+        return true;
+    });
+});
+
+it('accepts a message without a phone', function () {
+    $this->post(route('contact.store'), contactPayload(['phone' => '']))->assertSessionHasNoErrors();
+
+    expect(ContactMessage::sole()->phone)->toBeNull();
+});
+
+it('rejects phones with letters or the wrong length', function (string $phone) {
+    $this->post(route('contact.store'), contactPayload(['phone' => $phone]))->assertSessionHasErrors('phone');
+
+    expect(ContactMessage::count())->toBe(0);
+})->with([
+    'letters' => ['+58 424 ABC 2126'],
+    'too short' => ['+58 424'],
+    'too long' => ['+58 424 317 2126 1234'],
+]);

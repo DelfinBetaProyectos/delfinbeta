@@ -212,6 +212,7 @@
 
                 <x-input :label="__('home.contact.form.name')" name="name" autocomplete="name" required maxlength="120" />
                 <x-input :label="__('home.contact.form.email')" name="email" type="email" autocomplete="email" required maxlength="255" />
+                <x-input :label="__('home.contact.form.phone')" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="+58 424 317 2126" maxlength="20" data-phone-mask />
                 <x-select :label="__('home.contact.form.topic')" name="topic" :options="__('home.contact.form.topics')" required />
                 <x-input :label="__('home.contact.form.message')" name="message" type="textarea" required minlength="10" maxlength="5000" />
 

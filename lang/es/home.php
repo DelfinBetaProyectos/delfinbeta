@@ -88,6 +88,7 @@ return [
         'form' => [
             'name' => 'Nombre',
             'email' => 'Correo',
+            'phone' => 'Teléfono (opcional)',
             'topic' => '¿De qué quieres hablar?',
             'topics' => [
                 'project' => 'Un proyecto',

@@ -25,6 +25,12 @@
                     <td style="{{ $row }} {{ $mono }} color: #35506A; text-transform: uppercase;">{{ __('emails.received.email') }}</td>
                     <td style="{{ $row }}"><a href="mailto:{{ $contactMessage->email }}" style="color: #004581;">{{ $contactMessage->email }}</a></td>
                 </tr>
+                @if ($contactMessage->phone)
+                    <tr>
+                        <td style="{{ $row }} {{ $mono }} color: #35506A; text-transform: uppercase;">{{ __('emails.received.phone') }}</td>
+                        <td style="{{ $row }}"><a href="{{ $contactMessage->whatsappUrl() }}" style="color: #004581;">{{ $contactMessage->displayPhone() }}</a></td>
+                    </tr>
+                @endif
                 <tr>
                     <td style="{{ $row }} {{ $mono }} color: #35506A; text-transform: uppercase;">{{ __('emails.received.topic') }}</td>
                     <td style="{{ $row }} color: #001B48;">{{ $topic->isProject() ? __('emails.received.project_topic', ['topic' => $topic->label()]) : $topic->label() }}</td>

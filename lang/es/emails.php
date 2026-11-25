@@ -22,6 +22,7 @@ return [
         'meta' => ':date (UTC-4) · Versión en :locale',
         'name' => 'Nombre',
         'email' => 'Correo',
+        'phone' => 'Teléfono',
         'topic' => 'Motivo',
         'project_topic' => ':topic (lo atiende AraguaneyCode)',
         'page' => 'Página',

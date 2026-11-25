@@ -184,6 +184,7 @@ return [
         'lastname' => 'apellido',
         'locale' => 'idioma',
         'email' => 'correo electrónico',
+        'phone' => 'teléfono',
         'password' => 'contraseña',
         'password_confirmation' => 'confirmación de contraseña',
         'current_password' => 'contraseña actual',
