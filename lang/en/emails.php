@@ -22,6 +22,7 @@ return [
         'meta' => ':date (UTC-4) · :locale version',
         'name' => 'Name',
         'email' => 'Email',
+        'phone' => 'Phone',
         'topic' => 'Topic',
         'project_topic' => ':topic (handled by AraguaneyCode)',
         'page' => 'Page',

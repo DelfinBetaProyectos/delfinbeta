@@ -189,3 +189,12 @@ it('records and undoes the reply to a message', function () {
 
     expect($contactMessage->refresh()->isResponded())->toBeFalse();
 });
+
+it('links the sender phone to WhatsApp when the message is opened', function () {
+    $contactMessage = ContactMessage::factory()->withPhone('584243172126')->create();
+
+    Livewire::test('pages::messages.index')
+        ->call('openMessage', $contactMessage->id)
+        ->assertSeeHtml('href="https://wa.me/584243172126"')
+        ->assertSee('+584243172126');
+});
