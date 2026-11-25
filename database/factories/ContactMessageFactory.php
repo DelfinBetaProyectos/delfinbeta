@@ -22,6 +22,7 @@ class ContactMessageFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
+            'phone' => null,
             'topic' => ContactTopic::Talk,
             'message' => fake()->paragraph(),
             'locale' => 'es',
@@ -36,6 +37,14 @@ class ContactMessageFactory extends Factory
     public function project(): static
     {
         return $this->state(fn (array $attributes): array => ['topic' => ContactTopic::Project]);
+    }
+
+    /**
+     * A message that includes the sender's phone (digits only, country code first).
+     */
+    public function withPhone(string $phone = '584243172126'): static
+    {
+        return $this->state(fn (array $attributes): array => ['phone' => $phone]);
     }
 
     /**

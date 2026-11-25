@@ -77,6 +77,10 @@ return [
         'eyebrow' => 'Contacto',
         'title' => 'Hablemos',
         'body' => 'Abierta a roles remotos como arquitecta de soluciones o líder técnica en equipos de habla hispana. También doy charlas en comunidades de habla hispana.',
+        'whatsapp' => [
+            'cta' => 'Escríbeme por WhatsApp',
+            'message' => 'Hola Dayan, vi tu sitio delfinbeta.tech y me gustaría conversar contigo.',
+        ],
         'cv' => [
             'es' => 'CV en español (PDF)',
             'en' => 'CV in English (PDF)',
@@ -84,6 +88,7 @@ return [
         'form' => [
             'name' => 'Nombre',
             'email' => 'Correo',
+            'phone' => 'Teléfono (opcional)',
             'topic' => '¿De qué quieres hablar?',
             'topics' => [
                 'project' => 'Un proyecto',

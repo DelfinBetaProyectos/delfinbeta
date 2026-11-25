@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string|null $phone
  * @property ContactTopic $topic
  * @property string $message
  * @property string $locale
@@ -27,7 +28,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'topic', 'message', 'locale', 'page', 'read_at', 'responded_at'])]
+#[Fillable(['name', 'email', 'phone', 'topic', 'message', 'locale', 'page', 'read_at', 'responded_at'])]
 class ContactMessage extends Model
 {
     /** @use HasFactory<ContactMessageFactory> */
@@ -164,6 +165,22 @@ class ContactMessage extends Model
         ], 'es');
 
         return 'mailto:'.$this->email.'?subject='.rawurlencode("Re: {$subject}");
+    }
+
+    /**
+     * Phone in international notation for display ("+584243172126"), or null without a phone.
+     */
+    public function displayPhone(): ?string
+    {
+        return $this->phone === null ? null : '+'.$this->phone;
+    }
+
+    /**
+     * WhatsApp chat link for the sender's phone, or null without a phone.
+     */
+    public function whatsappUrl(): ?string
+    {
+        return $this->phone === null ? null : 'https://wa.me/'.$this->phone;
     }
 
     /**

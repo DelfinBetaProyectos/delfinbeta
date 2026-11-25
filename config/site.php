@@ -89,6 +89,13 @@ return [
     'email' => env('SITE_EMAIL', 'hola@delfinbeta.tech'),
 
     /*
+    | WhatsApp number in international format, digits only (used by wa.me links).
+    | An empty value hides the WhatsApp button.
+    */
+
+    'whatsapp' => env('SITE_WHATSAPP_NUMBER', '584243172126'),
+
+    /*
     | Promised reply time for contact form messages.
     */
 
